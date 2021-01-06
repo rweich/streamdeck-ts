@@ -1,0 +1,24 @@
+{
+  "action": "tpdc.action",
+  "context": "conconcon",
+  "device": "devved",
+  "event": "titleParametersDidChange",
+  "payload": {
+    "coordinates": {
+      "column": 1,
+      "row": 0
+    },
+    "settings": {},
+    "state": 0,
+    "title": "",
+    "titleParameters": {
+      "fontFamily": "",
+      "fontSize": 13,
+      "fontStyle": "",
+      "fontUnderline": false,
+      "showTitle": true,
+      "titleAlignment": "middle",
+      "titleColor": "#ffffff"
+    }
+  }
+}

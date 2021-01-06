@@ -1,0 +1,8 @@
+import { Type } from "@sinclair/typebox";
+
+export const SendToEventType = Type.Object({
+  action: Type.String(),
+  event: Type.String({pattern: "sendToPlugin|sendToPropertyInspector"}),
+  context: Type.String(),
+  payload: Type.Any()
+});

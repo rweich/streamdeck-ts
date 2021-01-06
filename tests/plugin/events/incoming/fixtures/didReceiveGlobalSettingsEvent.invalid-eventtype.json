@@ -1,0 +1,6 @@
+{
+  "event": "keyUp",
+  "payload": {
+    "settings": {}
+  }
+}

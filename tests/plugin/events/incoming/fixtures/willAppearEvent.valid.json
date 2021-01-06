@@ -1,0 +1,14 @@
+{
+  "action": "my.action",
+  "context": "xoxoxoxo",
+  "device": "dev",
+  "event": "willAppear",
+  "payload": {
+    "coordinates": {
+      "column": 1,
+      "row": 0
+    },
+    "isInMultiAction": false,
+    "settings": {}
+  }
+}

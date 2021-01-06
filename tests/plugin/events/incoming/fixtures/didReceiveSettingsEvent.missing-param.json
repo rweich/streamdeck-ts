@@ -1,0 +1,13 @@
+{
+  "action": "com.elgato.example.action1",
+  "event": "didReceiveSettings",
+  "context": "opaqueValue",
+  "payload": {
+    "settings": {},
+    "coordinates": {
+      "column": 3,
+      "row": 1
+    },
+    "isInMultiAction": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "action": "com.elgato.example.action1",
+  "event": "propertyInspectorDidAppear",
+  "context": "opaqueValue",
+  "device": "opaqueValue2"
+}

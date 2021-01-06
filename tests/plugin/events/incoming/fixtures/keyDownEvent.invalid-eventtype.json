@@ -1,0 +1,7 @@
+{
+  "action": "some.action",
+  "context": "ewrwerwerwerwer",
+  "device": "xxzxxzxzxzxxzxzxz",
+  "event": "keyUp",
+  "payload": {"coordinates": {"column": 1, "row": 3}, "isInMultiAction": false, "settings": {}}
+}

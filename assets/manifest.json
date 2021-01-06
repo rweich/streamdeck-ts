@@ -1,0 +1,40 @@
+{
+  "Actions": [
+    {
+      "Icon": "images/actionIcon",
+      "Name": "Testaction",
+      "States": [
+        {
+          "Image": "images/transparent-pixel",
+          "TitleAlignment": "middle",
+          "FontSize": "15"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "This action displays a value set by the user",
+      "UUID": "de.rweich.test.action"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "ImyMe",
+  "CodePath": "plugin.html",
+  "Description": "This lets you display a value chosen by the user",
+  "Name": "Mein Test",
+  "Icon": "images/pluginIcon",
+  "URL": "https://tbd.com",
+  "Version": "0.1",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software":
+    {
+        "MinimumVersion" : "4.1"
+    }
+}
