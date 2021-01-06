@@ -25,6 +25,7 @@
     "mocha": "^8.2.1",
     "remove-files-webpack-plugin": "^1.4.4",
     "sinon": "^9.2.2",
+    "ts-log": "^2.2.3",
     "ts-node": "^9.1.1",
     "ts-type-guards": "^0.7.0",
     "typescript": "^4.1.3",

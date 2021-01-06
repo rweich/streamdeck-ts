@@ -1,4 +1,5 @@
 import { MessageEvent } from "isomorphic-ws";
+import { Logger } from "ts-log";
 import AbstractIncomingExtendedEvent from "./AbstractIncomingExtendedEvent";
 import JsonParseError from "./exception/JsonParseError";
 import MissingEventInPayloadError from "./exception/MissingEventInPayloadError";
@@ -21,8 +22,14 @@ function isBasicIncomingEvent(event: unknown): event is BasicIncomingEvent {
 }
 
 export default class EventFactory {
+  private logger: Logger;
+
+  constructor(logger: Logger) {
+    this.logger = logger;
+  }
+
   public createByMessageEvent(messageEvent: MessageEvent) {
-    console.log("got message", messageEvent);
+    this.logger.debug("got message", messageEvent);
     let data;
 
     try {
@@ -30,7 +37,7 @@ export default class EventFactory {
     } catch (e) {
       throw new JsonParseError("error on parsing json: " + e.toString());
     }
-    console.log("event data:", data);
+    this.logger.debug("event data:", data);
     return this.createEventByPayload(data);
   }
 

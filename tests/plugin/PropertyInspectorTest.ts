@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import EventEmitter from "eventemitter3";
 import "mocha";
+import { dummyLogger } from "ts-log";
 import WebSocket from "ws";
 import EventFactory from "../../src/streamdeck/events/incoming/EventFactory";
 import LogMessageEvent from "../../src/streamdeck/events/outgoing/LogMessageEvent";
@@ -8,7 +9,7 @@ import PropertyInspector from "../../src/streamdeck/PropertyInspector";
 
 describe("StreamdeckPlugin test", () => {
   it("should queue all send events until the websocket got created", (done) => {
-    const pi = new PropertyInspector(new EventEmitter(), new EventFactory());
+    const pi = new PropertyInspector(new EventEmitter(), new EventFactory(dummyLogger), dummyLogger);
     pi.sendEvent(new LogMessageEvent("message1"));
     pi.sendEvent(new LogMessageEvent("message2"));
     const connector = pi.createStreamdeckConnector();
