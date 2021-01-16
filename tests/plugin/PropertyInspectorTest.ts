@@ -4,10 +4,11 @@ import "mocha";
 import { dummyLogger } from "ts-log";
 import WebSocket from "ws";
 import EventFactory from "../../src/streamdeck/events/incoming/EventFactory";
+import { IncomingEventsEnum } from "../../src/streamdeck/events/incoming/IncomingEventsEnum";
 import LogMessageEvent from "../../src/streamdeck/events/outgoing/LogMessageEvent";
 import PropertyInspector from "../../src/streamdeck/PropertyInspector";
 
-describe("StreamdeckPlugin test", () => {
+describe("PropertyInspector test", () => {
   it("should queue all send events until the websocket got created", (done) => {
     const pi = new PropertyInspector(new EventEmitter(), new EventFactory(dummyLogger), dummyLogger);
     pi.sendEvent(new LogMessageEvent("message1"));
@@ -28,5 +29,16 @@ describe("StreamdeckPlugin test", () => {
         }
       });
     });
+  });
+  it("should dispatch the connect event after connetion", (done) => {
+    const emitter: EventEmitter<string | symbol, any> = new EventEmitter();
+    const server = new WebSocket.Server({host: "127.0.0.1", port: 23456});
+    const pi = new PropertyInspector(emitter, new EventFactory(dummyLogger), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on(IncomingEventsEnum.OnWebsocketOpen, () => {
+      server.close();
+      done();
+    });
+    connector("23456", "uid", "register", "info");
   });
 });

@@ -13,8 +13,8 @@ describe("Plugin test", () => {
     plugin.sendEvent(new SetTitleEvent("title1", "context"));
     plugin.sendEvent(new SetTitleEvent("title2", "context"));
     const connector = plugin.createStreamdeckConnector();
-    const server = new WebSocket.Server({host: "127.0.0.1", port: 12345});
-    connector("12345", "uid", "resisterevent", "info");
+    const server = new WebSocket.Server({host: "127.0.0.1", port: 23456});
+    connector("23456", "uid", "resisterevent", "info");
     server.on("connection", (ws: WebSocket) => {
       const messages: string[] = [];
       ws.on("message", data => {

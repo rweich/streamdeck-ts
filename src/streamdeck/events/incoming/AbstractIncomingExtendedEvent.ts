@@ -1,9 +1,6 @@
 import { Static } from "@sinclair/typebox";
-import AbstractIncomingBaseEvent from "./AbstractIncomingBaseEvent";
+import AbstractIncomingBaseEvent, { IncomingEventsTypes } from "./AbstractIncomingBaseEvent";
 import assertType from "./assertType";
-import { IncomingEventsEnum } from "./IncomingEventsEnum";
-import { IncomingPluginEventsEnum } from "./plugin/IncomingPluginEventsEnum";
-import { IncomingPropertyinspectorEventsEnum } from "./propertyinspector/IncomingPropertyinspectorEventsEnum";
 import { ExtendedEventType } from "./streamdecktypes/ExtendedEventType";
 
 export default abstract class AbstractIncomingExtendedEvent extends AbstractIncomingBaseEvent {
@@ -27,5 +24,5 @@ export default abstract class AbstractIncomingExtendedEvent extends AbstractInco
     return this.payload.device;
   }
 
-  protected abstract get eventType(): IncomingEventsEnum | IncomingPluginEventsEnum | IncomingPropertyinspectorEventsEnum;
+  protected abstract get eventType(): IncomingEventsTypes;
 };

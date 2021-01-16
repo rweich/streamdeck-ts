@@ -18,6 +18,7 @@
   "SDKVersion": 2,
   "Author": "ImyMe",
   "CodePath": "plugin.html",
+  "PropertyInspectorPath": "propertyinspector.html",
   "Description": "This lets you display a value chosen by the user",
   "Name": "Mein Test",
   "Icon": "images/pluginIcon",
@@ -33,8 +34,7 @@
       "MinimumVersion": "10"
     }
   ],
-  "Software":
-    {
-        "MinimumVersion" : "4.1"
-    }
+  "Software": {
+    "MinimumVersion": "4.1"
+  }
 }

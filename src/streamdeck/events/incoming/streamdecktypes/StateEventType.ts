@@ -7,7 +7,7 @@ export const StateEventType = Type.Object({
   context: Type.String(),
   device: Type.String(),
   payload: Type.Object({
-    settings: Type.Any(),
+    settings: Type.Unknown(),
     coordinates: CoordinatesPayloadType,
     isInMultiAction: Type.Boolean(),
     state: Type.Optional(Type.Number())

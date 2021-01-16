@@ -8,6 +8,7 @@ import UnknownEventError from "../../../../src/streamdeck/events/incoming/except
 import DeviceDidConnectEvent from "../../../../src/streamdeck/events/incoming/plugin/DeviceDidConnectEvent";
 import KeyDownEvent from "../../../../src/streamdeck/events/incoming/plugin/KeyDownEvent";
 import KeyUpEvent from "../../../../src/streamdeck/events/incoming/plugin/KeyUpEvent";
+import SendToPluginEvent from "../../../../src/streamdeck/events/incoming/plugin/SendToPluginEvent";
 import TitleParametersDidChangeEvent
   from "../../../../src/streamdeck/events/incoming/plugin/TitleParametersDidChangeEvent";
 import WillAppearEvent from "../../../../src/streamdeck/events/incoming/plugin/WillAppearEvent";
@@ -60,5 +61,11 @@ describe("EventFactory test", () => {
     const recievedEvent = require("./fixtures/titleParametersDidChangeEvent.valid.json");
     const event = {data: JSON.stringify(recievedEvent)} as any;
     expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(TitleParametersDidChangeEvent);
+  });
+
+  it("should return a sendtoplugin event", () => {
+    const recievedEvent = require("./fixtures/sendToPluginEvent.valid.json");
+    const event = {data: JSON.stringify(recievedEvent)} as any;
+    expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(SendToPluginEvent);
   });
 });

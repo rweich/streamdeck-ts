@@ -5,6 +5,8 @@ import { IncomingPluginEventsEnum } from "./plugin/IncomingPluginEventsEnum";
 import { IncomingPropertyinspectorEventsEnum } from "./propertyinspector/IncomingPropertyinspectorEventsEnum";
 import { BaseEventType } from "./streamdecktypes/BaseEventType";
 
+export type IncomingEventsTypes = IncomingEventsEnum | IncomingPluginEventsEnum | IncomingPropertyinspectorEventsEnum;
+
 export default abstract class AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof BaseEventType>;
 
@@ -17,5 +19,5 @@ export default abstract class AbstractIncomingBaseEvent {
     return this.payload.event;
   }
 
-  protected abstract get eventType(): IncomingEventsEnum | IncomingPluginEventsEnum | IncomingPropertyinspectorEventsEnum;
+  protected abstract get eventType(): IncomingEventsTypes;
 };

@@ -6,3 +6,17 @@ export const PropertyInspectorEventType = Type.Object({
   context: Type.String(),
   device: Type.String()
 });
+
+export const PropertyInspectorDidAppearEventType = Type.Intersect([
+  PropertyInspectorEventType,
+  Type.Object({
+    event: Type.String({pattern: "propertyInspectorDidAppear"}),
+  })
+]);
+
+export const PropertyInspectorDidDisppearEventType = Type.Intersect([
+  PropertyInspectorEventType,
+  Type.Object({
+    event: Type.String({pattern: "propertyInspectorDidDisappear"}),
+  })
+]);

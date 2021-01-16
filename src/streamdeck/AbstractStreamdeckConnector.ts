@@ -2,6 +2,8 @@ import EventEmitter from "eventemitter3";
 import WebSocket, { MessageEvent } from "isomorphic-ws";
 import { Logger } from "ts-log";
 import EventFactory from "./events/incoming/EventFactory";
+import { IncomingEventsEnum } from "./events/incoming/IncomingEventsEnum";
+import OnWebsocketOpenEvent from "./events/incoming/OnWebsocketOpenEvent";
 import EventInterface from "./events/outgoing/EventInterface";
 import RegisterEvent from "./events/outgoing/RegisterEvent";
 
@@ -13,11 +15,25 @@ export default class AbstractStreamdeckConnector {
   private logger: Logger;
   private websocket: WebSocket | null = null;
   private eventQueue: SendToStremdeckEvent[] = [];
+  private actionInfo: object | null = null;
+  private uuid: string | null = null;
 
   public constructor(eventEmitter: EventEmitter, eventFactory: EventFactory, logger: Logger) {
     this.eventEmitter = eventEmitter;
     this.eventFactory = eventFactory;
     this.logger = logger;
+  }
+
+  public get context() {
+    return this.uuid;
+  }
+
+  // seems to be only set on plugins that 'support' multiactions
+  public get action() {
+    if (this.actionInfo !== null && "action" in this.actionInfo) {
+      return (this.actionInfo as { action: string }).action;
+    }
+    return null;
   }
 
   /**
@@ -42,9 +58,16 @@ export default class AbstractStreamdeckConnector {
   }
 
   private connectElgatoStreamDeckSocket(inPort: string, inPluginUUID: string, inRegisterEvent: string, inInfo: string) {
+    try {
+      this.actionInfo = JSON.parse(inInfo);
+    } catch (e) {
+      this.logger.error(e);
+    }
+    this.uuid = inPluginUUID;
     this.websocket = new WebSocket("ws://127.0.0.1:" + inPort);
     this.websocket.onopen = () => {
       this.sendToStreamdeck(new RegisterEvent(inRegisterEvent, inPluginUUID));
+      this.eventEmitter.emit(IncomingEventsEnum.OnWebsocketOpen, new OnWebsocketOpenEvent(inPluginUUID, inInfo));
       this.eventQueue.map(event => this.sendToStreamdeck(event));
       this.eventQueue = [];
     };
@@ -54,6 +77,7 @@ export default class AbstractStreamdeckConnector {
   private onMessage(messageEvent: MessageEvent): void {
     try {
       let event = this.eventFactory.createByMessageEvent(messageEvent);
+      this.logger.debug("emitting event", event.event);
       this.eventEmitter.emit(event.event, event);
     } catch (e) {
       this.logger.error(e);
