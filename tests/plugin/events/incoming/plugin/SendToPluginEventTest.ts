@@ -14,10 +14,10 @@ describe("SendToPluginEvent test", () => {
   });
   it("should throw a validation error on missing keydown parameters", function () {
     const recievedEvent = require("../fixtures/sendToPluginEvent.missing-param.json");
-    expect(() => new SendToPluginEvent(recievedEvent)).to.throw(EventValidationError);
+    expect(() => new SendToPluginEvent(recievedEvent)).to.throw(EventValidationError, /required property .*payload/);
   });
   it("should throw a validation error on wrong event type", function () {
     const recievedEvent = require("../fixtures/sendToPluginEvent.invalid-eventtype.json");
-    expect(() => new SendToPluginEvent(recievedEvent)).to.throw(EventValidationError);
+    expect(() => new SendToPluginEvent(recievedEvent)).to.throw(EventValidationError, /match pattern .*sendToPlugin/);
   });
 });

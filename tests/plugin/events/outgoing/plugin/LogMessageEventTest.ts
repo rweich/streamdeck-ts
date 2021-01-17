@@ -7,7 +7,7 @@ const chai = require("chai");
 chai.use(require("chai-json-schema"));
 
 const schema = Type.Object({
-  event: Type.String({pattern: "logMessage"}),
+  event: Type.String({pattern: "^logMessage$"}),
   payload: Type.Object({
     message: Type.String(),
   })

@@ -18,10 +18,10 @@ describe("KeyDownEvent test", () => {
   });
   it("should throw a validation error on missing keydown parameters", function () {
     const recievedEvent = require("../fixtures/keyDownEvent.missing-param.json");
-    expect(() => new KeyDownEvent(recievedEvent)).to.throw(EventValidationError);
+    expect(() => new KeyDownEvent(recievedEvent)).to.throw(EventValidationError, /required property 'context'/);
   });
   it("should throw a validation error on wrong event type", function () {
     const recievedEvent = require("../fixtures/keyDownEvent.invalid-eventtype.json");
-    expect(() => new KeyDownEvent(recievedEvent)).to.throw(EventValidationError);
+    expect(() => new KeyDownEvent(recievedEvent)).to.throw(EventValidationError, /match pattern .*keyDown/);
   });
 });

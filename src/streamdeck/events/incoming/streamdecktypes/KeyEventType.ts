@@ -16,7 +16,7 @@ const multiActionPayload = {
 export const KeyEventType = Type.Intersect([
   ExtendedEventType,
   Type.Object({
-    event: Type.String({pattern: "keyDown|keyUp"}),
+    event: Type.String({pattern: "^keyDown|keyUp$"}),
     payload: Type.Union([Type.Object(basePayload), Type.Object(multiActionPayload)]),
   })
 ]);
@@ -24,13 +24,13 @@ export const KeyEventType = Type.Intersect([
 export const KeyDownEventType = Type.Intersect([
   KeyEventType,
   Type.Object({
-    event: Type.String({pattern: "keyDown"}),
+    event: Type.String({pattern: "^keyDown$"}),
   })
 ]);
 
 export const KeyUpEventType = Type.Intersect([
   KeyEventType,
   Type.Object({
-    event: Type.String({pattern: "keyUp"}),
+    event: Type.String({pattern: "^keyUp$"}),
   })
 ]);

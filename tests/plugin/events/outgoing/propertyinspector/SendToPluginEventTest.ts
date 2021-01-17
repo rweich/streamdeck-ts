@@ -8,7 +8,7 @@ chai.use(require("chai-json-schema"));
 
 const schema = Type.Object({
   action: Type.String(),
-  event: Type.String({pattern: "sendToPlugin"}),
+  event: Type.String({pattern: "^sendToPlugin$"}),
   context: Type.String(),
   payload: Type.Any()
 });
