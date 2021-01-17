@@ -1,6 +1,7 @@
 {
   "name": "streamdeck-ts",
   "version": "1.0.0",
+  "description": "streamdeck sdk for typescript plugins",
   "private": true,
   "author": "rweich",
   "license": "MIT",
