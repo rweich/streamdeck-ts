@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "streamdeck-ts",
   "version": "1.0.0",
   "private": true,
   "author": "rweich",
@@ -22,6 +22,7 @@
     "copy-webpack-plugin": "^7.0.0",
     "dayjs": "^1.9.8",
     "eventemitter3": "^4.0.7",
+    "isomorphic-ws": "^4.0.1",
     "mocha": "^8.2.1",
     "remove-files-webpack-plugin": "^1.4.4",
     "sinon": "^9.2.2",
@@ -40,7 +41,5 @@
     "build-prod": "webpack --mode=production",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'"
   },
-  "dependencies": {
-    "isomorphic-ws": "^4.0.1"
-  }
+  "dependencies": {}
 }
