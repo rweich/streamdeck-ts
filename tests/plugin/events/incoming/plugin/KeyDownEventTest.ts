@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import EventValidationError from "../../../../../src/streamdeck/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../../src/streamdeck/events/incoming/plugin/IncomingPluginEventsEnum";
-import KeyDownEvent from "../../../../../src/streamdeck/events/incoming/plugin/KeyDownEvent";
+import EventValidationError from "../../../../../src/events/incoming/exception/EventValidationError";
+import { IncomingPluginEventsEnum } from "../../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import KeyDownEvent from "../../../../../src/events/incoming/plugin/KeyDownEvent";
 
 describe("KeyDownEvent test", () => {
   it("should create the event when using the correct payload", function () {

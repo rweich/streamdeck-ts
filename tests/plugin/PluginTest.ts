@@ -3,9 +3,9 @@ import EventEmitter from "eventemitter3";
 import "mocha";
 import { dummyLogger } from "ts-log";
 import WebSocket from "ws";
-import EventFactory from "../../src/streamdeck/events/incoming/EventFactory";
-import SetTitleEvent from "../../src/streamdeck/events/outgoing/plugin/SetTitleEvent";
-import Plugin from "../../src/streamdeck/Plugin";
+import EventFactory from "../../src/events/incoming/EventFactory";
+import SetTitleEvent from "../../src/events/outgoing/plugin/SetTitleEvent";
+import Plugin from "../../src/Plugin";
 
 describe("Plugin test", () => {
   it("should queue all send events until the websocket got created", (done) => {

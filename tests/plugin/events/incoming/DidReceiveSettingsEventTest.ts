@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import DidReceiveSettingsEvent from "../../../../src/streamdeck/events/incoming/DidReceiveSettingsEvent";
-import EventValidationError from "../../../../src/streamdeck/events/incoming/exception/EventValidationError";
-import { IncomingEventsEnum } from "../../../../src/streamdeck/events/incoming/IncomingEventsEnum";
+import DidReceiveSettingsEvent from "../../../../src/events/incoming/DidReceiveSettingsEvent";
+import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
+import { IncomingEventsEnum } from "../../../../src/events/incoming/IncomingEventsEnum";
 
 describe("DidReceiveSettingsEvent test", () => {
   it("should create the event when using the correct payload", function () {

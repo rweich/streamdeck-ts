@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import EventValidationError from "../../../../../src/streamdeck/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../../src/streamdeck/events/incoming/plugin/IncomingPluginEventsEnum";
-import SendToPluginEvent from "../../../../../src/streamdeck/events/incoming/plugin/SendToPluginEvent";
+import EventValidationError from "../../../../../src/events/incoming/exception/EventValidationError";
+import { IncomingPluginEventsEnum } from "../../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import SendToPluginEvent from "../../../../../src/events/incoming/plugin/SendToPluginEvent";
 
 describe("SendToPluginEvent test", () => {
   it("should create the event when using the correct payload", function () {

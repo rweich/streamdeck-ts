@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { expect } from "chai";
 import "mocha";
-import SetSettingsEvent from "../../../../src/streamdeck/events/outgoing/SetSettingsEvent";
+import SetSettingsEvent from "../../../../src/events/outgoing/SetSettingsEvent";
 
 const chai = require("chai");
 chai.use(require("chai-json-schema"));

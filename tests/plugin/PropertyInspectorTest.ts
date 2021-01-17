@@ -3,10 +3,10 @@ import EventEmitter from "eventemitter3";
 import "mocha";
 import { dummyLogger } from "ts-log";
 import WebSocket from "ws";
-import EventFactory from "../../src/streamdeck/events/incoming/EventFactory";
-import { IncomingEventsEnum } from "../../src/streamdeck/events/incoming/IncomingEventsEnum";
-import LogMessageEvent from "../../src/streamdeck/events/outgoing/LogMessageEvent";
-import PropertyInspector from "../../src/streamdeck/PropertyInspector";
+import EventFactory from "../../src/events/incoming/EventFactory";
+import { IncomingEventsEnum } from "../../src/events/incoming/IncomingEventsEnum";
+import LogMessageEvent from "../../src/events/outgoing/LogMessageEvent";
+import PropertyInspector from "../../src/PropertyInspector";
 
 describe("PropertyInspector test", () => {
   it("should queue all send events until the websocket got created", (done) => {

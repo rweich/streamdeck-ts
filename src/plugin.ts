@@ -1,42 +1,49 @@
-import dayjs from "dayjs";
-import { SettingsType } from "./SettingsType";
-import assertType from "./streamdeck/events/incoming/assertType";
-import { IncomingEventsEnum } from "./streamdeck/events/incoming/IncomingEventsEnum";
-import { IncomingPluginEventsEnum } from "./streamdeck/events/incoming/plugin/IncomingPluginEventsEnum";
-import GetSettingsEvent from "./streamdeck/events/outgoing/GetSettingsEvent";
-import SetTitleEvent from "./streamdeck/events/outgoing/plugin/SetTitleEvent";
-import StreamdeckFactory from "./streamdeck/StreamdeckFactory";
+import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
+import DidReceiveGlobalSettingsEvent from "./events/incoming/DidReceiveGlobalSettingsEvent";
+import DidReceiveSettingsEvent from "./events/incoming/DidReceiveSettingsEvent";
+import { IncomingEventsEnum } from "./events/incoming/IncomingEventsEnum";
+import OnWebsocketOpenEvent from "./events/incoming/OnWebsocketOpenEvent";
+import DeviceDidConnectEvent from "./events/incoming/plugin/DeviceDidConnectEvent";
+import DeviceDidDisconnectEvent from "./events/incoming/plugin/DeviceDidDisconnectEvent";
+import { IncomingPluginEventsEnum } from "./events/incoming/plugin/IncomingPluginEventsEnum";
+import KeyDownEvent from "./events/incoming/plugin/KeyDownEvent";
+import KeyUpEvent from "./events/incoming/plugin/KeyUpEvent";
+import SendToPluginEvent from "./events/incoming/plugin/SendToPluginEvent";
+import TitleParametersDidChangeEvent from "./events/incoming/plugin/TitleParametersDidChangeEvent";
+import WillAppearEvent from "./events/incoming/plugin/WillAppearEvent";
+import WillDisappearEvent from "./events/incoming/plugin/WillDisappearEvent";
+import GetSettingsEvent from "./events/outgoing/GetSettingsEvent";
+import LogMessageEvent from "./events/outgoing/LogMessageEvent";
+import SetSettingsEvent from "./events/outgoing/SetSettingsEvent";
 
-const plugin = new StreamdeckFactory().createPlugin();
-const intervalCache: Record<string, NodeJS.Timeout> = {};
-let format1stLine = "HH:mm";
-let format2ndLine = "D/M";
+// @formatter:off
+type EventType<T> =
+  T extends IncomingEventsEnum.OnWebsocketOpen ? OnWebsocketOpenEvent :
+  T extends IncomingEventsEnum.DidReceiveSettings ? DidReceiveSettingsEvent :
+  T extends IncomingEventsEnum.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
+  T extends IncomingPluginEventsEnum.DeviceDidConnect ? DeviceDidConnectEvent :
+  T extends IncomingPluginEventsEnum.DeviceDidDisconnect ? DeviceDidDisconnectEvent :
+  T extends IncomingPluginEventsEnum.KeyDown ? KeyDownEvent :
+  T extends IncomingPluginEventsEnum.KeyUp ? KeyUpEvent :
+  T extends IncomingPluginEventsEnum.SendToPlugin ? SendToPluginEvent :
+  T extends IncomingPluginEventsEnum.TitleParametersDidChange ? TitleParametersDidChangeEvent :
+  T extends IncomingPluginEventsEnum.WillAppear ? WillAppearEvent :
+  T extends IncomingPluginEventsEnum.WillDisappear ? WillDisappearEvent :
+  never;
+// @formatter:on
 
-const onTick = (context: string) => {
-  plugin.sendEvent(new SetTitleEvent(
-    dayjs().format(format1stLine + "\n" + format2ndLine),
-    context
-  ));
-};
+type IncomingEvents = IncomingEventsEnum | IncomingPluginEventsEnum;
+type OutgoingEvents = LogMessageEvent | GetSettingsEvent | SetSettingsEvent;
 
-plugin.on(IncomingPluginEventsEnum.WillAppear, event => {
-  plugin.sendEvent(new GetSettingsEvent(event.context));
-  intervalCache[event.context] = setInterval(() => onTick(event.context), 1000);
-});
-plugin.on(IncomingPluginEventsEnum.WillDisappear, event => {
-  clearInterval(intervalCache[event.context]);
-});
-plugin.on(IncomingEventsEnum.DidReceiveSettings, event => {
-  console.log("got settings", event.settings);
-  try {
-    assertType(SettingsType, event.settings);
-    format1stLine = event.settings.format1stLine || format1stLine;
-    format2ndLine = event.settings.format2ndLine || format2ndLine;
-  } catch (e) {
-    // ignore validation error and use default settings
+export default class Plugin extends AbstractStreamdeckConnector {
+  /**
+   * registers the eventlistener to the events the streamdeck sends to us
+   */
+  public on<T extends IncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
+    this.eventEmitter.on(eventType, callback);
   }
-  onTick(event.context);
-});
 
-// this makes sure the streamdeck finds our init function (do not remove!)
-export default plugin.createStreamdeckConnector();
+  public sendEvent(event: OutgoingEvents) {
+    this.sendToStreamdeck(event);
+  }
+};
