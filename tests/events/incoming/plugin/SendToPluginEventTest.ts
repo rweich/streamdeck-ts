@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import EventValidationError from "../../../../../src/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
-import SendToPluginEvent from "../../../../../src/events/incoming/plugin/SendToPluginEvent";
+import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
+import { IncomingPluginEventsEnum } from "../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import SendToPluginEvent from "../../../../src/events/incoming/plugin/SendToPluginEvent";
 
 describe("SendToPluginEvent test", () => {
   it("should create the event when using the correct payload", function () {
@@ -12,7 +12,7 @@ describe("SendToPluginEvent test", () => {
     expect(event.action).to.equal("com.elgato.example.action1");
     expect(event.context).to.equal("opaqueValue312");
   });
-  it("should throw a validation error on missing keydown parameters", function () {
+  it("should throw a validation error on missing parameters", function () {
     const recievedEvent = require("../fixtures/sendToPluginEvent.missing-param.json");
     expect(() => new SendToPluginEvent(recievedEvent)).to.throw(EventValidationError, /required property .*payload/);
   });

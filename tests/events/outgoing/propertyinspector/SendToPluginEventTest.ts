@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { expect } from "chai";
 import "mocha";
-import SendToPluginEvent from "../../../../../src/events/outgoing/propertyinspector/SendToPluginEvent";
+import SendToPluginEvent from "../../../../src/events/outgoing/propertyinspector/SendToPluginEvent";
 
 const chai = require("chai");
 chai.use(require("chai-json-schema"));

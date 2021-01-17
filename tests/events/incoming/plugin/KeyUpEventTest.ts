@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import EventValidationError from "../../../../../src/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
-import KeyUpEvent from "../../../../../src/events/incoming/plugin/KeyUpEvent";
+import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
+import { IncomingPluginEventsEnum } from "../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import KeyUpEvent from "../../../../src/events/incoming/plugin/KeyUpEvent";
 
 describe("KeyUpEvent test", () => {
   it("should create the event when using the correct payload", function () {

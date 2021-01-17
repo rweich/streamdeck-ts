@@ -1,8 +1,8 @@
 import { Type } from "@sinclair/typebox";
 import { expect } from "chai";
 import "mocha";
-import SetTitleEvent from "../../../../../src/events/outgoing/plugin/SetTitleEvent";
-import { TargetEnum } from "../../../../../src/events/outgoing/plugin/TargetEnum";
+import SetTitleEvent from "../../../../src/events/outgoing/plugin/SetTitleEvent";
+import { TargetEnum } from "../../../../src/events/outgoing/plugin/TargetEnum";
 
 const chai = require("chai");
 chai.use(require("chai-json-schema"));

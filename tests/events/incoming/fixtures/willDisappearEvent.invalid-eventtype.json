@@ -1,0 +1,7 @@
+{
+  "action": "dsaaction",
+  "context": "disacontext",
+  "device": "thedevice",
+  "event": "willAppear",
+  "payload": {"coordinates": {"column": 1, "row": 0}, "isInMultiAction": false, "settings": {}}
+}

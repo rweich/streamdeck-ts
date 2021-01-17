@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
 import { expect } from "chai";
 import "mocha";
-import RegisterEvent from "../../../../src/events/outgoing/RegisterEvent";
+import RegisterEvent from "../../../src/events/outgoing/RegisterEvent";
 
 const chai = require("chai");
 chai.use(require("chai-json-schema"));

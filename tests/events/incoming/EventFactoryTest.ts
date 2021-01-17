@@ -1,18 +1,16 @@
 import { expect } from "chai";
 import "mocha";
 import { dummyLogger } from "ts-log";
-import EventFactory from "../../../../src/events/incoming/EventFactory";
-import MissingEventInPayloadError
-  from "../../../../src/events/incoming/exception/MissingEventInPayloadError";
-import UnknownEventError from "../../../../src/events/incoming/exception/UnknownEventError";
-import DeviceDidConnectEvent from "../../../../src/events/incoming/plugin/DeviceDidConnectEvent";
-import KeyDownEvent from "../../../../src/events/incoming/plugin/KeyDownEvent";
-import KeyUpEvent from "../../../../src/events/incoming/plugin/KeyUpEvent";
-import SendToPluginEvent from "../../../../src/events/incoming/plugin/SendToPluginEvent";
-import TitleParametersDidChangeEvent
-  from "../../../../src/events/incoming/plugin/TitleParametersDidChangeEvent";
-import WillAppearEvent from "../../../../src/events/incoming/plugin/WillAppearEvent";
-import WillDisappearEvent from "../../../../src/events/incoming/plugin/WillDisappearEvent";
+import EventFactory from "../../../src/events/incoming/EventFactory";
+import MissingEventInPayloadError from "../../../src/events/incoming/exception/MissingEventInPayloadError";
+import UnknownEventError from "../../../src/events/incoming/exception/UnknownEventError";
+import DeviceDidConnectEvent from "../../../src/events/incoming/plugin/DeviceDidConnectEvent";
+import KeyDownEvent from "../../../src/events/incoming/plugin/KeyDownEvent";
+import KeyUpEvent from "../../../src/events/incoming/plugin/KeyUpEvent";
+import SendToPluginEvent from "../../../src/events/incoming/plugin/SendToPluginEvent";
+import TitleParametersDidChangeEvent from "../../../src/events/incoming/plugin/TitleParametersDidChangeEvent";
+import WillAppearEvent from "../../../src/events/incoming/plugin/WillAppearEvent";
+import WillDisappearEvent from "../../../src/events/incoming/plugin/WillDisappearEvent";
 
 describe("EventFactory test", () => {
   it("throws an error if no event type is specified", () => {

@@ -1,0 +1,13 @@
+{
+  "action": "my.willappear.action",
+  "context": "willappearcontext",
+  "event": "willAppear",
+  "payload": {
+    "coordinates": {
+      "column": 1,
+      "row": 0
+    },
+    "isInMultiAction": false,
+    "settings": {}
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "action": "my.action",
-  "context": "xoxoxoxo",
+  "action": "my.willappear.action",
+  "context": "willappearcontext",
   "device": "dev",
   "event": "willAppear",
   "payload": {

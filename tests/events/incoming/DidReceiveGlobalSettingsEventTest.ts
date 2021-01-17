@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import "mocha";
-import DidReceiveGlobalSettingsEvent from "../../../../src/events/incoming/DidReceiveGlobalSettingsEvent";
-import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
+import DidReceiveGlobalSettingsEvent from "../../../src/events/incoming/DidReceiveGlobalSettingsEvent";
+import EventValidationError from "../../../src/events/incoming/exception/EventValidationError";
 
 describe("DidReceiveSettingsEvent test", () => {
   it("should create the event when using the correct payload", function () {

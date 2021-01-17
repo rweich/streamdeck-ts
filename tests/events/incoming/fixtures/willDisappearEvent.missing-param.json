@@ -1,0 +1,6 @@
+{
+  "action": "dsaaction",
+  "device": "thedevice",
+  "event": "willDisappear",
+  "payload": {"coordinates": {"column": 1, "row": 0}, "isInMultiAction": false, "settings": {}}
+}

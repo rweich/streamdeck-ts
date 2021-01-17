@@ -1,6 +1,6 @@
 {
-  "action": "action",
-  "context": "concon",
+  "action": "dsaaction",
+  "context": "disacontext",
   "device": "thedevice",
   "event": "willDisappear",
   "payload": {"coordinates": {"column": 1, "row": 0}, "isInMultiAction": false, "settings": {}}

@@ -1,5 +1,5 @@
 import AbstractEvent from "./AbstractEvent";
-import { OutgoingPluginEventsEnum } from "./plugin/OutgoingPluginEventsEnum";
+import { OutgoingEventsEnum } from "./OutgoingEventsEnum";
 
 export default class LogMessageEvent extends AbstractEvent {
   private readonly message: string;
@@ -10,7 +10,7 @@ export default class LogMessageEvent extends AbstractEvent {
   }
 
   public get event(): string {
-    return OutgoingPluginEventsEnum.LogMessage;
+    return OutgoingEventsEnum.LogMessage;
   }
 
   protected get payload(): object {
