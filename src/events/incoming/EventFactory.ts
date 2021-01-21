@@ -8,17 +8,19 @@ import JsonParseError from "./exception/JsonParseError";
 import MissingEventInPayloadError from "./exception/MissingEventInPayloadError";
 import UnknownEventError from "./exception/UnknownEventError";
 import { IncomingEventsEnum } from "./IncomingEventsEnum";
-import DeviceDidConnectEvent from "./plugin/DeviceDidConnectEvent";
-import DeviceDidDisconnectEvent from "./plugin/DeviceDidDisconnectEvent";
-import { IncomingPluginEventsEnum } from "./plugin/IncomingPluginEventsEnum";
-import KeyDownEvent from "./plugin/KeyDownEvent";
-import KeyUpEvent from "./plugin/KeyUpEvent";
-import PropertyInspectorDidAppearEvent from "./plugin/PropertyInspectorDidAppearEvent";
-import PropertyInspectorDidDisappearEvent from "./plugin/PropertyInspectorDidDisappearEvent";
-import SendToPluginEvent from "./plugin/SendToPluginEvent";
-import TitleParametersDidChangeEvent from "./plugin/TitleParametersDidChangeEvent";
-import WillAppearEvent from "./plugin/WillAppearEvent";
-import WillDisappearEvent from "./plugin/WillDisappearEvent";
+import {
+  DeviceDidConnectEvent,
+  DeviceDidDisconnectEvent,
+  IncomingPluginEventsEnum,
+  KeyDownEvent,
+  KeyUpEvent,
+  PropertyInspectorDidAppearEvent,
+  PropertyInspectorDidDisappearEvent,
+  SendToPluginIncomingEvent,
+  TitleParametersDidChangeEvent,
+  WillAppearEvent,
+  WillDisappearEvent
+} from "./plugin";
 
 interface BasicIncomingEvent {
   event: IncomingEventsEnum | IncomingPluginEventsEnum;
@@ -33,7 +35,7 @@ type IncomingEventTypes =
   | AbstractIncomingExtendedEvent
   | DeviceDidConnectEvent
   | DeviceDidDisconnectEvent
-  | SendToPluginEvent;
+  | SendToPluginIncomingEvent;
 
 export default class EventFactory {
   private logger: Logger;
@@ -78,7 +80,7 @@ export default class EventFactory {
       case IncomingPluginEventsEnum.PropertyInspectorDidDisappear:
         return new PropertyInspectorDidDisappearEvent(payload);
       case IncomingPluginEventsEnum.SendToPlugin:
-        return new SendToPluginEvent(payload);
+        return new SendToPluginIncomingEvent(payload);
       case IncomingPluginEventsEnum.TitleParametersDidChange:
         return new TitleParametersDidChangeEvent(payload);
       case IncomingPluginEventsEnum.WillAppear:

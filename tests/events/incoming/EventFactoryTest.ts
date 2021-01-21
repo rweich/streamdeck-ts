@@ -7,7 +7,7 @@ import UnknownEventError from "../../../src/events/incoming/exception/UnknownEve
 import DeviceDidConnectEvent from "../../../src/events/incoming/plugin/DeviceDidConnectEvent";
 import KeyDownEvent from "../../../src/events/incoming/plugin/KeyDownEvent";
 import KeyUpEvent from "../../../src/events/incoming/plugin/KeyUpEvent";
-import SendToPluginEvent from "../../../src/events/incoming/plugin/SendToPluginEvent";
+import SendToPluginIncomingEvent from "../../../src/events/incoming/plugin/SendToPluginIncomingEvent";
 import TitleParametersDidChangeEvent from "../../../src/events/incoming/plugin/TitleParametersDidChangeEvent";
 import WillAppearEvent from "../../../src/events/incoming/plugin/WillAppearEvent";
 import WillDisappearEvent from "../../../src/events/incoming/plugin/WillDisappearEvent";
@@ -64,6 +64,6 @@ describe("EventFactory test", () => {
   it("should return a sendtoplugin event", () => {
     const recievedEvent = require("./fixtures/sendToPluginEvent.valid.json");
     const event = {data: JSON.stringify(recievedEvent)} as any;
-    expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(SendToPluginEvent);
+    expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(SendToPluginIncomingEvent);
   });
 });

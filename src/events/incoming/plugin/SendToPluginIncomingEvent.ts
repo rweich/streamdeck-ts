@@ -4,7 +4,7 @@ import assertType from "../assertType";
 import { SendToPluginEventType } from "../streamdecktypes/SendToEventType";
 import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
 
-export default class SendToPluginEvent extends AbstractIncomingBaseEvent {
+export default class SendToPluginIncomingEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof SendToPluginEventType>;
 
   constructor(payload: unknown) {

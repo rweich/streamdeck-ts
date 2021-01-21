@@ -1,11 +1,10 @@
 import EventEmitter from "eventemitter3";
 import WebSocket, { MessageEvent } from "isomorphic-ws";
 import { Logger } from "ts-log";
+import { IncomingEventsEnum, OnWebsocketOpenEvent } from "./events/incoming";
 import EventFactory from "./events/incoming/EventFactory";
-import { IncomingEventsEnum } from "./events/incoming/IncomingEventsEnum";
-import OnWebsocketOpenEvent from "./events/incoming/OnWebsocketOpenEvent";
+import { RegisterEvent } from "./events/outgoing";
 import EventInterface from "./events/outgoing/EventInterface";
-import RegisterEvent from "./events/outgoing/RegisterEvent";
 
 type SendToStremdeckEvent = EventInterface | RegisterEvent;
 

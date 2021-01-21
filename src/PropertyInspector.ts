@@ -1,14 +1,13 @@
 import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
-import DidReceiveGlobalSettingsEvent from "./events/incoming/DidReceiveGlobalSettingsEvent";
-import DidReceiveSettingsEvent from "./events/incoming/DidReceiveSettingsEvent";
-import { IncomingEventsEnum } from "./events/incoming/IncomingEventsEnum";
-import OnWebsocketOpenEvent from "./events/incoming/OnWebsocketOpenEvent";
-import { IncomingPropertyinspectorEventsEnum } from "./events/incoming/propertyinspector/IncomingPropertyinspectorEventsEnum";
-import SendToPropertyInspectorEvent from "./events/incoming/propertyinspector/SendToPropertyInspectorEvent";
-import GetSettingsEvent from "./events/outgoing/GetSettingsEvent";
-import LogMessageEvent from "./events/outgoing/LogMessageEvent";
-import SendToPluginEvent from "./events/outgoing/propertyinspector/SendToPluginEvent";
-import SetSettingsEvent from "./events/outgoing/SetSettingsEvent";
+import {
+  DidReceiveGlobalSettingsEvent,
+  DidReceiveSettingsEvent,
+  IncomingEventsEnum,
+  OnWebsocketOpenEvent
+} from "./events/incoming";
+import { IncomingPropertyinspectorEventsEnum, SendToPropertyInspectorEvent } from "./events/incoming/propertyinspector";
+import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/outgoing";
+import { SendToPluginEvent } from "./events/outgoing/propertyinspector";
 
 // @formatter:off
 type EventType<T> =

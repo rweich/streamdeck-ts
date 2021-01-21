@@ -1,10 +1,16 @@
 {
-  "name": "streamdeck-ts",
+  "name": "@rweich/streamdeck-ts",
   "version": "1.0.0",
   "description": "streamdeck sdk for typescript plugins",
   "private": true,
   "author": "rweich",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types" : "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rweich/streamdeck-ts.git"
+  },
   "devDependencies": {
     "@sinclair/typebox": "^0.12.7",
     "@types/chai": "^4.2.14",
@@ -26,9 +32,12 @@
     "ws": "^7.4.2"
   },
   "scripts": {
+    "clean": "rm -rf dist/*",
+    "build": "npm run clean && tsc",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "files": ["README.md", "dist"]
 }

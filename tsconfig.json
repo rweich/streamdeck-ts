@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-    "target": "esnext",
-    "module": "commonjs",
-    "declaration": false,
+    "target": "es2019",
+    "module":"es2020",
+    "declaration": true,
     "outDir": "dist",
     "strict": true,
     "noImplicitAny": true,
@@ -20,5 +20,8 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "files": [
+    "src/index.ts"
+  ]
 }

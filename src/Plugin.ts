@@ -1,20 +1,22 @@
 import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
-import DidReceiveGlobalSettingsEvent from "./events/incoming/DidReceiveGlobalSettingsEvent";
-import DidReceiveSettingsEvent from "./events/incoming/DidReceiveSettingsEvent";
-import { IncomingEventsEnum } from "./events/incoming/IncomingEventsEnum";
-import OnWebsocketOpenEvent from "./events/incoming/OnWebsocketOpenEvent";
-import DeviceDidConnectEvent from "./events/incoming/plugin/DeviceDidConnectEvent";
-import DeviceDidDisconnectEvent from "./events/incoming/plugin/DeviceDidDisconnectEvent";
-import { IncomingPluginEventsEnum } from "./events/incoming/plugin/IncomingPluginEventsEnum";
-import KeyDownEvent from "./events/incoming/plugin/KeyDownEvent";
-import KeyUpEvent from "./events/incoming/plugin/KeyUpEvent";
-import SendToPluginEvent from "./events/incoming/plugin/SendToPluginEvent";
-import TitleParametersDidChangeEvent from "./events/incoming/plugin/TitleParametersDidChangeEvent";
-import WillAppearEvent from "./events/incoming/plugin/WillAppearEvent";
-import WillDisappearEvent from "./events/incoming/plugin/WillDisappearEvent";
-import GetSettingsEvent from "./events/outgoing/GetSettingsEvent";
-import LogMessageEvent from "./events/outgoing/LogMessageEvent";
-import SetSettingsEvent from "./events/outgoing/SetSettingsEvent";
+import {
+  DidReceiveGlobalSettingsEvent,
+  DidReceiveSettingsEvent,
+  IncomingEventsEnum,
+  OnWebsocketOpenEvent
+} from "./events/incoming";
+import {
+  DeviceDidConnectEvent,
+  DeviceDidDisconnectEvent,
+  IncomingPluginEventsEnum,
+  KeyDownEvent,
+  KeyUpEvent,
+  SendToPluginIncomingEvent,
+  TitleParametersDidChangeEvent,
+  WillAppearEvent,
+  WillDisappearEvent
+} from "./events/incoming/plugin";
+import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/outgoing";
 
 // @formatter:off
 type EventType<T> =
@@ -25,7 +27,7 @@ type EventType<T> =
   T extends IncomingPluginEventsEnum.DeviceDidDisconnect ? DeviceDidDisconnectEvent :
   T extends IncomingPluginEventsEnum.KeyDown ? KeyDownEvent :
   T extends IncomingPluginEventsEnum.KeyUp ? KeyUpEvent :
-  T extends IncomingPluginEventsEnum.SendToPlugin ? SendToPluginEvent :
+  T extends IncomingPluginEventsEnum.SendToPlugin ? SendToPluginIncomingEvent :
   T extends IncomingPluginEventsEnum.TitleParametersDidChange ? TitleParametersDidChangeEvent :
   T extends IncomingPluginEventsEnum.WillAppear ? WillAppearEvent :
   T extends IncomingPluginEventsEnum.WillDisappear ? WillDisappearEvent :

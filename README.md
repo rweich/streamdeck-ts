@@ -24,7 +24,7 @@ and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/
 | OnWebsocketOpen | [OnWebsocketOpenEvent](src/events/incoming/OnWebsocketOpenEvent.ts) | X | X |
 | PropertyInspectorDidAppearEvent | [PropertyInspectorDidAppearEvent](src/events/incoming/plugin/PropertyInspectorDidAppearEvent.ts) | X | |
 | PropertyInspectorDidDisappearEvent | [PropertyInspectorDidDisappearEvent](src/events/incoming/plugin/PropertyInspectorDidDisappearEvent.ts) | X | |
-| SendToPluginEvent | [SendToPluginEvent](src/events/incoming/plugin/SendToPluginEvent.ts) | X | |
+| SendToPluginEvent | [SendToPluginEvent](src/events/incoming/plugin/SendToPluginIncomingEvent.ts) | X | |
 | SendToPropertyInspector | to be implemented | | X |
 | SystemDidWakeUp | to be implemented | X | |
 | TitleParametersDidChangeEvent | [TitleParametersDidChangeEvent](src/events/incoming/plugin/TitleParametersDidChangeEvent.ts) | X | |
