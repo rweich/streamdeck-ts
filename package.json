@@ -1,31 +1,33 @@
 {
   "name": "@rweich/streamdeck-ts",
   "version": "1.0.0",
-  "description": "streamdeck sdk for typescript plugins",
+  "description": "sdk to create streamdeck plugins in typescript",
   "private": true,
   "author": "rweich",
   "license": "MIT",
   "main": "dist/index.js",
-  "types" : "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rweich/streamdeck-ts.git"
   },
-  "devDependencies": {
+  "dependencies": {
     "@sinclair/typebox": "^0.12.7",
+    "ajv": "^6.12.4",
+    "eventemitter3": "^4.0.7",
+    "isomorphic-ws": "^4.0.1",
+    "ts-log": "^2.2.3"
+  },
+  "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/chai-json-schema": "^1.4.6",
     "@types/mocha": "^8.2.0",
     "@types/sinon": "^9.0.10",
     "@types/ws": "^7.4.0",
-    "ajv": "^6.12.4",
     "chai": "^4.2.0",
     "chai-json-schema": "^1.5.1",
-    "eventemitter3": "^4.0.7",
-    "isomorphic-ws": "^4.0.1",
     "mocha": "^8.2.1",
     "sinon": "^9.2.2",
-    "ts-log": "^2.2.3",
     "ts-node": "^9.1.1",
     "ts-type-guards": "^0.7.0",
     "typescript": "^4.1.3",
@@ -38,6 +40,8 @@
     "type-check:watch": "npm run type-check -- --watch",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'"
   },
-  "dependencies": {},
-  "files": ["README.md", "dist"]
+  "files": [
+    "README.md",
+    "dist"
+  ]
 }
