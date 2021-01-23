@@ -1,4 +1,4 @@
-export enum IncomingPluginEventsEnum {
+export enum IncomingPluginEvents {
   ApplicationDidLaunch = "applicationDidLaunch",
   ApplicationDidTerminate = "applicationDidTerminate",
   DeviceDidConnect = "deviceDidConnect",

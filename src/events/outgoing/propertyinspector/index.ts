@@ -1,7 +1,7 @@
-import { OutgoingPropertyinspectorEventsEnum } from "./OutgoingPropertyinspectorEventsEnum";
+import { OutgoingPropertyinspectorEvents } from "./OutgoingPropertyinspectorEvents";
 import SendToPluginEvent from "./SendToPluginEvent";
 
 export {
-  OutgoingPropertyinspectorEventsEnum,
+  OutgoingPropertyinspectorEvents,
   SendToPluginEvent,
 };

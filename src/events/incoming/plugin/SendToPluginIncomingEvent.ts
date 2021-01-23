@@ -2,7 +2,7 @@ import { Static } from "@sinclair/typebox";
 import AbstractIncomingBaseEvent, { IncomingEventsTypes } from "../AbstractIncomingBaseEvent";
 import assertType from "../assertType";
 import { SendToPluginEventType } from "../streamdecktypes/SendToEventType";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 
 export default class SendToPluginIncomingEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof SendToPluginEventType>;
@@ -26,6 +26,6 @@ export default class SendToPluginIncomingEvent extends AbstractIncomingBaseEvent
   }
 
   protected get eventType(): IncomingEventsTypes {
-    return IncomingPluginEventsEnum.SendToPlugin;
+    return IncomingPluginEvents.SendToPlugin;
   }
 };

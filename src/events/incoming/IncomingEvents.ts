@@ -1,4 +1,4 @@
-export enum IncomingEventsEnum {
+export enum IncomingEvents {
   OnWebsocketOpen = 'onWebsocketOpen',
   DidReceiveSettings = "didReceiveSettings",
   DidReceiveGlobalSettings = "didReceiveGlobalSettings",

@@ -2,13 +2,13 @@ import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
 import {
   DidReceiveGlobalSettingsEvent,
   DidReceiveSettingsEvent,
-  IncomingEventsEnum,
+  IncomingEvents,
   OnWebsocketOpenEvent
 } from "./events/incoming";
 import {
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
-  IncomingPluginEventsEnum,
+  IncomingPluginEvents,
   KeyDownEvent,
   KeyUpEvent,
   SendToPluginIncomingEvent,
@@ -20,32 +20,32 @@ import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/ou
 
 // @formatter:off
 type EventType<T> =
-  T extends IncomingEventsEnum.OnWebsocketOpen ? OnWebsocketOpenEvent :
-  T extends IncomingEventsEnum.DidReceiveSettings ? DidReceiveSettingsEvent :
-  T extends IncomingEventsEnum.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
-  T extends IncomingPluginEventsEnum.DeviceDidConnect ? DeviceDidConnectEvent :
-  T extends IncomingPluginEventsEnum.DeviceDidDisconnect ? DeviceDidDisconnectEvent :
-  T extends IncomingPluginEventsEnum.KeyDown ? KeyDownEvent :
-  T extends IncomingPluginEventsEnum.KeyUp ? KeyUpEvent :
-  T extends IncomingPluginEventsEnum.SendToPlugin ? SendToPluginIncomingEvent :
-  T extends IncomingPluginEventsEnum.TitleParametersDidChange ? TitleParametersDidChangeEvent :
-  T extends IncomingPluginEventsEnum.WillAppear ? WillAppearEvent :
-  T extends IncomingPluginEventsEnum.WillDisappear ? WillDisappearEvent :
+  T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
+  T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
+  T extends IncomingEvents.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
+  T extends IncomingPluginEvents.DeviceDidConnect ? DeviceDidConnectEvent :
+  T extends IncomingPluginEvents.DeviceDidDisconnect ? DeviceDidDisconnectEvent :
+  T extends IncomingPluginEvents.KeyDown ? KeyDownEvent :
+  T extends IncomingPluginEvents.KeyUp ? KeyUpEvent :
+  T extends IncomingPluginEvents.SendToPlugin ? SendToPluginIncomingEvent :
+  T extends IncomingPluginEvents.TitleParametersDidChange ? TitleParametersDidChangeEvent :
+  T extends IncomingPluginEvents.WillAppear ? WillAppearEvent :
+  T extends IncomingPluginEvents.WillDisappear ? WillDisappearEvent :
   never;
 // @formatter:on
 
-type IncomingEvents = IncomingEventsEnum | IncomingPluginEventsEnum;
-type OutgoingEvents = LogMessageEvent | GetSettingsEvent | SetSettingsEvent;
+type AllowedIncomingEvents = IncomingEvents | IncomingPluginEvents;
+type AllowedOutgoingEvents = LogMessageEvent | GetSettingsEvent | SetSettingsEvent;
 
 export default class Plugin extends AbstractStreamdeckConnector {
   /**
    * registers the eventlistener to the events the streamdeck sends to us
    */
-  public on<T extends IncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
+  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
     this.eventEmitter.on(eventType, callback);
   }
 
-  public sendEvent(event: OutgoingEvents) {
+  public sendEvent(event: AllowedOutgoingEvents) {
     this.sendToStreamdeck(event);
   }
 };

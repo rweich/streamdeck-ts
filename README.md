@@ -1,15 +1,15 @@
 # streamdeck-ts
 
-A typed streamdeck sdk for typescript plugins.
+A sdk to create streamdeck plugins in typescript.
 
 # Events
 
 ## Incoming events
 
 The plugin or propertyinpector can listen to the following events
-based on the type as seen in [IncomingEventsEnum](src/events/incoming/IncomingEventsEnum.ts),
-[IncomingPluginEventsEnum](src/events/incoming/plugin/IncomingPluginEventsEnum.ts)
-and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/IncomingPropertyinspectorEventsEnum.ts).
+based on the type as seen in [IncomingEventsEnum](src/events/incoming/IncomingEvents.ts),
+[IncomingPluginEventsEnum](src/events/incoming/plugin/IncomingPluginEvents.ts)
+and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/IncomingPropertyinspectorEvents.ts).
 
 | Type to bind | Received event | Plugin event | Propertyinspector event |
 | --- | --- | --- | --- |
@@ -36,7 +36,7 @@ and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/
 Listening to keypresses on the streamdeck:
 
 ```typescript
-const plugin = new StreamdeckFactory().createPlugin();
+const plugin = new Streamdeck().plugin();
 plugin.on(IncomingPluginEventsEnum.KeyDown, event => {
   console.log(`key pressed on row ${event.row} and column ${event.column}`);
 });
@@ -59,6 +59,6 @@ The plugin and propertyinspector can send the following events to the streamdeck
 Setting the title in the plugin:
 
 ```typescript
-const plugin = new StreamdeckFactory().createPlugin();
+const plugin = new Streamdeck().plugin();
 plugin.sendEvent(new SetTitleEvent('the new title', context));
 ```

@@ -2,7 +2,7 @@ import { Static } from "@sinclair/typebox";
 import assertType from "../assertType";
 import { WillAppearEventType } from "../streamdecktypes/StateEventType";
 import AbstractStateEvent from "./AbstractStateEvent";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 
 export default class WillAppearEvent extends AbstractStateEvent {
   protected payload: Static<typeof WillAppearEventType>;
@@ -13,7 +13,7 @@ export default class WillAppearEvent extends AbstractStateEvent {
     this.payload = payload;
   }
 
-  protected get eventType(): IncomingPluginEventsEnum {
-    return IncomingPluginEventsEnum.WillAppear;
+  protected get eventType(): IncomingPluginEvents {
+    return IncomingPluginEvents.WillAppear;
   }
 };

@@ -1,3 +1,3 @@
-export enum IncomingPropertyinspectorEventsEnum {
+export enum IncomingPropertyinspectorEvents {
   SendToPropertyInspector = "sendToPropertyInspector"
 }

@@ -2,7 +2,7 @@ import { IncomingEventsTypes } from "../AbstractIncomingBaseEvent";
 import AbstractIncomingExtendedEvent from "../AbstractIncomingExtendedEvent";
 import assertType from "../assertType";
 import { PropertyInspectorDidAppearEventType } from "../streamdecktypes/PropertyInspectorEventType";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 
 export default class PropertyInspectorDidAppearEvent extends AbstractIncomingExtendedEvent {
   constructor(payload: unknown) {
@@ -11,6 +11,6 @@ export default class PropertyInspectorDidAppearEvent extends AbstractIncomingExt
   }
 
   protected get eventType(): IncomingEventsTypes {
-    return IncomingPluginEventsEnum.PropertyInspectorDidAppear;
+    return IncomingPluginEvents.PropertyInspectorDidAppear;
   }
 };

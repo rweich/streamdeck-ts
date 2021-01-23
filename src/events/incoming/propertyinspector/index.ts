@@ -1,7 +1,7 @@
-import { IncomingPropertyinspectorEventsEnum } from "./IncomingPropertyinspectorEventsEnum";
+import { IncomingPropertyinspectorEvents } from "./IncomingPropertyinspectorEvents";
 import SendToPropertyInspectorEvent from "./SendToPropertyInspectorEvent";
 
 export {
-  IncomingPropertyinspectorEventsEnum,
+  IncomingPropertyinspectorEvents,
   SendToPropertyInspectorEvent,
 };

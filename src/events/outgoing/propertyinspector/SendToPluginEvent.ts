@@ -1,5 +1,5 @@
 import AbstractOutgoingSetterEvent from "../AbstractOutgoingSetterEvent";
-import { OutgoingPropertyinspectorEventsEnum } from "./OutgoingPropertyinspectorEventsEnum";
+import { OutgoingPropertyinspectorEvents } from "./OutgoingPropertyinspectorEvents";
 
 export default class SendToPluginEvent extends AbstractOutgoingSetterEvent {
   private readonly action: string;
@@ -12,7 +12,7 @@ export default class SendToPluginEvent extends AbstractOutgoingSetterEvent {
   }
 
   public get event(): string {
-    return OutgoingPropertyinspectorEventsEnum.SendToPlugin;
+    return OutgoingPropertyinspectorEvents.SendToPlugin;
   }
 
   protected get payload(): object {

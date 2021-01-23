@@ -1,5 +1,5 @@
 import AbstractOutgoingSetterEvent from "../AbstractOutgoingSetterEvent";
-import { OutgoingPluginEventsEnum } from "./OutgoingPluginEventsEnum";
+import { OutgoingPluginEvents } from "./OutgoingPluginEvents";
 import { TargetEnum } from "./TargetEnum";
 
 export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
@@ -15,7 +15,7 @@ export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
   }
 
   public get event(): string {
-    return OutgoingPluginEventsEnum.SetTitle;
+    return OutgoingPluginEvents.SetTitle;
   }
 
   protected get payload(): object {

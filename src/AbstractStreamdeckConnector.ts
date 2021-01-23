@@ -1,7 +1,7 @@
 import EventEmitter from "eventemitter3";
 import WebSocket, { MessageEvent } from "isomorphic-ws";
 import { Logger } from "ts-log";
-import { IncomingEventsEnum, OnWebsocketOpenEvent } from "./events/incoming";
+import { IncomingEvents, OnWebsocketOpenEvent } from "./events/incoming";
 import EventFactory from "./events/incoming/EventFactory";
 import { RegisterEvent } from "./events/outgoing";
 import EventInterface from "./events/outgoing/EventInterface";
@@ -66,7 +66,7 @@ export default class AbstractStreamdeckConnector {
     this.websocket = new WebSocket("ws://127.0.0.1:" + inPort);
     this.websocket.onopen = () => {
       this.sendToStreamdeck(new RegisterEvent(inRegisterEvent, inPluginUUID));
-      this.eventEmitter.emit(IncomingEventsEnum.OnWebsocketOpen, new OnWebsocketOpenEvent(inPluginUUID, inInfo));
+      this.eventEmitter.emit(IncomingEvents.OnWebsocketOpen, new OnWebsocketOpenEvent(inPluginUUID, inInfo));
       this.eventQueue.map(event => this.sendToStreamdeck(event));
       this.eventQueue = [];
     };

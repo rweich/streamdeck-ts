@@ -1,7 +1,7 @@
 import { Static } from "@sinclair/typebox";
 import AbstractIncomingBaseEvent from "./AbstractIncomingBaseEvent";
 import assertType from "./assertType";
-import { IncomingEventsEnum } from "./IncomingEventsEnum";
+import { IncomingEvents } from "./IncomingEvents";
 import { DidReceiveGlobalSettingsType } from "./streamdecktypes/SettingsEventType";
 
 export default class DidReceiveGlobalSettingsEvent extends AbstractIncomingBaseEvent {
@@ -17,7 +17,7 @@ export default class DidReceiveGlobalSettingsEvent extends AbstractIncomingBaseE
     return this.payload.payload.settings;
   }
 
-  protected get eventType(): IncomingEventsEnum {
-    return IncomingEventsEnum.DidReceiveGlobalSettings;
+  protected get eventType(): IncomingEvents {
+    return IncomingEvents.DidReceiveGlobalSettings;
   }
 };

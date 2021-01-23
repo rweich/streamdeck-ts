@@ -7,11 +7,11 @@ import DidReceiveSettingsEvent from "./DidReceiveSettingsEvent";
 import JsonParseError from "./exception/JsonParseError";
 import MissingEventInPayloadError from "./exception/MissingEventInPayloadError";
 import UnknownEventError from "./exception/UnknownEventError";
-import { IncomingEventsEnum } from "./IncomingEventsEnum";
+import { IncomingEvents } from "./IncomingEvents";
 import {
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
-  IncomingPluginEventsEnum,
+  IncomingPluginEvents,
   KeyDownEvent,
   KeyUpEvent,
   PropertyInspectorDidAppearEvent,
@@ -23,7 +23,7 @@ import {
 } from "./plugin";
 
 interface BasicIncomingEvent {
-  event: IncomingEventsEnum | IncomingPluginEventsEnum;
+  event: IncomingEvents | IncomingPluginEvents;
 }
 
 function isBasicIncomingEvent(event: unknown): event is BasicIncomingEvent {
@@ -63,29 +63,29 @@ export default class EventFactory {
     }
 
     switch (payload.event) {
-      case IncomingEventsEnum.DidReceiveSettings:
+      case IncomingEvents.DidReceiveSettings:
         return new DidReceiveSettingsEvent(payload);
-      case IncomingEventsEnum.DidReceiveGlobalSettings:
+      case IncomingEvents.DidReceiveGlobalSettings:
         return new DidReceiveGlobalSettingsEvent(payload);
-      case IncomingPluginEventsEnum.DeviceDidConnect:
+      case IncomingPluginEvents.DeviceDidConnect:
         return new DeviceDidConnectEvent(payload);
-      case IncomingPluginEventsEnum.DeviceDidDisconnect:
+      case IncomingPluginEvents.DeviceDidDisconnect:
         return new DeviceDidDisconnectEvent(payload);
-      case IncomingPluginEventsEnum.KeyDown:
+      case IncomingPluginEvents.KeyDown:
         return new KeyDownEvent(payload);
-      case IncomingPluginEventsEnum.KeyUp:
+      case IncomingPluginEvents.KeyUp:
         return new KeyUpEvent(payload);
-      case IncomingPluginEventsEnum.PropertyInspectorDidAppear:
+      case IncomingPluginEvents.PropertyInspectorDidAppear:
         return new PropertyInspectorDidAppearEvent(payload);
-      case IncomingPluginEventsEnum.PropertyInspectorDidDisappear:
+      case IncomingPluginEvents.PropertyInspectorDidDisappear:
         return new PropertyInspectorDidDisappearEvent(payload);
-      case IncomingPluginEventsEnum.SendToPlugin:
+      case IncomingPluginEvents.SendToPlugin:
         return new SendToPluginIncomingEvent(payload);
-      case IncomingPluginEventsEnum.TitleParametersDidChange:
+      case IncomingPluginEvents.TitleParametersDidChange:
         return new TitleParametersDidChangeEvent(payload);
-      case IncomingPluginEventsEnum.WillAppear:
+      case IncomingPluginEvents.WillAppear:
         return new WillAppearEvent(payload);
-      case IncomingPluginEventsEnum.WillDisappear:
+      case IncomingPluginEvents.WillDisappear:
         return new WillDisappearEvent(payload);
       default:
         throw new UnknownEventError("unknown event: " + payload.event + " in data: " + JSON.stringify(payload));

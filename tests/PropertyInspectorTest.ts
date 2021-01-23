@@ -4,7 +4,7 @@ import "mocha";
 import { dummyLogger } from "ts-log";
 import WebSocket from "ws";
 import EventFactory from "../src/events/incoming/EventFactory";
-import { IncomingEventsEnum } from "../src/events/incoming/IncomingEventsEnum";
+import { IncomingEvents } from "../src/events/incoming/IncomingEvents";
 import LogMessageEvent from "../src/events/outgoing/LogMessageEvent";
 import PropertyInspector from "../src/PropertyInspector";
 
@@ -35,7 +35,7 @@ describe("PropertyInspector test", () => {
     const server = new WebSocket.Server({host: "127.0.0.1", port: 23456});
     const pi = new PropertyInspector(emitter, new EventFactory(dummyLogger), dummyLogger);
     const connector = pi.createStreamdeckConnector();
-    emitter.on(IncomingEventsEnum.OnWebsocketOpen, () => {
+    emitter.on(IncomingEvents.OnWebsocketOpen, () => {
       server.close();
       done();
     });

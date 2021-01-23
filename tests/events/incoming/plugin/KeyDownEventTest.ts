@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import "mocha";
 import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "../../../../src/events/incoming/plugin/IncomingPluginEvents";
 import KeyDownEvent from "../../../../src/events/incoming/plugin/KeyDownEvent";
 
 describe("KeyDownEvent test", () => {
@@ -11,7 +11,7 @@ describe("KeyDownEvent test", () => {
     expect(event.action).to.equal("some.action");
     expect(event.context).to.equal("ewrwerwerwerwer");
     expect(event.device).to.equal("xxzxxzxzxzxxzxzxz");
-    expect(event.event).to.equal(IncomingPluginEventsEnum.KeyDown);
+    expect(event.event).to.equal(IncomingPluginEvents.KeyDown);
     expect(event.column).to.equal(1);
     expect(event.row).to.equal(3);
     expect(event.isInMultiAction).to.be.false;

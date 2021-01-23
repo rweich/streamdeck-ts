@@ -1,14 +1,14 @@
 import { expect } from "chai";
 import "mocha";
 import EventValidationError from "../../../../src/events/incoming/exception/EventValidationError";
-import { IncomingPluginEventsEnum } from "../../../../src/events/incoming/plugin/IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "../../../../src/events/incoming/plugin/IncomingPluginEvents";
 import WillAppearEvent from "../../../../src/events/incoming/plugin/WillAppearEvent";
 
 describe("WillAppearEvent test", () => {
   it("should create the event when using the correct payload", function () {
     const recievedEvent = require("../fixtures/willAppearEvent.valid.json");
     const event = new WillAppearEvent(recievedEvent);
-    expect(event.event).to.equal(IncomingPluginEventsEnum.WillAppear);
+    expect(event.event).to.equal(IncomingPluginEvents.WillAppear);
     expect(event.action).to.equal("my.willappear.action");
     expect(event.context).to.equal("willappearcontext");
   });

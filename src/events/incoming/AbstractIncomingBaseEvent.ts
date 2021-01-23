@@ -1,11 +1,11 @@
 import { Static } from "@sinclair/typebox";
 import assertType from "./assertType";
-import { IncomingEventsEnum } from "./IncomingEventsEnum";
-import { IncomingPluginEventsEnum } from "./plugin/IncomingPluginEventsEnum";
-import { IncomingPropertyinspectorEventsEnum } from "./propertyinspector/IncomingPropertyinspectorEventsEnum";
+import { IncomingEvents } from "./IncomingEvents";
+import { IncomingPluginEvents } from "./plugin/IncomingPluginEvents";
+import { IncomingPropertyinspectorEvents } from "./propertyinspector/IncomingPropertyinspectorEvents";
 import { BaseEventType } from "./streamdecktypes/BaseEventType";
 
-export type IncomingEventsTypes = IncomingEventsEnum | IncomingPluginEventsEnum | IncomingPropertyinspectorEventsEnum;
+export type IncomingEventsTypes = IncomingEvents | IncomingPluginEvents | IncomingPropertyinspectorEvents;
 
 export default abstract class AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof BaseEventType>;

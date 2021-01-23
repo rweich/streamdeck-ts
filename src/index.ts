@@ -7,10 +7,10 @@ export * from "./events/outgoing/propertyinspector";
 
 import Plugin from "./Plugin";
 import PropertyInspector from "./PropertyInspector";
-import StreamdeckFactory from "./StreamdeckFactory";
+import Streamdeck from "./Streamdeck";
 
 export {
   Plugin,
   PropertyInspector,
-  StreamdeckFactory
+  Streamdeck
 };

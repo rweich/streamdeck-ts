@@ -1,12 +1,12 @@
 import AbstractIncomingExtendedEvent from "../AbstractIncomingExtendedEvent";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 
 export default class TitleParametersDidChangeEvent extends AbstractIncomingExtendedEvent {
   constructor(payload: unknown) {
     super(payload);
   }
 
-  protected get eventType(): IncomingPluginEventsEnum {
-    return IncomingPluginEventsEnum.TitleParametersDidChange;
+  protected get eventType(): IncomingPluginEvents {
+    return IncomingPluginEvents.TitleParametersDidChange;
   }
 };

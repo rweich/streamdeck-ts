@@ -1,5 +1,5 @@
 import assertType from "./assertType";
-import { IncomingEventsEnum } from "./IncomingEventsEnum";
+import { IncomingEvents } from "./IncomingEvents";
 import AbstractStateEvent from "./plugin/AbstractStateEvent";
 import { DidReceiveSettingsType } from "./streamdecktypes/SettingsEventType";
 
@@ -9,7 +9,7 @@ export default class DidReceiveSettingsEvent extends AbstractStateEvent {
     assertType(DidReceiveSettingsType, payload);
   }
 
-  protected get eventType(): IncomingEventsEnum {
-    return IncomingEventsEnum.DidReceiveSettings;
+  protected get eventType(): IncomingEvents {
+    return IncomingEvents.DidReceiveSettings;
   }
 };

@@ -2,34 +2,34 @@ import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
 import {
   DidReceiveGlobalSettingsEvent,
   DidReceiveSettingsEvent,
-  IncomingEventsEnum,
+  IncomingEvents,
   OnWebsocketOpenEvent
 } from "./events/incoming";
-import { IncomingPropertyinspectorEventsEnum, SendToPropertyInspectorEvent } from "./events/incoming/propertyinspector";
+import { IncomingPropertyinspectorEvents, SendToPropertyInspectorEvent } from "./events/incoming/propertyinspector";
 import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/outgoing";
 import { SendToPluginEvent } from "./events/outgoing/propertyinspector";
 
 // @formatter:off
 type EventType<T> =
-  T extends IncomingEventsEnum.OnWebsocketOpen ? OnWebsocketOpenEvent :
-  T extends IncomingEventsEnum.DidReceiveSettings ? DidReceiveSettingsEvent :
-  T extends IncomingEventsEnum.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
-  T extends IncomingPropertyinspectorEventsEnum.SendToPropertyInspector ? SendToPropertyInspectorEvent :
+  T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
+  T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
+  T extends IncomingEvents.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
+  T extends IncomingPropertyinspectorEvents.SendToPropertyInspector ? SendToPropertyInspectorEvent :
   never;
 // @formatter:on
 
-type IncomingEvents = IncomingEventsEnum | IncomingPropertyinspectorEventsEnum;
-type OutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent;
+type AllowedIncomingEvents = IncomingEvents | IncomingPropertyinspectorEvents;
+type AllowedOutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent;
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   /**
    * registers the eventlistener to the events the streamdeck sends to us
    */
-  public on<T extends IncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
+  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
     this.eventEmitter.on(eventType, callback);
   }
 
-  public sendEvent(event: OutgoingEvents) {
+  public sendEvent(event: AllowedOutgoingEvents) {
     this.sendToStreamdeck(event);
   }
 };

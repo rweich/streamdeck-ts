@@ -1,6 +1,6 @@
 import DeviceDidConnectEvent from "./DeviceDidConnectEvent";
 import DeviceDidDisconnectEvent from "./DeviceDidDisconnectEvent";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 import KeyDownEvent from "./KeyDownEvent";
 import KeyUpEvent from "./KeyUpEvent";
 import PropertyInspectorDidAppearEvent from "./PropertyInspectorDidAppearEvent";
@@ -13,7 +13,7 @@ import WillDisappearEvent from "./WillDisappearEvent";
 export {
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
-  IncomingPluginEventsEnum,
+  IncomingPluginEvents,
   KeyDownEvent,
   KeyUpEvent,
   PropertyInspectorDidAppearEvent,

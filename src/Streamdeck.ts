@@ -4,13 +4,19 @@ import EventFactory from "./events/incoming/EventFactory";
 import Plugin from "./Plugin";
 import PropertyInspector from "./PropertyInspector";
 
-export default class StreamdeckFactory {
-  public createPlugin() {
+export default class Streamdeck {
+  /**
+   * Creates and returns a new plugin instance
+   */
+  public plugin() {
     const logger = this.createLogger();
     return new Plugin(new EventEmitter(), new EventFactory(logger), logger);
   }
 
-  public createPropertyinspector() {
+  /**
+   * Creates and returns a new propertyinspector instance
+   */
+  public propertyinspector() {
     const logger = this.createLogger();
     return new PropertyInspector(new EventEmitter(), new EventFactory(logger), logger);
   }

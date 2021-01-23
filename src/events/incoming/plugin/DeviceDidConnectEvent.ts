@@ -2,7 +2,7 @@ import { Static } from "@sinclair/typebox";
 import AbstractIncomingBaseEvent from "../AbstractIncomingBaseEvent";
 import assertType from "../assertType";
 import { DeviceDidConnectEventType } from "../streamdecktypes/DeviceEventType";
-import { IncomingPluginEventsEnum } from "./IncomingPluginEventsEnum";
+import { IncomingPluginEvents } from "./IncomingPluginEvents";
 
 export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof DeviceDidConnectEventType>;
@@ -17,7 +17,7 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
     return this.payload.device;
   }
 
-  protected get eventType(): IncomingPluginEventsEnum {
-    return IncomingPluginEventsEnum.DeviceDidConnect;
+  protected get eventType(): IncomingPluginEvents {
+    return IncomingPluginEvents.DeviceDidConnect;
   }
 };

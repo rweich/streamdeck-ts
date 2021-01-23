@@ -1,13 +1,13 @@
 import GetSettingsEvent from "./GetSettingsEvent";
 import LogMessageEvent from "./LogMessageEvent";
-import { OutgoingEventsEnum } from "./OutgoingEventsEnum";
+import { OutgoingEvents } from "./OutgoingEvents";
 import RegisterEvent from "./RegisterEvent";
 import SetSettingsEvent from "./SetSettingsEvent";
 
 export {
   GetSettingsEvent,
   LogMessageEvent,
-  OutgoingEventsEnum,
+  OutgoingEvents,
   RegisterEvent,
   SetSettingsEvent,
 };

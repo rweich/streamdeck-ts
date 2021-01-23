@@ -1,5 +1,5 @@
 import AbstractOutgoingSetterEvent from "./AbstractOutgoingSetterEvent";
-import { OutgoingEventsEnum } from "./OutgoingEventsEnum";
+import { OutgoingEvents } from "./OutgoingEvents";
 
 export default class SetSettingsEvent extends AbstractOutgoingSetterEvent {
   private readonly eventPayload: object;
@@ -10,7 +10,7 @@ export default class SetSettingsEvent extends AbstractOutgoingSetterEvent {
   }
 
   public get event(): string {
-    return OutgoingEventsEnum.SetSettings;
+    return OutgoingEvents.SetSettings;
   }
 
   protected get payload(): object {

@@ -1,9 +1,9 @@
-import { OutgoingPluginEventsEnum } from "./OutgoingPluginEventsEnum";
+import { OutgoingPluginEvents } from "./OutgoingPluginEvents";
 import SetTitleEvent from "./SetTitleEvent";
 import { TargetEnum } from "./TargetEnum";
 
 export {
-  OutgoingPluginEventsEnum,
+  OutgoingPluginEvents,
   SetTitleEvent,
   TargetEnum,
 };
