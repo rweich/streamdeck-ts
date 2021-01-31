@@ -3,8 +3,8 @@ import EventEmitter from 'eventemitter3';
 import 'mocha';
 import { dummyLogger } from 'ts-log';
 import WebSocket from 'ws';
-import EventFactory from '../src/events/incoming/EventFactory';
 import { IncomingEvents } from '../src';
+import EventFactory from '../src/events/incoming/EventFactory';
 import LogMessageEvent from '../src/events/outgoing/LogMessageEvent';
 import PropertyInspector from '../src/PropertyInspector';
 

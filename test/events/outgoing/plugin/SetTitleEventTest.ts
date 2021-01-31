@@ -2,8 +2,8 @@ import { Type } from '@sinclair/typebox';
 import { expect, use } from 'chai';
 import jsonschema from 'chai-json-schema';
 import 'mocha';
-import SetTitleEvent from '../../../../src/events/outgoing/plugin/SetTitleEvent';
 import { TargetEnum } from '../../../../src';
+import SetTitleEvent from '../../../../src/events/outgoing/plugin/SetTitleEvent';
 
 use(jsonschema);
 
