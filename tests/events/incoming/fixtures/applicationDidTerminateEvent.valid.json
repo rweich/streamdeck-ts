@@ -1,6 +1,6 @@
 {
   "event": "applicationDidTerminate",
   "payload" : {
-    "application": "com.apple.mail"
+    "application": "com.apple.mails"
   }
 }

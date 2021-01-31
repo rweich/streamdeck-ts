@@ -1,7 +1,7 @@
-import { Static } from "@sinclair/typebox";
-import AbstractIncomingExtendedEvent from "../AbstractIncomingExtendedEvent";
-import assertType from "../assertType";
-import { KeyEventType } from "../streamdecktypes/KeyEventType";
+import { Static } from '@sinclair/typebox';
+import AbstractIncomingExtendedEvent from '../AbstractIncomingExtendedEvent';
+import assertType from '../assertType';
+import { KeyEventType } from '../streamdecktypes/KeyEventType';
 
 export default abstract class AbstractKeyEvent extends AbstractIncomingExtendedEvent {
   protected readonly payload: Static<typeof KeyEventType>;
@@ -12,15 +12,15 @@ export default abstract class AbstractKeyEvent extends AbstractIncomingExtendedE
     this.payload = payload;
   }
 
-  get row() {
+  get row(): number {
     return this.payload.payload.coordinates.row;
   }
 
-  get column() {
+  get column(): number {
     return this.payload.payload.coordinates.column;
   }
 
-  get isInMultiAction() {
+  get isInMultiAction(): boolean {
     return this.payload.payload.isInMultiAction;
   }
-};
+}

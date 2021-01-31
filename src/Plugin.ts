@@ -1,10 +1,10 @@
-import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
+import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
 import {
   DidReceiveGlobalSettingsEvent,
   DidReceiveSettingsEvent,
   IncomingEvents,
-  OnWebsocketOpenEvent
-} from "./events/incoming";
+  OnWebsocketOpenEvent,
+} from './events/incoming';
 import {
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
@@ -14,11 +14,12 @@ import {
   SendToPluginIncomingEvent,
   TitleParametersDidChangeEvent,
   WillAppearEvent,
-  WillDisappearEvent
-} from "./events/incoming/plugin";
-import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/outgoing";
+  WillDisappearEvent,
+} from './events/incoming/plugin';
+import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from './events/outgoing';
 
-// @formatter:off
+/* @formatter:off */
+/* eslint-disable */
 type EventType<T> =
   T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
   T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
@@ -32,7 +33,8 @@ type EventType<T> =
   T extends IncomingPluginEvents.WillAppear ? WillAppearEvent :
   T extends IncomingPluginEvents.WillDisappear ? WillDisappearEvent :
   never;
-// @formatter:on
+/* eslint-enable */
+/* @formatter:on */
 
 type AllowedIncomingEvents = IncomingEvents | IncomingPluginEvents;
 type AllowedOutgoingEvents = LogMessageEvent | GetSettingsEvent | SetSettingsEvent;
@@ -45,7 +47,7 @@ export default class Plugin extends AbstractStreamdeckConnector {
     this.eventEmitter.on(eventType, callback);
   }
 
-  public sendEvent(event: AllowedOutgoingEvents) {
+  public sendEvent(event: AllowedOutgoingEvents): void {
     this.sendToStreamdeck(event);
   }
-};
+}

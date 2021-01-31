@@ -1,21 +1,23 @@
-import AbstractStreamdeckConnector from "./AbstractStreamdeckConnector";
+import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
 import {
   DidReceiveGlobalSettingsEvent,
   DidReceiveSettingsEvent,
   IncomingEvents,
-  OnWebsocketOpenEvent
-} from "./events/incoming";
-import { IncomingPropertyinspectorEvents, SendToPropertyInspectorEvent } from "./events/incoming/propertyinspector";
-import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from "./events/outgoing";
-import { SendToPluginEvent } from "./events/outgoing/propertyinspector";
+  OnWebsocketOpenEvent,
+} from './events/incoming';
+import { IncomingPropertyinspectorEvents, SendToPropertyInspectorEvent } from './events/incoming/propertyinspector';
+import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from './events/outgoing';
+import { SendToPluginEvent } from './events/outgoing/propertyinspector';
 
-// @formatter:off
+/* @formatter:off */
+/* eslint-disable */
 type EventType<T> =
   T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
   T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
   T extends IncomingEvents.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
   T extends IncomingPropertyinspectorEvents.SendToPropertyInspector ? SendToPropertyInspectorEvent :
   never;
+/* eslint-enable */
 // @formatter:on
 
 type AllowedIncomingEvents = IncomingEvents | IncomingPropertyinspectorEvents;
@@ -29,7 +31,7 @@ export default class PropertyInspector extends AbstractStreamdeckConnector {
     this.eventEmitter.on(eventType, callback);
   }
 
-  public sendEvent(event: AllowedOutgoingEvents) {
+  public sendEvent(event: AllowedOutgoingEvents): void {
     this.sendToStreamdeck(event);
   }
-};
+}

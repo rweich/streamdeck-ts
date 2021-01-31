@@ -1,7 +1,4 @@
-import { OutgoingPropertyinspectorEvents } from "./OutgoingPropertyinspectorEvents";
-import SendToPluginEvent from "./SendToPluginEvent";
+import { OutgoingPropertyinspectorEvents } from './OutgoingPropertyinspectorEvents';
+import SendToPluginEvent from './SendToPluginEvent';
 
-export {
-  OutgoingPropertyinspectorEvents,
-  SendToPluginEvent,
-};
+export { OutgoingPropertyinspectorEvents, SendToPluginEvent };

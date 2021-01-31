@@ -1,4 +1,4 @@
-import AbstractEvent from "./AbstractEvent";
+import AbstractEvent from './AbstractEvent';
 
 export default class RegisterEvent extends AbstractEvent {
   public readonly uuid: string;
@@ -15,6 +15,6 @@ export default class RegisterEvent extends AbstractEvent {
   }
 
   protected get jsonProps(): string[] {
-    return [...super.jsonProps, "uuid"];
+    return [...super.jsonProps, 'uuid'];
   }
-};
+}

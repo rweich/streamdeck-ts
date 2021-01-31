@@ -1,5 +1,5 @@
-import AbstractEvent from "./AbstractEvent";
-import OutgoingEventInterface from "./OutgoingEventInterface";
+import AbstractEvent from './AbstractEvent';
+import OutgoingEventInterface from './OutgoingEventInterface';
 
 export default abstract class AbstractOutgoingEvent extends AbstractEvent implements OutgoingEventInterface {
   public readonly context: string;

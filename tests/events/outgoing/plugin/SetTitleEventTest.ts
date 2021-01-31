@@ -1,48 +1,48 @@
-import { Type } from "@sinclair/typebox";
-import { expect } from "chai";
-import "mocha";
-import SetTitleEvent from "../../../../src/events/outgoing/plugin/SetTitleEvent";
-import { TargetEnum } from "../../../../src/events/outgoing/plugin/TargetEnum";
+import { Type } from '@sinclair/typebox';
+import { expect, use } from 'chai';
+import jsonschema from 'chai-json-schema';
+import 'mocha';
+import SetTitleEvent from '../../../../src/events/outgoing/plugin/SetTitleEvent';
+import { TargetEnum } from '../../../../src';
 
-const chai = require("chai");
-chai.use(require("chai-json-schema"));
+use(jsonschema);
 
 const schema = Type.Object({
-  event: Type.String({pattern: "^setTitle$"}),
+  event: Type.String({ pattern: '^setTitle$' }),
   context: Type.String(),
   payload: Type.Object({
     title: Type.String(),
-    target: Type.Number({minimum: 0, maximum: 2}),
-    state: Type.Optional(Type.Number())
-  })
+    target: Type.Number({ minimum: 0, maximum: 2 }),
+    state: Type.Optional(Type.Number()),
+  }),
 });
 
-describe("SetTitleEvent test", () => {
-  it("validates a basic title event against the json schema", () => {
-    const event = new SetTitleEvent("new title", "context");
+describe('SetTitleEvent test', () => {
+  it('validates a basic title event against the json schema', () => {
+    const event = new SetTitleEvent('new title', 'context');
     expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
   });
-  it("validates a targetted event against the json schema", () => {
-    const event = new SetTitleEvent("new title", "context", TargetEnum.Hardware);
+  it('validates a targetted event against the json schema', () => {
+    const event = new SetTitleEvent('new title', 'context', TargetEnum.Hardware);
     expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
   });
-  it("validates an event with the sate set against the json schema", () => {
-    const event = new SetTitleEvent("new title", "context", TargetEnum.Software, 1);
+  it('validates an event with the sate set against the json schema', () => {
+    const event = new SetTitleEvent('new title', 'context', TargetEnum.Software, 1);
     expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
   });
-  it("returns the right values for a basic event", () => {
-    const event = new SetTitleEvent("new title", "context");
-    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal("new title");
+  it('returns the right values for a basic event', () => {
+    const event = new SetTitleEvent('new title', 'context');
+    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal('new title');
     expect(JSON.parse(JSON.stringify(event)).payload.state).to.be.undefined;
   });
-  it("returns the right values for a targetted event", () => {
-    const event = new SetTitleEvent("new title2", "context", TargetEnum.Software);
-    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal("new title2");
+  it('returns the right values for a targetted event', () => {
+    const event = new SetTitleEvent('new title2', 'context', TargetEnum.Software);
+    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal('new title2');
     expect(JSON.parse(JSON.stringify(event)).payload.target).to.equal(TargetEnum.Software);
   });
-  it("returns the right values for an event with a specified state", () => {
-    const event = new SetTitleEvent("new title3", "context", TargetEnum.Hardware, 1);
-    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal("new title3");
+  it('returns the right values for an event with a specified state', () => {
+    const event = new SetTitleEvent('new title3', 'context', TargetEnum.Hardware, 1);
+    expect(JSON.parse(JSON.stringify(event)).payload.title).to.equal('new title3');
     expect(JSON.parse(JSON.stringify(event)).payload.target).to.equal(TargetEnum.Hardware);
     expect(JSON.parse(JSON.stringify(event)).payload.state).to.equal(1);
   });

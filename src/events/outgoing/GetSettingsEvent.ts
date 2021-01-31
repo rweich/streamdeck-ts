@@ -1,5 +1,5 @@
-import AbstractOutgoingEvent from "./AbstractOutgoingEvent";
-import { OutgoingEvents } from "./OutgoingEvents";
+import AbstractOutgoingEvent from './AbstractOutgoingEvent';
+import { OutgoingEvents } from './OutgoingEvents';
 
 export default class GetSettingsEvent extends AbstractOutgoingEvent {
   constructor(context: string) {
@@ -9,4 +9,4 @@ export default class GetSettingsEvent extends AbstractOutgoingEvent {
   public get event(): string {
     return OutgoingEvents.GetSettings;
   }
-};
+}

@@ -1,7 +1,7 @@
-import { Static } from "@sinclair/typebox";
-import AbstractIncomingExtendedEvent from "../AbstractIncomingExtendedEvent";
-import assertType from "../assertType";
-import { StateEventType } from "../streamdecktypes/StateEventType";
+import { Static } from '@sinclair/typebox';
+import AbstractIncomingExtendedEvent from '../AbstractIncomingExtendedEvent';
+import assertType from '../assertType';
+import { StateEventType } from '../streamdecktypes/StateEventType';
 
 export default abstract class AbstractStateEvent extends AbstractIncomingExtendedEvent {
   protected payload: Static<typeof StateEventType>;
@@ -12,23 +12,23 @@ export default abstract class AbstractStateEvent extends AbstractIncomingExtende
     this.payload = payload;
   }
 
-  public get settings() {
+  public get settings(): unknown {
     return this.payload.payload.settings;
   }
 
-  public get row() {
+  public get row(): number {
     return this.payload.payload.coordinates.row;
   }
 
-  public get column() {
+  public get column(): number {
     return this.payload.payload.coordinates.column;
   }
 
-  public get isInMultiAction() {
+  public get isInMultiAction(): boolean {
     return this.payload.payload.isInMultiAction;
   }
 
-  public get state() {
+  public get state(): number | undefined {
     return this.payload.payload.state;
   }
-};
+}

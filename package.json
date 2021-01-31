@@ -1,6 +1,6 @@
 {
   "name": "@rweich/streamdeck-ts",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "sdk to create streamdeck plugins in typescript",
   "private": true,
   "author": "rweich",
@@ -24,9 +24,15 @@
     "@types/mocha": "^8.2.0",
     "@types/sinon": "^9.0.10",
     "@types/ws": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
     "chai": "^4.2.0",
     "chai-json-schema": "^1.5.1",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "mocha": "^8.2.1",
+    "prettier": "npm:@btmills/prettier",
     "sinon": "^9.2.2",
     "ts-node": "^9.1.1",
     "ts-type-guards": "^0.7.0",
@@ -34,10 +40,12 @@
     "ws": "^7.4.2"
   },
   "scripts": {
+    "ci": "yarn type-check && yarn lint && yarn lint-tests && yarn test",
     "clean": "rm -rf dist/*",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "lint": "eslint ./src/**/*.ts",
+    "lint-tests": "eslint ./tests/**/*.ts",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'"
   },
   "files": [

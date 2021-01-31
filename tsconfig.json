@@ -19,9 +19,11 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   },
   "files": [
     "src/index.ts"
-  ]
+  ],
+  "include": ["tests"]
 }

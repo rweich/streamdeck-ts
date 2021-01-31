@@ -1,7 +1,7 @@
-import assertType from "../assertType";
-import { KeyDownEventType } from "../streamdecktypes/KeyEventType";
-import AbstractKeyEvent from "./AbstractKeyEvent";
-import { IncomingPluginEvents } from "./IncomingPluginEvents";
+import assertType from '../assertType';
+import { KeyDownEventType } from '../streamdecktypes/KeyEventType';
+import AbstractKeyEvent from './AbstractKeyEvent';
+import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class KeyDownEvent extends AbstractKeyEvent {
   public constructor(payload: unknown) {
@@ -12,4 +12,4 @@ export default class KeyDownEvent extends AbstractKeyEvent {
   protected get eventType(): IncomingPluginEvents {
     return IncomingPluginEvents.KeyDown;
   }
-};
+}

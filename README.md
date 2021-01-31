@@ -13,8 +13,8 @@ and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/
 
 | Type to bind | Received event | Plugin event | Propertyinspector event |
 | --- | --- | --- | --- |
-| ApplicationDidLaunch | to be implemented | X | |
-| ApplicationDidTerminate | to be implemented | X | |
+| ApplicationDidLaunch | [ApplicationDidLaunchEvent](src/events/incoming/plugin/ApplicationDidLaunchEvent.ts) | X | |
+| ApplicationDidTerminate | [ApplicationDidTerminateEvent](src/events/incoming/plugin/ApplicationDidTerminateEvent.ts) | X | |
 | DeviceDidConnectEvent | [DeviceDidConnectEvent](src/events/incoming/plugin/DeviceDidConnectEvent.ts) | X | |
 | DeviceDidDisconnectEvent | [DeviceDidDisconnectEvent](src/events/incoming/plugin/DeviceDidDisconnectEvent.ts) | X | |
 | DidReceiveGlobalSettings | [DidReceiveGlobalSettingsEvent](src/events/incoming/DidReceiveGlobalSettingsEvent.ts) | X | X |
@@ -27,7 +27,7 @@ and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/
 | SendToPluginEvent | [SendToPluginEvent](src/events/incoming/plugin/SendToPluginIncomingEvent.ts) | X | |
 | SendToPropertyInspector | to be implemented | | X |
 | SystemDidWakeUp | to be implemented | X | |
-| TitleParametersDidChangeEvent | [TitleParametersDidChangeEvent](src/events/incoming/plugin/TitleParametersDidChangeEvent.ts) | X | |
+| TitleParametersDidChangeEvent | to be fully implemented | X | |
 | WillAppearEvent | [WillAppearEvent](src/events/incoming/plugin/WillAppearEvent.ts) | X | |
 | WillDisappearEvent | [WillDisappearEvent](src/events/incoming/plugin/WillDisappearEvent.ts) | X | |
 

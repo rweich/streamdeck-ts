@@ -1,6 +1,6 @@
-import AbstractOutgoingSetterEvent from "../AbstractOutgoingSetterEvent";
-import { OutgoingPluginEvents } from "./OutgoingPluginEvents";
-import { TargetEnum } from "./TargetEnum";
+import AbstractOutgoingSetterEvent from '../AbstractOutgoingSetterEvent';
+import { OutgoingPluginEvents } from './OutgoingPluginEvents';
+import { TargetEnum } from './TargetEnum';
 
 export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
   public readonly title: string;
@@ -18,14 +18,14 @@ export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
     return OutgoingPluginEvents.SetTitle;
   }
 
-  protected get payload(): object {
-    let payload: object = {
+  protected get payload(): unknown {
+    let payload: Record<string, unknown> = {
       title: this.title,
-      target: this.target
+      target: this.target,
     };
     if (this.state !== undefined) {
-      payload = {...payload, state: this.state};
+      payload = { ...payload, state: this.state };
     }
     return payload;
   }
-};
+}

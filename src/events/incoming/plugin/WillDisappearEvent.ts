@@ -1,8 +1,8 @@
-import { Static } from "@sinclair/typebox";
-import assertType from "../assertType";
-import { WillDisappearEventType } from "../streamdecktypes/StateEventType";
-import AbstractStateEvent from "./AbstractStateEvent";
-import { IncomingPluginEvents } from "./IncomingPluginEvents";
+import { Static } from '@sinclair/typebox';
+import assertType from '../assertType';
+import { WillDisappearEventType } from '../streamdecktypes/StateEventType';
+import AbstractStateEvent from './AbstractStateEvent';
+import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class WillDisappearEvent extends AbstractStateEvent {
   protected payload: Static<typeof WillDisappearEventType>;
@@ -16,4 +16,4 @@ export default class WillDisappearEvent extends AbstractStateEvent {
   protected get eventType(): IncomingPluginEvents {
     return IncomingPluginEvents.WillDisappear;
   }
-};
+}

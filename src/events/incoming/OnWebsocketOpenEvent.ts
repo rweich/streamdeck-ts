@@ -6,4 +6,4 @@ export default class OnWebsocketOpenEvent {
     this.uuid = uuid;
     this.info = info;
   }
-};
+}

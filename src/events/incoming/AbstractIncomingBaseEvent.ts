@@ -1,9 +1,9 @@
-import { Static } from "@sinclair/typebox";
-import assertType from "./assertType";
-import { IncomingEvents } from "./IncomingEvents";
-import { IncomingPluginEvents } from "./plugin/IncomingPluginEvents";
-import { IncomingPropertyinspectorEvents } from "./propertyinspector/IncomingPropertyinspectorEvents";
-import { BaseEventType } from "./streamdecktypes/BaseEventType";
+import { Static } from '@sinclair/typebox';
+import assertType from './assertType';
+import { IncomingEvents } from './IncomingEvents';
+import { IncomingPluginEvents } from './plugin';
+import { IncomingPropertyinspectorEvents } from './propertyinspector';
+import { BaseEventType } from './streamdecktypes/BaseEventType';
 
 export type IncomingEventsTypes = IncomingEvents | IncomingPluginEvents | IncomingPropertyinspectorEvents;
 
@@ -15,9 +15,9 @@ export default abstract class AbstractIncomingBaseEvent {
     this.payload = payload;
   }
 
-  public get event() {
+  public get event(): string {
     return this.payload.event;
   }
 
   protected abstract get eventType(): IncomingEventsTypes;
-};
+}

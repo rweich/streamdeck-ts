@@ -1,14 +1,16 @@
-import { MessageEvent } from "isomorphic-ws";
-import { Logger } from "ts-log";
-import AbstractIncomingBaseEvent from "./AbstractIncomingBaseEvent";
-import AbstractIncomingExtendedEvent from "./AbstractIncomingExtendedEvent";
-import DidReceiveGlobalSettingsEvent from "./DidReceiveGlobalSettingsEvent";
-import DidReceiveSettingsEvent from "./DidReceiveSettingsEvent";
-import JsonParseError from "./exception/JsonParseError";
-import MissingEventInPayloadError from "./exception/MissingEventInPayloadError";
-import UnknownEventError from "./exception/UnknownEventError";
-import { IncomingEvents } from "./IncomingEvents";
+import { MessageEvent } from 'isomorphic-ws';
+import { Logger } from 'ts-log';
+import AbstractIncomingBaseEvent from './AbstractIncomingBaseEvent';
+import AbstractIncomingExtendedEvent from './AbstractIncomingExtendedEvent';
+import DidReceiveGlobalSettingsEvent from './DidReceiveGlobalSettingsEvent';
+import DidReceiveSettingsEvent from './DidReceiveSettingsEvent';
+import JsonParseError from './exception/JsonParseError';
+import MissingEventInPayloadError from './exception/MissingEventInPayloadError';
+import UnknownEventError from './exception/UnknownEventError';
+import { IncomingEvents } from './IncomingEvents';
 import {
+  ApplicationDidLaunchEvent,
+  ApplicationDidTerminateEvent,
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
   IncomingPluginEvents,
@@ -19,19 +21,19 @@ import {
   SendToPluginIncomingEvent,
   TitleParametersDidChangeEvent,
   WillAppearEvent,
-  WillDisappearEvent
-} from "./plugin";
+  WillDisappearEvent,
+} from './plugin';
 
 interface BasicIncomingEvent {
   event: IncomingEvents | IncomingPluginEvents;
 }
 
 function isBasicIncomingEvent(event: unknown): event is BasicIncomingEvent {
-  return (event as BasicIncomingEvent).hasOwnProperty("event") && (event as BasicIncomingEvent)["event"].length > 0;
+  return (event as BasicIncomingEvent).hasOwnProperty('event') && (event as BasicIncomingEvent)['event'].length > 0;
 }
 
 type IncomingEventTypes =
-  AbstractIncomingBaseEvent
+  | AbstractIncomingBaseEvent
   | AbstractIncomingExtendedEvent
   | DeviceDidConnectEvent
   | DeviceDidDisconnectEvent
@@ -44,22 +46,22 @@ export default class EventFactory {
     this.logger = logger;
   }
 
-  public createByMessageEvent(messageEvent: MessageEvent) {
-    this.logger.debug("got message", messageEvent);
+  public createByMessageEvent(messageEvent: MessageEvent): IncomingEventTypes {
+    this.logger.debug('got message', messageEvent);
     let data;
 
     try {
       data = JSON.parse(messageEvent.data.toString());
     } catch (e) {
-      throw new JsonParseError("error on parsing json: " + e.toString());
+      throw new JsonParseError('error on parsing json: ' + e.toString());
     }
-    this.logger.debug("event data:", data);
+    this.logger.debug('event data:', data);
     return this.createEventByPayload(data);
   }
 
-  private createEventByPayload(payload: object): IncomingEventTypes {
+  private createEventByPayload(payload: unknown): IncomingEventTypes {
     if (!isBasicIncomingEvent(payload)) {
-      throw new MissingEventInPayloadError("no event type in received data: " + JSON.stringify(payload));
+      throw new MissingEventInPayloadError('no event type in received data: ' + JSON.stringify(payload));
     }
 
     switch (payload.event) {
@@ -67,6 +69,10 @@ export default class EventFactory {
         return new DidReceiveSettingsEvent(payload);
       case IncomingEvents.DidReceiveGlobalSettings:
         return new DidReceiveGlobalSettingsEvent(payload);
+      case IncomingPluginEvents.ApplicationDidLaunch:
+        return new ApplicationDidLaunchEvent(payload);
+      case IncomingPluginEvents.ApplicationDidTerminate:
+        return new ApplicationDidTerminateEvent(payload);
       case IncomingPluginEvents.DeviceDidConnect:
         return new DeviceDidConnectEvent(payload);
       case IncomingPluginEvents.DeviceDidDisconnect:
@@ -88,7 +94,7 @@ export default class EventFactory {
       case IncomingPluginEvents.WillDisappear:
         return new WillDisappearEvent(payload);
       default:
-        throw new UnknownEventError("unknown event: " + payload.event + " in data: " + JSON.stringify(payload));
+        throw new UnknownEventError('unknown event: ' + payload.event + ' in data: ' + JSON.stringify(payload));
     }
   }
-};
+}

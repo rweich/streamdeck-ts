@@ -1,5 +1,5 @@
-import { Type } from "@sinclair/typebox";
-import { BaseEventType } from "./BaseEventType";
+import { Type } from '@sinclair/typebox';
+import { BaseEventType } from './BaseEventType';
 
 export const ExtendedEventType = Type.Intersect([
   BaseEventType,
@@ -7,5 +7,5 @@ export const ExtendedEventType = Type.Intersect([
     action: Type.String(),
     context: Type.String(),
     device: Type.String(),
-  })
+  }),
 ]);

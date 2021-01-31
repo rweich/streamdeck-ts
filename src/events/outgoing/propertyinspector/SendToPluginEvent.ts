@@ -1,11 +1,11 @@
-import AbstractOutgoingSetterEvent from "../AbstractOutgoingSetterEvent";
-import { OutgoingPropertyinspectorEvents } from "./OutgoingPropertyinspectorEvents";
+import AbstractOutgoingSetterEvent from '../AbstractOutgoingSetterEvent';
+import { OutgoingPropertyinspectorEvents } from './OutgoingPropertyinspectorEvents';
 
 export default class SendToPluginEvent extends AbstractOutgoingSetterEvent {
   private readonly action: string;
-  private readonly eventPayload: object;
+  private readonly eventPayload: unknown;
 
-  constructor(action: string, context: string, eventPayload: object) {
+  constructor(action: string, context: string, eventPayload: unknown) {
     super(context);
     this.action = action;
     this.eventPayload = eventPayload;
@@ -15,11 +15,11 @@ export default class SendToPluginEvent extends AbstractOutgoingSetterEvent {
     return OutgoingPropertyinspectorEvents.SendToPlugin;
   }
 
-  protected get payload(): object {
+  protected get payload(): unknown {
     return this.eventPayload;
   }
 
   protected get jsonProps(): string[] {
     return [...super.jsonProps, 'action'];
   }
-};
+}

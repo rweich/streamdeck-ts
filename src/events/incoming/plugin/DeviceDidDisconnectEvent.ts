@@ -1,8 +1,8 @@
-import { Static } from "@sinclair/typebox";
-import assertType from "../assertType";
-import { DeviceDidDisconnectType } from "../streamdecktypes/DeviceEventType";
-import DeviceDidConnectEvent from "./DeviceDidConnectEvent";
-import { IncomingPluginEvents } from "./IncomingPluginEvents";
+import { Static } from '@sinclair/typebox';
+import assertType from '../assertType';
+import { DeviceDidDisconnectType } from '../streamdecktypes/DeviceEventType';
+import DeviceDidConnectEvent from './DeviceDidConnectEvent';
+import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class DeviceDidDisconnectEvent extends DeviceDidConnectEvent {
   protected readonly payload: Static<typeof DeviceDidDisconnectType>;
@@ -13,23 +13,23 @@ export default class DeviceDidDisconnectEvent extends DeviceDidConnectEvent {
     this.payload = payload;
   }
 
-  public get name() {
+  public get name(): string {
     return this.payload.deviceInfo.name;
   }
 
-  public get type() {
+  public get type(): number {
     return this.payload.deviceInfo.type;
   }
 
-  public get columns() {
+  public get columns(): number {
     return this.payload.deviceInfo.size.columns;
   }
 
-  public get rows() {
+  public get rows(): number {
     return this.payload.deviceInfo.size.rows;
   }
 
   protected get eventType(): IncomingPluginEvents {
     return IncomingPluginEvents.DeviceDidConnect;
   }
-};
+}

@@ -1,7 +1,7 @@
-import { Static } from "@sinclair/typebox";
-import AbstractIncomingBaseEvent, { IncomingEventsTypes } from "./AbstractIncomingBaseEvent";
-import assertType from "./assertType";
-import { ExtendedEventType } from "./streamdecktypes/ExtendedEventType";
+import { Static } from '@sinclair/typebox';
+import AbstractIncomingBaseEvent, { IncomingEventsTypes } from './AbstractIncomingBaseEvent';
+import assertType from './assertType';
+import { ExtendedEventType } from './streamdecktypes/ExtendedEventType';
 
 export default abstract class AbstractIncomingExtendedEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof ExtendedEventType>;
@@ -12,17 +12,17 @@ export default abstract class AbstractIncomingExtendedEvent extends AbstractInco
     this.payload = payload;
   }
 
-  public get action() {
+  public get action(): string {
     return this.payload.action;
   }
 
-  public get context() {
+  public get context(): string {
     return this.payload.context;
   }
 
-  public get device() {
+  public get device(): string {
     return this.payload.device;
   }
 
   protected abstract get eventType(): IncomingEventsTypes;
-};
+}

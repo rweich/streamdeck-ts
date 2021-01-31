@@ -1,5 +1,5 @@
 export enum IncomingEvents {
   OnWebsocketOpen = 'onWebsocketOpen',
-  DidReceiveSettings = "didReceiveSettings",
-  DidReceiveGlobalSettings = "didReceiveGlobalSettings",
+  DidReceiveSettings = 'didReceiveSettings',
+  DidReceiveGlobalSettings = 'didReceiveGlobalSettings',
 }

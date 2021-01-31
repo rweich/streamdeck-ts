@@ -1,8 +1,8 @@
-import { Static } from "@sinclair/typebox";
-import AbstractIncomingBaseEvent from "../AbstractIncomingBaseEvent";
-import assertType from "../assertType";
-import { DeviceDidConnectEventType } from "../streamdecktypes/DeviceEventType";
-import { IncomingPluginEvents } from "./IncomingPluginEvents";
+import { Static } from '@sinclair/typebox';
+import AbstractIncomingBaseEvent from '../AbstractIncomingBaseEvent';
+import assertType from '../assertType';
+import { DeviceDidConnectEventType } from '../streamdecktypes/DeviceEventType';
+import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof DeviceDidConnectEventType>;
@@ -13,11 +13,11 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
     this.payload = payload;
   }
 
-  public get device() {
+  public get device(): string {
     return this.payload.device;
   }
 
   protected get eventType(): IncomingPluginEvents {
     return IncomingPluginEvents.DeviceDidConnect;
   }
-};
+}
