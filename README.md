@@ -1,5 +1,6 @@
 # streamdeck-ts
 
+![Build/Test](https://github.com/rweich/streamdeck-ts/workflows/Build%2FTest/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/rweich/streamdeck-ts/badge.svg?branch=main)](https://coveralls.io/github/rweich/streamdeck-ts?branch=main)
 
 A sdk to create streamdeck plugins in typescript.
