@@ -2,7 +2,6 @@
   "name": "@rweich/streamdeck-ts",
   "version": "0.1.0",
   "description": "sdk to create streamdeck plugins in typescript",
-  "private": true,
   "author": "rweich",
   "license": "MIT",
   "main": "dist/index.js",
@@ -62,6 +61,9 @@
     "README.md",
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
