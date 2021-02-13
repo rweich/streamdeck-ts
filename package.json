@@ -20,6 +20,8 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/chai": "^4.2.14",
     "@types/chai-json-schema": "^1.4.6",
     "@types/mocha": "^8.2.0",
@@ -39,6 +41,7 @@
     "nyc": "^15.1.0",
     "organize-imports-cli": "^0.8.0",
     "prettier": "npm:@btmills/prettier",
+    "semantic-release": "^17.3.7",
     "sinon": "^9.2.2",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
