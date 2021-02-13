@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/rweich/streamdeck-ts/compare/v1.0.0...v1.0.1) (2021-02-13)
+
+
+### Bug Fixes
+
+* removed assetconfig from github action ([2c7a22a](https://github.com/rweich/streamdeck-ts/commit/2c7a22a4802a083a9a98ed0a8672c347b8d7faf2))
+
 # 1.0.0 (2021-02-13)
 
 
