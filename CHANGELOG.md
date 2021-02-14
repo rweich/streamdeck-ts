@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/rweich/streamdeck-ts/compare/v1.0.1...v1.0.2) (2021-02-14)
+
+
+### Bug Fixes
+
+* device events ([c820653](https://github.com/rweich/streamdeck-ts/commit/c820653e1f43f20c11ebcc695622a68aada8f652))
+
 ## [1.0.1](https://github.com/rweich/streamdeck-ts/compare/v1.0.0...v1.0.1) (2021-02-13)
 
 
