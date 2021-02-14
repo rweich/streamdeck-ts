@@ -1,5 +1,5 @@
 {
-  "device": "dededededded",
+  "device": "dedededed",
   "deviceInfo": {
     "name": "Stream Deck XL",
     "size": {
@@ -8,5 +8,5 @@
     },
     "type": 2
   },
-  "event": "deviceDidConnect"
+  "event": "deviceDidDisconnect"
 }
