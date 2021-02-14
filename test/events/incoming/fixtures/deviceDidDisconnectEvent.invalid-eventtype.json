@@ -1,0 +1,4 @@
+{
+  "event": "deviceDidConnect",
+  "device": "opaqueValue"
+}

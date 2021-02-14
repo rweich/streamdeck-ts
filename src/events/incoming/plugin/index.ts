@@ -2,6 +2,7 @@ import ApplicationDidLaunchEvent from './ApplicationDidLaunchEvent';
 import ApplicationDidTerminateEvent from './ApplicationDidTerminateEvent';
 import DeviceDidConnectEvent from './DeviceDidConnectEvent';
 import DeviceDidDisconnectEvent from './DeviceDidDisconnectEvent';
+import { DeviceType } from './DeviceType';
 import { IncomingPluginEvents } from './IncomingPluginEvents';
 import KeyDownEvent from './KeyDownEvent';
 import KeyUpEvent from './KeyUpEvent';
@@ -17,6 +18,7 @@ export {
   ApplicationDidTerminateEvent,
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
+  DeviceType,
   IncomingPluginEvents,
   KeyDownEvent,
   KeyUpEvent,
