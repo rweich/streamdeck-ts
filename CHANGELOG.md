@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/rweich/streamdeck-ts/compare/v1.0.2...v1.1.0) (2021-02-25)
+
+
+### Features
+
+* add some missing outgoing events ([6137c15](https://github.com/rweich/streamdeck-ts/commit/6137c155af9762525ab2e6688d46057cefb1aaf2))
+
 ## [1.0.2](https://github.com/rweich/streamdeck-ts/compare/v1.0.1...v1.0.2) (2021-02-14)
 
 
