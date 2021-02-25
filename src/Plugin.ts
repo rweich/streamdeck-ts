@@ -16,28 +16,45 @@ import {
   WillAppearEvent,
   WillDisappearEvent,
 } from './events/incoming/plugin';
-import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from './events/outgoing';
+import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, SetSettingsEvent } from './events/outgoing';
+import { SetImageEvent, SetTitleEvent } from './events/outgoing/plugin';
 
 /* @formatter:off */
 /* eslint-disable */
-type EventType<T> =
-  T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
-  T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
-  T extends IncomingEvents.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
-  T extends IncomingPluginEvents.DeviceDidConnect ? DeviceDidConnectEvent :
-  T extends IncomingPluginEvents.DeviceDidDisconnect ? DeviceDidDisconnectEvent :
-  T extends IncomingPluginEvents.KeyDown ? KeyDownEvent :
-  T extends IncomingPluginEvents.KeyUp ? KeyUpEvent :
-  T extends IncomingPluginEvents.SendToPlugin ? SendToPluginIncomingEvent :
-  T extends IncomingPluginEvents.TitleParametersDidChange ? TitleParametersDidChangeEvent :
-  T extends IncomingPluginEvents.WillAppear ? WillAppearEvent :
-  T extends IncomingPluginEvents.WillDisappear ? WillDisappearEvent :
-  never;
+type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
+  ? OnWebsocketOpenEvent
+  : T extends IncomingEvents.DidReceiveSettings
+  ? DidReceiveSettingsEvent
+  : T extends IncomingEvents.DidReceiveGlobalSettings
+  ? DidReceiveGlobalSettingsEvent
+  : T extends IncomingPluginEvents.DeviceDidConnect
+  ? DeviceDidConnectEvent
+  : T extends IncomingPluginEvents.DeviceDidDisconnect
+  ? DeviceDidDisconnectEvent
+  : T extends IncomingPluginEvents.KeyDown
+  ? KeyDownEvent
+  : T extends IncomingPluginEvents.KeyUp
+  ? KeyUpEvent
+  : T extends IncomingPluginEvents.SendToPlugin
+  ? SendToPluginIncomingEvent
+  : T extends IncomingPluginEvents.TitleParametersDidChange
+  ? TitleParametersDidChangeEvent
+  : T extends IncomingPluginEvents.WillAppear
+  ? WillAppearEvent
+  : T extends IncomingPluginEvents.WillDisappear
+  ? WillDisappearEvent
+  : never;
 /* eslint-enable */
 /* @formatter:on */
 
 type AllowedIncomingEvents = IncomingEvents | IncomingPluginEvents;
-type AllowedOutgoingEvents = LogMessageEvent | GetSettingsEvent | SetSettingsEvent;
+type AllowedOutgoingEvents =
+  | LogMessageEvent
+  | GetSettingsEvent
+  | SetSettingsEvent
+  | OpenUrlEvent
+  | SetTitleEvent
+  | SetImageEvent;
 
 export default class Plugin extends AbstractStreamdeckConnector {
   /**

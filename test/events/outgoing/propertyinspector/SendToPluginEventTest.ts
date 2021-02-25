@@ -1,22 +1,15 @@
-import { Type } from '@sinclair/typebox';
 import { expect, use } from 'chai';
 import jsonschema from 'chai-json-schema';
 import 'mocha';
 import SendToPluginEvent from '../../../../src/events/outgoing/propertyinspector/SendToPluginEvent';
+import { SendToPluginSchema } from '../types';
 
 use(jsonschema);
-
-const schema = Type.Object({
-  action: Type.String(),
-  event: Type.String({ pattern: '^sendToPlugin$' }),
-  context: Type.String(),
-  payload: Type.Any(),
-});
 
 describe('SendToPluginEventTest test', () => {
   it('validates the event against the json schema', () => {
     const event = new SendToPluginEvent('action', 'context', { foo: 'bar' });
-    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
+    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(SendToPluginSchema);
   });
   it('returns the right values for the event', () => {
     const event = new SendToPluginEvent('action', 'context', { foo: 'bar' });

@@ -1,34 +1,24 @@
-import { Type } from '@sinclair/typebox';
 import { expect, use } from 'chai';
 import jsonschema from 'chai-json-schema';
 import 'mocha';
 import { TargetEnum } from '../../../../src';
 import SetTitleEvent from '../../../../src/events/outgoing/plugin/SetTitleEvent';
+import { SetTitleSchema } from '../types';
 
 use(jsonschema);
-
-const schema = Type.Object({
-  event: Type.String({ pattern: '^setTitle$' }),
-  context: Type.String(),
-  payload: Type.Object({
-    title: Type.String(),
-    target: Type.Number({ minimum: 0, maximum: 2 }),
-    state: Type.Optional(Type.Number()),
-  }),
-});
 
 describe('SetTitleEvent test', () => {
   it('validates a basic title event against the json schema', () => {
     const event = new SetTitleEvent('new title', 'context');
-    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
+    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(SetTitleSchema);
   });
   it('validates a targetted event against the json schema', () => {
     const event = new SetTitleEvent('new title', 'context', TargetEnum.Hardware);
-    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
+    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(SetTitleSchema);
   });
   it('validates an event with the sate set against the json schema', () => {
     const event = new SetTitleEvent('new title', 'context', TargetEnum.Software, 1);
-    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(schema);
+    expect(JSON.parse(JSON.stringify(event))).to.be.jsonSchema(SetTitleSchema);
   });
   it('returns the right values for a basic event', () => {
     const event = new SetTitleEvent('new title', 'context');

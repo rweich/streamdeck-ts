@@ -1,4 +1,4 @@
 import { IncomingPropertyinspectorEvents } from './IncomingPropertyinspectorEvents';
-import SendToPropertyInspectorEvent from './SendToPropertyInspectorEvent';
+import SendToPropertyInspectorIncomingEvent from './SendToPropertyInspectorIncomingEvent';
 
-export { IncomingPropertyinspectorEvents, SendToPropertyInspectorEvent };
+export { IncomingPropertyinspectorEvents, SendToPropertyInspectorIncomingEvent };

@@ -5,9 +5,13 @@
 
 A sdk to create streamdeck plugins in typescript.
 
-# Events
+## Examples
+- [streamdeck-datetime](https://github.com/rweich/streamdeck-datetime) - a simple datetime plugin.
+- [streamdeck-ts-template](https://github.com/rweich/streamdeck-ts-template) - a template repository for a quick start writing your own plugin.
 
-## Incoming events
+## Events
+
+### Incoming events
 
 The plugin or propertyinpector can listen to the following events
 based on the type as seen in [IncomingEventsEnum](src/events/incoming/IncomingEvents.ts),
@@ -27,14 +31,14 @@ and [IncomingPropertyinspectorEventsEnum](src/events/incoming/propertyinspector/
 | OnWebsocketOpen | [OnWebsocketOpenEvent](src/events/incoming/OnWebsocketOpenEvent.ts) | X | X |
 | PropertyInspectorDidAppearEvent | [PropertyInspectorDidAppearEvent](src/events/incoming/plugin/PropertyInspectorDidAppearEvent.ts) | X | |
 | PropertyInspectorDidDisappearEvent | [PropertyInspectorDidDisappearEvent](src/events/incoming/plugin/PropertyInspectorDidDisappearEvent.ts) | X | |
-| SendToPluginEvent | [SendToPluginEvent](src/events/incoming/plugin/SendToPluginIncomingEvent.ts) | X | |
+| SendToPluginIncomingEvent | [SendToPluginIncomingEvent](src/events/incoming/plugin/SendToPluginIncomingEvent.ts) | X | |
 | SendToPropertyInspector | to be implemented | | X |
 | SystemDidWakeUp | to be implemented | X | |
 | TitleParametersDidChangeEvent | to be fully implemented | X | |
 | WillAppearEvent | [WillAppearEvent](src/events/incoming/plugin/WillAppearEvent.ts) | X | |
 | WillDisappearEvent | [WillDisappearEvent](src/events/incoming/plugin/WillDisappearEvent.ts) | X | |
 
-### Example
+#### Example
 
 Listening to keypresses on the streamdeck:
 
@@ -45,19 +49,28 @@ plugin.on(IncomingPluginEventsEnum.KeyDown, event => {
 });
 ```
 
-## Outgoing events
+### Outgoing events
 
 The plugin and propertyinspector can send the following events to the streamdeck:
 
 | Event | Plugin event | Propertyinspector event |
 | --- | --- | --- |
+| GetGlobalSettingsEvent | X | X |
 | [GetSettingsEvent](src/events/outgoing/GetSettingsEvent.ts) | X | X |
 | [LogMessageEvent](src/events/outgoing/LogMessageEvent.ts) | X | X |
+| [OpenUrlEvent](src/events/outgoing/OpenUrlEvent.ts) | X | X |
 | [SendToPluginEvent](src/events/outgoing/propertyinspector/SendToPluginEvent.ts) | | X |
+| [SendToPropertyInspectorEvent](src/events/outgoing/plugin/SendToPropertyInspectorEvent.ts) | X | |
+| [SetImageEvent](src/events/outgoing/plugin/SetImageEvent.ts) | X | |
+| SetGlobalSettingsEvent | X | X |
 | [SetSettingsEvent](src/events/outgoing/SetSettingsEvent.ts) | X | X |
+| SetStateEvent | X | |
 | [SetTitleEvent](src/events/outgoing/plugin/SetTitleEvent.ts) | X | |
+| ShowAlertEvent | X | |
+| ShowOkEvent | X | |
+| SwitchToProfileEvent | X | |
 
-### Example
+#### Example
 
 Setting the title in the plugin:
 

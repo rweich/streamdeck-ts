@@ -5,23 +5,29 @@ import {
   IncomingEvents,
   OnWebsocketOpenEvent,
 } from './events/incoming';
-import { IncomingPropertyinspectorEvents, SendToPropertyInspectorEvent } from './events/incoming/propertyinspector';
-import { GetSettingsEvent, LogMessageEvent, SetSettingsEvent } from './events/outgoing';
+import {
+  IncomingPropertyinspectorEvents,
+  SendToPropertyInspectorIncomingEvent,
+} from './events/incoming/propertyinspector';
+import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, SetSettingsEvent } from './events/outgoing';
 import { SendToPluginEvent } from './events/outgoing/propertyinspector';
 
 /* @formatter:off */
 /* eslint-disable */
-type EventType<T> =
-  T extends IncomingEvents.OnWebsocketOpen ? OnWebsocketOpenEvent :
-  T extends IncomingEvents.DidReceiveSettings ? DidReceiveSettingsEvent :
-  T extends IncomingEvents.DidReceiveGlobalSettings ? DidReceiveGlobalSettingsEvent :
-  T extends IncomingPropertyinspectorEvents.SendToPropertyInspector ? SendToPropertyInspectorEvent :
-  never;
+type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
+  ? OnWebsocketOpenEvent
+  : T extends IncomingEvents.DidReceiveSettings
+  ? DidReceiveSettingsEvent
+  : T extends IncomingEvents.DidReceiveGlobalSettings
+  ? DidReceiveGlobalSettingsEvent
+  : T extends IncomingPropertyinspectorEvents.SendToPropertyInspector
+  ? SendToPropertyInspectorIncomingEvent
+  : never;
 /* eslint-enable */
 // @formatter:on
 
 type AllowedIncomingEvents = IncomingEvents | IncomingPropertyinspectorEvents;
-type AllowedOutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent;
+type AllowedOutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent | OpenUrlEvent;
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   /**
