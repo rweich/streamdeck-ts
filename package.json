@@ -1,7 +1,7 @@
 {
   "name": "@rweich/streamdeck-ts",
   "version": "1.1.0",
-  "description": "sdk to create streamdeck plugins in typescript",
+  "description": "SDK to create streamdeck plugins in typescript with typings for all events / payloads.",
   "author": "rweich",
   "license": "MIT",
   "main": "dist/index.js",
@@ -60,6 +60,13 @@
     "type": "git",
     "url": "git+https://github.com/rweich/streamdeck-ts.git"
   },
+  "keywords": [
+    "streamdeck",
+    "elgato",
+    "typescript",
+    "sdk",
+    "plugin"
+  ],
   "files": [
     "README.md",
     "dist"

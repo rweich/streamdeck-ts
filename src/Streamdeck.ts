@@ -5,23 +5,23 @@ import Plugin from './Plugin';
 import PropertyInspector from './PropertyInspector';
 
 export default class Streamdeck {
+  private readonly logger: Logger;
+
+  constructor(logger?: Logger) {
+    this.logger = logger || console;
+  }
+
   /**
    * Creates and returns a new plugin instance
    */
   public plugin(): Plugin {
-    const logger = this.createLogger();
-    return new Plugin(new EventEmitter(), new EventFactory(logger), logger);
+    return new Plugin(new EventEmitter(), new EventFactory(this.logger), this.logger);
   }
 
   /**
    * Creates and returns a new propertyinspector instance
    */
   public propertyinspector(): PropertyInspector {
-    const logger = this.createLogger();
-    return new PropertyInspector(new EventEmitter(), new EventFactory(logger), logger);
-  }
-
-  private createLogger(): Logger {
-    return console;
+    return new PropertyInspector(new EventEmitter(), new EventFactory(this.logger), this.logger);
   }
 }

@@ -5,7 +5,14 @@
 
 A sdk to create streamdeck plugins in typescript.
 
+The goal of this sdk is to make all the events (sent and received to / from the streamdeck) and their paylods typesafe.
+
+### Features:
+- simple event interface
+- working typehints and autocompletion for events and their payloads
+
 ## Examples
+- [numberdisplay](https://github.com/rweich/streamdeck-ts-numberdisplay) - the example numberdisplay plugin from elgato ported to use this sdk.
 - [streamdeck-datetime](https://github.com/rweich/streamdeck-datetime) - a simple datetime plugin.
 - [streamdeck-ts-template](https://github.com/rweich/streamdeck-ts-template) - a template repository for a quick start writing your own plugin.
 
