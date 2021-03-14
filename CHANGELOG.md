@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/rweich/streamdeck-ts/compare/v1.1.0...v1.2.0) (2021-03-14)
+
+
+### Features
+
+* ability to inject the logger to be used ([a8bf215](https://github.com/rweich/streamdeck-ts/commit/a8bf215bc300162b91cb0b8f790515bd6e284ec9))
+
 # [1.1.0](https://github.com/rweich/streamdeck-ts/compare/v1.0.2...v1.1.0) (2021-02-25)
 
 
