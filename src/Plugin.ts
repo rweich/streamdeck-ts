@@ -6,6 +6,8 @@ import {
   OnWebsocketOpenEvent,
 } from './events/incoming';
 import {
+  ApplicationDidLaunchEvent,
+  ApplicationDidTerminateEvent,
   DeviceDidConnectEvent,
   DeviceDidDisconnectEvent,
   IncomingPluginEvents,
@@ -21,6 +23,7 @@ import { SetImageEvent, SetTitleEvent } from './events/outgoing/plugin';
 
 /* @formatter:off */
 /* eslint-disable */
+/** @deprecated use PluginListenerTypes (will be removed with 2.x) */
 type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
   ? OnWebsocketOpenEvent
   : T extends IncomingEvents.DidReceiveSettings
@@ -47,6 +50,7 @@ type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
 /* eslint-enable */
 /* @formatter:on */
 
+/** @deprecated Use PluginListenerTypes (will be removed with 2.x) */
 type AllowedIncomingEvents = IncomingEvents | IncomingPluginEvents;
 type AllowedOutgoingEvents =
   | LogMessageEvent
@@ -56,10 +60,30 @@ type AllowedOutgoingEvents =
   | SetTitleEvent
   | SetImageEvent;
 
+type PluginEventListenerMap = {
+  applicationDidLaunch: ApplicationDidLaunchEvent;
+  applicationDidTerminate: ApplicationDidTerminateEvent;
+  deviceDidConnect: DeviceDidConnectEvent;
+  deviceDidDisconnect: DeviceDidDisconnectEvent;
+  didReceiveGlobalSettings: DidReceiveGlobalSettingsEvent;
+  didReceiveSettings: DidReceiveSettingsEvent;
+  keyDown: KeyDownEvent;
+  keyUp: KeyUpEvent;
+  propertyInspectorDidAppear: OnWebsocketOpenEvent;
+  propertyInspectorDidDisappear: OnWebsocketOpenEvent;
+  sendToPlugin: SendToPluginIncomingEvent;
+  titleParametersDidChange: TitleParametersDidChangeEvent;
+  websocketOpen: OnWebsocketOpenEvent;
+  willAppear: WillAppearEvent;
+  willDisappear: WillDisappearEvent;
+};
+
 export default class Plugin extends AbstractStreamdeckConnector {
-  /**
-   * registers the eventlistener to the events the streamdeck sends to us
-   */
+  /** registers the eventlistener to the events the streamdeck sends to us */
+  public on<T extends keyof PluginEventListenerMap>(
+    eventType: T,
+    callback: (event: PluginEventListenerMap[T]) => void,
+  ): void;
   public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
     this.eventEmitter.on(eventType, callback);
   }

@@ -23,9 +23,9 @@ describe('Streamdeck', () => {
   });
   it('should use the console as default logger', () => {
     const plugin = new Streamdeck().plugin();
-    const spy = sandbox.spy(console, 'debug');
+    const stub = sandbox.stub(console, 'debug');
     plugin.sendEvent(new SetTitleEvent('context', 'title'));
-    expect(spy.callCount).to.equal(1);
+    expect(stub.callCount).to.equal(1);
   });
   it('should use the custom and not the console as logger', () => {
     const logger: Logger = {

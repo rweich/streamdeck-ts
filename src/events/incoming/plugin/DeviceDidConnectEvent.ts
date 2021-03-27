@@ -2,6 +2,7 @@ import { Static } from '@sinclair/typebox';
 import AbstractIncomingBaseEvent from '../AbstractIncomingBaseEvent';
 import assertType from '../assertType';
 import { DeviceDidConnectType } from '../streamdecktypes/DeviceEventType';
+import { DeviceType } from './DeviceType';
 import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
@@ -21,7 +22,7 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
     return this.payload.deviceInfo.name;
   }
 
-  public get type(): number {
+  public get type(): DeviceType {
     return this.payload.deviceInfo.type;
   }
 
