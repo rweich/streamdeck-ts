@@ -511,16 +511,16 @@ The plugin and propertyinspector can send the following events to the streamdeck
 Requests the settings globally stored for all buttons using this plugin / pi.
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event.
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 ### GetSettingsEvent
 
 Requests the settings stored for the button instance.
 Triggers the [didReceiveSettings](#didreceivesettings) event.
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 **Event Signature**:
 
@@ -538,8 +538,8 @@ plugin.sendEvent(new GetSettingsEvent('context'));
 
 Makes the streamdeck write the log message to a debug log file.
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 **Event Signature**:
 
@@ -557,8 +557,8 @@ plugin.sendEvent(new LogMessageEvent('the message'));
 
 Makes the streamdeck open the url in a browser.
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 **Example**:
 
@@ -577,13 +577,13 @@ plugin.sendEvent(new OpenUrlEvent('the url'));
 Sends data to the plugin.
 Triggers the [sendToPlugin](#sendtoplugin) event.
 
-- [ ] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [ ] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 **Event Signature**:
 
 ```typescript
-SendToPluginEvent(action: string, context: string, eventPayload: unknown)
+SendToPluginEvent(action: string, context: string, payload: unknown)
 ```
 
 **Example**:
@@ -597,13 +597,13 @@ pi.sendEvent(new SendToPluginEvent('action', 'context', { some: 'data' }));
 Sends data to the propertyinspector.
 Triggers the [sendToPropertyInspector](#sendtopropertyinspector-tbd) event.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 **Event Signature**:
 
 ```typescript
-SendToPropertyInspectorEvent(action: string, context: string, eventPayload: unknown)
+SendToPropertyInspectorEvent(action: string, context: string, payload: unknown)
 ```
 
 **Example**:
@@ -616,8 +616,8 @@ plugin.sendEvent(new SendToPropertyInspectorEvent('action', 'context', { some: '
 
 Changes the image of the button.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 **Event Signature**:
 
@@ -638,16 +638,16 @@ plugin.sendEvent(new SetImageEvent('imagedataAsBase64', 'context'));
 Persists the data globally (not just for the current button).
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event for the plugin (if sent by pi) and for the pi (if sent by plugin).
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 ### SetSettingsEvent
 
 Persists the settings for the current button.
 Triggers the [didReceiveSettings](#didreceivesettings) event for the plugin (if sent by pi) and for the pi (if sent by plugin).
 
-- [x] requestable from Plugin
-- [x] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [x] can be sent from PropertyInspector
 
 **Event Signature**:
 
@@ -667,15 +667,15 @@ plugin.sendEvent(new SetSettingsEvent('context', { your: 'new-settings' }));
 
 Changes the state of the button if it supports multiple states.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 ### SetTitleEvent
 
 Changes the title of the button.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 **Event Signature**:
 
@@ -695,8 +695,8 @@ plugin.sendEvent(new SetTitleEvent('the new title', 'context'));
 
 Will show an alert icon on the button.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 ### ShowOkEvent (tbd)
 
@@ -704,8 +704,8 @@ Will show an alert icon on the button.
 
 Will show an ok checkmark on the button.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
 
 ### SwitchToProfileEvent (tbd)
 
@@ -713,5 +713,5 @@ Will show an ok checkmark on the button.
 
 Makes the streamdeck switch to the preconfigured readonly profile.
 
-- [x] requestable from Plugin
-- [ ] requestable from PropertyInspector
+- [x] can be sent from Plugin
+- [ ] can be sent from PropertyInspector
