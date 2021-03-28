@@ -18,6 +18,4 @@ export default abstract class AbstractIncomingBaseEvent {
   public get event(): string {
     return this.payload.event;
   }
-
-  protected abstract get eventType(): IncomingEventsTypes;
 }

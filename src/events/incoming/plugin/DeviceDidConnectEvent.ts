@@ -3,7 +3,6 @@ import AbstractIncomingBaseEvent from '../AbstractIncomingBaseEvent';
 import assertType from '../assertType';
 import { DeviceDidConnectType } from '../streamdecktypes/DeviceEventType';
 import { DeviceType } from './DeviceType';
-import { IncomingPluginEvents } from './IncomingPluginEvents';
 
 export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof DeviceDidConnectType>;
@@ -32,9 +31,5 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
 
   public get rows(): number {
     return this.payload.deviceInfo.size.rows;
-  }
-
-  protected get eventType(): IncomingPluginEvents {
-    return IncomingPluginEvents.DeviceDidConnect;
   }
 }
