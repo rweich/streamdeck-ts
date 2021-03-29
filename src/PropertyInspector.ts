@@ -14,7 +14,7 @@ import { SendToPluginEvent } from './events/outgoing/propertyinspector';
 
 /* @formatter:off */
 /* eslint-disable */
-/** @deprecated Use PiListenerTypes (will be removed with 2.x) */
+/** @deprecated Use the event-name-strings directly (will be removed with 2.x) */
 type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
   ? OnWebsocketOpenEvent
   : T extends IncomingEvents.DidReceiveSettings
@@ -27,7 +27,7 @@ type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
 /* eslint-enable */
 // @formatter:on
 
-/** @deprecated Use PiListenerTypes (will be removed with 2.x) */
+/** @deprecated Use the event-name-strings directly (will be removed with 2.x) */
 type AllowedIncomingEvents = IncomingEvents | IncomingPropertyinspectorEvents;
 type AllowedOutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent | OpenUrlEvent;
 
