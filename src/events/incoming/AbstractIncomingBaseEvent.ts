@@ -1,11 +1,6 @@
 import { Static } from '@sinclair/typebox';
 import assertType from './assertType';
-import { IncomingEvents } from './IncomingEvents';
-import { IncomingPluginEvents } from './plugin';
-import { IncomingPropertyinspectorEvents } from './propertyinspector';
 import { BaseEventType } from './streamdecktypes/BaseEventType';
-
-export type IncomingEventsTypes = IncomingEvents | IncomingPluginEvents | IncomingPropertyinspectorEvents;
 
 export default abstract class AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof BaseEventType>;

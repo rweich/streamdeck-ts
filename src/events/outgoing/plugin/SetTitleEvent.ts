@@ -3,6 +3,7 @@ import { OutgoingPluginEvents } from './OutgoingPluginEvents';
 import { TargetEnum } from './TargetEnum';
 
 export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
+  public readonly event = OutgoingPluginEvents.SetTitle;
   public readonly title: string;
   public readonly target: TargetEnum;
   public readonly state: number | undefined;
@@ -12,10 +13,6 @@ export default class SetTitleEvent extends AbstractOutgoingSetterEvent {
     this.title = title;
     this.target = target;
     this.state = state;
-  }
-
-  public get event(): string {
-    return OutgoingPluginEvents.SetTitle;
   }
 
   protected get payload(): unknown {

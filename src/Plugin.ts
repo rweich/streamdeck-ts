@@ -19,7 +19,7 @@ import {
   WillDisappearEvent,
 } from './events/incoming/plugin';
 import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, SetSettingsEvent } from './events/outgoing';
-import { SetImageEvent, SetTitleEvent } from './events/outgoing/plugin';
+import { SendToPropertyInspectorEvent, SetImageEvent, SetTitleEvent } from './events/outgoing/plugin';
 
 /* @formatter:off */
 /* eslint-disable */
@@ -57,6 +57,7 @@ type AllowedOutgoingEvents =
   | GetSettingsEvent
   | SetSettingsEvent
   | OpenUrlEvent
+  | SendToPropertyInspectorEvent
   | SetTitleEvent
   | SetImageEvent;
 
@@ -84,6 +85,7 @@ export default class Plugin extends AbstractStreamdeckConnector {
     eventType: T,
     callback: (event: PluginEventListenerMap[T]) => void,
   ): void;
+  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void;
   public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
     this.eventEmitter.on(eventType, callback);
   }

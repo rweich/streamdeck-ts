@@ -2,15 +2,12 @@ import AbstractEvent from './AbstractEvent';
 import { OutgoingEvents } from './OutgoingEvents';
 
 export default class LogMessageEvent extends AbstractEvent {
+  public readonly event = OutgoingEvents.LogMessage;
   private readonly message: string;
 
   constructor(message: string) {
     super();
     this.message = message;
-  }
-
-  public get event(): string {
-    return OutgoingEvents.LogMessage;
   }
 
   protected get payload(): unknown {

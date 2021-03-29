@@ -15,6 +15,7 @@ import EventFactory from '../src/events/incoming/EventFactory';
 import LogMessageEvent from '../src/events/outgoing/LogMessageEvent';
 import PropertyInspector from '../src/PropertyInspector';
 import { GetSettingsSchema, OpenUrlSchema, SendToPluginSchema, SetSettingsSchema } from './events/outgoing/types';
+import { LogMessageSchema } from './events/outgoing/types/LogMessageType';
 
 describe('PropertyInspector test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -49,6 +50,17 @@ describe('PropertyInspector test', () => {
     });
     connector('23456', 'uid', 'register', 'info');
   });
+  it('should dispatch the connect event after connetion (new listener)', (done) => {
+    const emitter = new EventEmitter();
+    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    const pi = new PropertyInspector(emitter, new EventFactory(dummyLogger), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      server.close();
+      done();
+    });
+    connector('23456', 'uid', 'register', 'info');
+  });
 
   describe('sendEvent', () => {
     let pi: PropertyInspector;
@@ -76,6 +88,16 @@ describe('PropertyInspector test', () => {
         done();
       });
       pi.sendEvent(new GetSettingsEvent('GetSettingsEventContext'));
+    });
+    it('should send the LogMessageEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(LogMessageSchema, data);
+        expect(data.event).to.equal('logMessage');
+        expect(data.payload.message).to.equal('a message to log');
+        done();
+      });
+      pi.sendEvent(new LogMessageEvent('a message to log'));
     });
     it('should send the OpenUrlEvent', (done) => {
       ws.once('message', (data) => {

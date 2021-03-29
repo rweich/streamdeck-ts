@@ -41,6 +41,7 @@ type PiEventListenerMap = {
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   /** registers the eventlistener to the events the streamdeck sends to us */
   public on<T extends keyof PiEventListenerMap>(eventType: T, callback: (event: PiEventListenerMap[T]) => void): void;
+  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void;
   public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
     this.eventEmitter.on(eventType, callback);
   }

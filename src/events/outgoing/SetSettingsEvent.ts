@@ -2,18 +2,11 @@ import AbstractOutgoingSetterEvent from './AbstractOutgoingSetterEvent';
 import { OutgoingEvents } from './OutgoingEvents';
 
 export default class SetSettingsEvent extends AbstractOutgoingSetterEvent {
-  private readonly eventPayload: unknown;
+  public readonly event = OutgoingEvents.SetSettings;
+  protected readonly payload: unknown;
 
-  constructor(context: string, eventPayload: unknown) {
+  constructor(context: string, payload: unknown) {
     super(context);
-    this.eventPayload = eventPayload;
-  }
-
-  public get event(): string {
-    return OutgoingEvents.SetSettings;
-  }
-
-  protected get payload(): unknown {
-    return this.eventPayload;
+    this.payload = payload;
   }
 }

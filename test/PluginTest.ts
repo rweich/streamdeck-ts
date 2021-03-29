@@ -12,6 +12,7 @@ import {
   SetSettingsEvent,
 } from '../src';
 import EventFactory from '../src/events/incoming/EventFactory';
+import LogMessageEvent from '../src/events/outgoing/LogMessageEvent';
 import SetTitleEvent from '../src/events/outgoing/plugin/SetTitleEvent';
 import Plugin from '../src/Plugin';
 import {
@@ -22,6 +23,7 @@ import {
   SetSettingsSchema,
   SetTitleSchema,
 } from './events/outgoing/types';
+import { LogMessageSchema } from './events/outgoing/types/LogMessageType';
 
 describe('Plugin test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -72,6 +74,16 @@ describe('Plugin test', () => {
         done();
       });
       plugin.sendEvent(new GetSettingsEvent('PluginGetSettingsEventContext'));
+    });
+    it('should send the LogMessageEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(LogMessageSchema, data);
+        expect(data.event).to.equal('logMessage');
+        expect(data.payload.message).to.equal('a message to log');
+        done();
+      });
+      plugin.sendEvent(new LogMessageEvent('a message to log'));
     });
     it('should send the OpenUrlEvent', (done) => {
       ws.once('message', (data) => {
