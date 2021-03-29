@@ -164,11 +164,10 @@ Triggered when a streamdeck device gets plugged to the computer.
 **Event-Payload**:
 
 ```typescript
-// DeviceDidConnectEvent
 event: {
   device: string;
   name: string;
-  type: DeviceType;
+  type: DeviceType; // enum { StreamDeck, StreamDeckMini, StreamDeckXL, StreamDeckMobile, CorsairGKeys }
   columns: number;
   rows: number;
 }
@@ -190,7 +189,6 @@ Triggered when a streamdeck device gets unplugged from the computer.
 **Event-Payload**:
 
 ```typescript
-// DeviceDidDisconnectEvent
 event: {
   device: string;
 }
@@ -212,7 +210,6 @@ Triggered after a [GetGlobalSettingsEvent](#getglobalsettingsevent-tbd) was sent
 **Event-Payload**:
 
 ```typescript
-// DidReceiveGlobalSettingsEvent
 event: { settings: unknown }
 ```
 
@@ -232,7 +229,6 @@ Triggered after a [GetSettingsEvent](#getsettingsevent) was sent to the streamde
 **Event-Payload**:
 
 ```typescript
-// DidReceiveSettingsEvent
 event: {
   settings: unknown;
   row: number;
@@ -263,7 +259,6 @@ Triggered when xxx.
 **Event-Payload**:
 
 ```typescript
-// KeyDownEvent
 event: {
   row: number;
   column: number;
@@ -290,7 +285,6 @@ Triggered when xxx.
 **Event-Payload**:
 
 ```typescript
-// KeyDownEvent
 event: {
   row: number;
   column: number;
@@ -317,7 +311,6 @@ Triggered when the property inspector appears.
 **Event-Payload**:
 
 ```typescript
-// PropertyInspectorDidAppearEvent
 event: {
   action: string;
   context: string;
@@ -341,7 +334,6 @@ Triggered when the property inspector appears.
 **Event-Payload**:
 
 ```typescript
-// PropertyInspectorDidDisappearEvent
 event: {
   action: string;
   context: string;
@@ -365,7 +357,6 @@ Triggered when the propertyinspector sends a [SendToPluginEvent](#sendtopluginev
 **Event-Payload**:
 
 ```typescript
-// SendToPluginIncomingEvent
 event: {
   action: string;
   context: string;
@@ -393,7 +384,6 @@ Triggered when the plugin sends a [SendToPropertyInspectorEvent](#sendtoproperty
 **Event-Payload**:
 
 ```typescript
-// SendToPropertyInspectorIncomingEvent
 event: {
   action: string;
   context: string;
@@ -427,7 +417,6 @@ Triggered when the websocket to the streamdeck was successfully opened.
 **Event-Payload**:
 
 ```typescript
-// OnWebsocketOpenEvent
 event: {
   uuid: string;
   info: string;
@@ -450,7 +439,6 @@ Triggered when the plugin / button gets displayed on the streamdeck.
 **Event-Payload**:
 
 ```typescript
-// WillAppearEvent
 event: {
   settings: unknown;
   row: number;
@@ -479,7 +467,6 @@ Triggered when the plugin / button is no longer displayed on the streamdeck.
 **Event-Payload**:
 
 ```typescript
-// WillDisappearEvent
 event: {
   settings: unknown;
   row: number;
