@@ -2,7 +2,7 @@ import { Static } from '@sinclair/typebox';
 import AbstractIncomingBaseEvent from '../AbstractIncomingBaseEvent';
 import assertType from '../assertType';
 import { DeviceDidConnectType } from '../streamdecktypes/DeviceEventType';
-import { IncomingPluginEvents } from './IncomingPluginEvents';
+import { DeviceType } from './DeviceType';
 
 export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
   protected readonly payload: Static<typeof DeviceDidConnectType>;
@@ -21,7 +21,7 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
     return this.payload.deviceInfo.name;
   }
 
-  public get type(): number {
+  public get type(): DeviceType {
     return this.payload.deviceInfo.type;
   }
 
@@ -31,9 +31,5 @@ export default class DeviceDidConnectEvent extends AbstractIncomingBaseEvent {
 
   public get rows(): number {
     return this.payload.deviceInfo.size.rows;
-  }
-
-  protected get eventType(): IncomingPluginEvents {
-    return IncomingPluginEvents.DeviceDidConnect;
   }
 }

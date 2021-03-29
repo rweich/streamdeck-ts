@@ -2,21 +2,14 @@ import AbstractOutgoingSetterEvent from '../AbstractOutgoingSetterEvent';
 import { OutgoingPropertyinspectorEvents } from './OutgoingPropertyinspectorEvents';
 
 export default class SendToPluginEvent extends AbstractOutgoingSetterEvent {
+  public readonly event = OutgoingPropertyinspectorEvents.SendToPlugin;
+  protected readonly payload: unknown;
   private readonly action: string;
-  private readonly eventPayload: unknown;
 
-  constructor(action: string, context: string, eventPayload: unknown) {
+  constructor(action: string, context: string, payload: unknown) {
     super(context);
     this.action = action;
-    this.eventPayload = eventPayload;
-  }
-
-  public get event(): string {
-    return OutgoingPropertyinspectorEvents.SendToPlugin;
-  }
-
-  protected get payload(): unknown {
-    return this.eventPayload;
+    this.payload = payload;
   }
 
   protected get jsonProps(): string[] {

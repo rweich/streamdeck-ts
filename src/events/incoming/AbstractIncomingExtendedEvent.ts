@@ -1,5 +1,5 @@
 import { Static } from '@sinclair/typebox';
-import AbstractIncomingBaseEvent, { IncomingEventsTypes } from './AbstractIncomingBaseEvent';
+import AbstractIncomingBaseEvent from './AbstractIncomingBaseEvent';
 import assertType from './assertType';
 import { ExtendedEventType } from './streamdecktypes/ExtendedEventType';
 
@@ -23,6 +23,4 @@ export default abstract class AbstractIncomingExtendedEvent extends AbstractInco
   public get device(): string {
     return this.payload.device;
   }
-
-  protected abstract get eventType(): IncomingEventsTypes;
 }

@@ -1,3 +1,4 @@
+/** @deprecated - use the event name strings directly */
 export enum IncomingPluginEvents {
   ApplicationDidLaunch = 'applicationDidLaunch',
   ApplicationDidTerminate = 'applicationDidTerminate',

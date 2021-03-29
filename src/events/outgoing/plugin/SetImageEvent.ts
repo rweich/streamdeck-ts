@@ -3,6 +3,7 @@ import { OutgoingPluginEvents } from './OutgoingPluginEvents';
 import { TargetEnum } from './TargetEnum';
 
 export default class SetImageEvent extends AbstractOutgoingSetterEvent {
+  public readonly event = OutgoingPluginEvents.SetImage;
   public readonly image: string;
   public readonly target: TargetEnum;
   public readonly state: number | undefined;
@@ -12,10 +13,6 @@ export default class SetImageEvent extends AbstractOutgoingSetterEvent {
     this.image = image;
     this.target = target;
     this.state = state;
-  }
-
-  public get event(): string {
-    return OutgoingPluginEvents.SetImage;
   }
 
   protected get payload(): unknown {

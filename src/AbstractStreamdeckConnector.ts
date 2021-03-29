@@ -6,14 +6,14 @@ import EventFactory from './events/incoming/EventFactory';
 import { RegisterEvent } from './events/outgoing';
 import EventInterface from './events/outgoing/EventInterface';
 
-type SendToStremdeckEvent = EventInterface | RegisterEvent;
+// TODO: add types to the eventemitter
 
 export default class AbstractStreamdeckConnector {
   protected eventEmitter: EventEmitter;
   private eventFactory: EventFactory;
   private logger: Logger;
   private websocket: WebSocket | null = null;
-  private eventQueue: SendToStremdeckEvent[] = [];
+  private eventQueue: EventInterface[] = [];
   private actionInfo: Record<string, unknown> | null = null;
   private uuid: string | null = null;
 
@@ -51,7 +51,7 @@ export default class AbstractStreamdeckConnector {
   /**
    * sends the event to the streamdeck
    */
-  protected sendToStreamdeck(event: SendToStremdeckEvent): void {
+  protected sendToStreamdeck(event: EventInterface): void {
     if (this.websocket === null) {
       this.logger.debug('queueing event', event, JSON.stringify(event));
       this.eventQueue.push(event);
@@ -76,7 +76,9 @@ export default class AbstractStreamdeckConnector {
     this.websocket = new WebSocket('ws://127.0.0.1:' + inPort);
     this.websocket.onopen = () => {
       this.sendToStreamdeck(new RegisterEvent(inRegisterEvent, inPluginUUID));
+      // TODO: remove with 2.x
       this.eventEmitter.emit(IncomingEvents.OnWebsocketOpen, new OnWebsocketOpenEvent(inPluginUUID, inInfo));
+      this.eventEmitter.emit('websocketOpen', new OnWebsocketOpenEvent(inPluginUUID, inInfo));
       this.eventQueue.map((event) => this.sendToStreamdeck(event));
       this.eventQueue = [];
     };
