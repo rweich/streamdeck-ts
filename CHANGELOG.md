@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/rweich/streamdeck-ts/compare/v1.2.0...v1.3.0) (2021-03-29)
+
+
+### Features
+
+* simplify event listener usage ([80dcf0d](https://github.com/rweich/streamdeck-ts/commit/80dcf0ddf9593a4ac708675f98a7f2144f8798b5))
+
 # [1.2.0](https://github.com/rweich/streamdeck-ts/compare/v1.1.0...v1.2.0) (2021-03-14)
 
 
