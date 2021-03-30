@@ -46,10 +46,14 @@ plugin.on('keyDown', ({ row, column }) => {
 });
 
 // Send events
-// For most events you'll need a context (the button) to send events to.
-// You'll get that with most events sent by the streamdeck.
+// For most events you'll need a context (the "button-id") to send events to.
+// It's sent with most events received from the streamdeck.
 plugin.on('willAppear', ({ context }) => {
-  plugin.sendEvent(new SetTitleEvent('new Title', context));
+  plugin.setTitle('new Title', context);
+});
+let keypresses = 0;
+plugin.on('keyDown', ({ context }) => {
+  plugin.setTitle(`key pressed ${++keypresses} times`, context);
 });
 
 // same for the property inspector
@@ -84,20 +88,20 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [willAppear](#willappear)
   - [willDisappear](#willdisappear)
 - [Outgoing events](#outgoing-events)
-  - [GetGlobalSettingsEvent (tbd)](#getglobalsettingsevent-tbd)
-  - [GetSettingsEvent](#getsettingsevent)
-  - [LogMessageEvent](#logmessageevent)
-  - [OpenUrlEvent](#openurlevent)
-  - [SendToPluginEvent](#sendtopluginevent)
-  - [SendToPropertyInspectorEvent](#sendtopropertyinspectorevent)
-  - [SetImageEvent](#setimageevent)
-  - [SetGlobalSettingsEvent (tbd)](#setglobalsettingsevent-tbd)
-  - [SetSettingsEvent](#setsettingsevent)
-  - [SetStateEvent (tbd)](#setstateevent-tbd)
-  - [SetTitleEvent](#settitleevent)
-  - [ShowAlertEvent (tbd)](#showalertevent-tbd)
-  - [ShowOkEvent (tbd)](#showokevent-tbd)
-  - [SwitchToProfileEvent (tbd)](#switchtoprofileevent-tbd)
+  - [GetGlobalSettings (tbd)](#getglobalsettings-tbd)
+  - [GetSettings](#getsettings)
+  - [LogMessage](#logmessage)
+  - [OpenUrl](#openurl)
+  - [SendToPlugin](#sendtoplugin-1)
+  - [SendToPropertyInspector](#sendtopropertyinspector)
+  - [SetImage](#setimage)
+  - [SetGlobalSettings (tbd)](#setglobalsettings-tbd)
+  - [SetSettings](#setsettings)
+  - [SetState (tbd)](#setstate-tbd)
+  - [SetTitle](#settitle)
+  - [ShowAlert (tbd)](#showalert-tbd)
+  - [ShowOk (tbd)](#showok-tbd)
+  - [SwitchToProfile (tbd)](#switchtoprofile-tbd)
 
 ## Exposing the plugin / pi instances to the streamdeck
 
@@ -120,9 +124,6 @@ The Plugin / Propertyinspector can listen to the following events sent by the st
 
 Triggered when an application - specified in the `manifest.json` - was launched.
 
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
-
 **Event-Payload**:
 
 ```typescript
@@ -135,12 +136,13 @@ event: { application: string; }
 plugin.on('applicationDidLaunch', ({ application }) => console.log(`${application} was launched!`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### applicationDidTerminate
 
 Triggered when an application - specified in the `manifest.json` - was terminated.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -154,12 +156,13 @@ event: { application: string; }
 plugin.on('applicationDidTerminate', ({ application }) => console.log(`${application} was terminated!`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### deviceDidConnect
 
 Triggered when a streamdeck device gets plugged to the computer.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -179,10 +182,11 @@ event: {
 plugin.on('deviceDidConnect', ({ name }) => console.log(`device ${name} was plugged in`));
 ```
 
-### deviceDidDisconnect
+- *is sent to: **[x] Plugin** [ ] PI*
 
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
+---
+
+### deviceDidDisconnect
 
 Triggered when a streamdeck device gets unplugged from the computer.
 
@@ -200,12 +204,13 @@ event: {
 plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${device} was unplugged`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### didReceiveGlobalSettings
 
 Triggered after a [GetGlobalSettingsEvent](#getglobalsettingsevent-tbd) was sent to the streamdeck.
-
-- [x] sent to Plugin
-- [x] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -219,12 +224,13 @@ event: { settings: unknown }
 plugin.on('didReceiveGlobalSettings', ({ settings }) => console.log('got settings', settings));
 ```
 
+- *is sent to: **[x] Plugin [x] PI***
+
+---
+
 ### didReceiveSettings
 
 Triggered after a [GetSettingsEvent](#getsettingsevent) was sent to the streamdeck.
-
-- [x] sent to Plugin
-- [x] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -249,12 +255,13 @@ plugin.on('didReceiveSettings', ({ row, column, settings }) =>
 );
 ```
 
+- *is sent to: **[x] Plugin [x] PI***
+
+---
+
 ### keyDown
 
-Triggered when xxx.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
+Triggered when the button gets pressed.
 
 **Event-Payload**:
 
@@ -275,12 +282,13 @@ event: {
 plugin.on('keyDown', ({ row, column }) => console.log(`key down on ${row} / ${column}`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### keyUp
 
-Triggered when xxx.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
+Triggered when the button gets released.
 
 **Event-Payload**:
 
@@ -301,12 +309,13 @@ event: {
 plugin.on('keyUp', ({ row, column }) => console.log(`key up on ${row} / ${column}`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### propertyInspectorDidAppear
 
 Triggered when the property inspector appears.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -324,12 +333,13 @@ event: {
 plugin.on('propertyInspectorDidAppear', () => console.log(`the propertyinspector appeared!`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### propertyInspectorDidDisappear
 
 Triggered when the property inspector appears.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -347,12 +357,13 @@ event: {
 plugin.on('propertyInspectorDidDisappear', () => console.log(`the propertyinspector disappeared!`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### sendToPlugin
 
 Triggered when the propertyinspector sends a [SendToPluginEvent](#sendtopluginevent).
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -360,17 +371,19 @@ Triggered when the propertyinspector sends a [SendToPluginEvent](#sendtopluginev
 event: {
   action: string;
   context: string;
-  data: unknown;
+  payload: Record<string, unknown>;
 }
 ```
 
 **Example**:
 
 ```typescript
-plugin.on('sendToPlugin', ({ data }) => console.log(`the pi sent some data:`, data));
+plugin.on('sendToPlugin', ({ payload }) => console.log(`the pi sent some data:`, payload));
 ```
 
-- [ ] TODO: check data/payload name
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
 
 ### sendToPropertyInspector (tbd)
 
@@ -378,26 +391,25 @@ plugin.on('sendToPlugin', ({ data }) => console.log(`the pi sent some data:`, da
 
 Triggered when the plugin sends a [SendToPropertyInspectorEvent](#sendtopropertyinspectorevent).
 
-- [ ] sent to Plugin
-- [x] sent to PropertyInspector
-
 **Event-Payload**:
 
 ```typescript
 event: {
   action: string;
   context: string;
-  data: unknown;
+  payload: Record<string, unknown>;
 }
 ```
 
 **Example**:
 
 ```typescript
-plugin.on('sendToPropertyInspector', ({data}) => console.log(`the plugin sent some data:`, data));
+pi.on('sendToPropertyInspector', ({ payload }) => console.log(`the plugin sent some data:`, payload));
 ```
 
-- [ ] TODO: check data/payload name
+- *is sent to: [ ] Plugin **[x] PI***
+
+---
 
 ### systemDidWakeUp (tbd)
 
@@ -410,9 +422,6 @@ plugin.on('sendToPropertyInspector', ({data}) => console.log(`the plugin sent so
 ### websocketOpen
 
 Triggered when the websocket to the streamdeck was successfully opened.
-
-- [x] sent to Plugin
-- [x] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -429,12 +438,13 @@ event: {
 plugin.on('websocketOpen', ({ uuid }) => console.log(`websocket opened for uuid/context: ${uuid}`));
 ```
 
+- *is sent to: **[x] Plugin [x] PI***
+
+---
+
 ### willAppear
 
 Triggered when the plugin / button gets displayed on the streamdeck.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -457,12 +467,13 @@ event: {
 plugin.on('willAppear', ({ row, column }) => console.log(`the button appeared on ${row} / ${column}`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ### willDisappear
 
 Triggered when the plugin / button is no longer displayed on the streamdeck.
-
-- [x] sent to Plugin
-- [ ] sent to PropertyInspector
 
 **Event-Payload**:
 
@@ -485,220 +496,208 @@ event: {
 plugin.on('willDisappear', ({ row, column }) => console.log(`the button disappeared from ${row} / ${column}`));
 ```
 
+- *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
 ## Outgoing events
 
 The plugin and propertyinspector can send the following events to the streamdeck:
 
 > For detailled information see the [official docs](https://developer.elgato.com/documentation/stream-deck/sdk/events-sent/) for events sent to the streamdeck.
 
-### GetGlobalSettingsEvent (tbd)
+### GetGlobalSettings (tbd)
 
 :x: not yet implemented
 
 Requests the settings globally stored for all buttons using this plugin / pi.
+
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event.
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin [x] PI***
 
-### GetSettingsEvent
+---
+
+### GetSettings
 
 Requests the settings stored for the button instance.
+
 Triggers the [didReceiveSettings](#didreceivesettings) event.
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-GetSettingsEvent(context: string)
-```
+`getSettings(context: string): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new GetSettingsEvent('context'));
+plugin.getSettings('context');
 ```
 
-### LogMessageEvent
+- *can be sent from: **[x] Plugin [x] PI***
+
+---
+
+### LogMessage
 
 Makes the streamdeck write the log message to a debug log file.
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-LogMessageEvent(message: string)
-```
+`logMessage(message: string): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new LogMessageEvent('the message'));
+plugin.logMessage('the message');
 ```
 
-### OpenUrlEvent
+- *can be sent from: **[x] Plugin [x] PI***
+
+---
+
+### OpenUrl
 
 Makes the streamdeck open the url in a browser.
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
+`openUrl(url: string): void`
 
 **Example**:
 
-**Event Signature**:
-
 ```typescript
-OpenUrlEvent(url: string)
+plugin.openUrl('the url');
 ```
 
-```typescript
-plugin.sendEvent(new OpenUrlEvent('the url'));
-```
+- *can be sent from: **[x] Plugin [x] PI***
 
-### SendToPluginEvent
+---
+
+### SendToPlugin
 
 Sends data to the plugin.
 Triggers the [sendToPlugin](#sendtoplugin) event.
 
-- [ ] can be sent from Plugin
-- [x] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-SendToPluginEvent(action: string, context: string, payload: unknown)
-```
+`sendToPlugin(context: string, payload: Record<string, unknown>, action: string): void`
 
 **Example**:
 
 ```typescript
-pi.sendEvent(new SendToPluginEvent('action', 'context', { some: 'data' }));
+pi.sendToPlugin('context', { some: 'data' }, 'action');
 ```
 
-### SendToPropertyInspectorEvent
+- *can be sent from: [ ] Plugin **[x] PI***
+
+---
+
+### SendToPropertyInspector
 
 Sends data to the propertyinspector.
 Triggers the [sendToPropertyInspector](#sendtopropertyinspector-tbd) event.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-SendToPropertyInspectorEvent(action: string, context: string, payload: unknown)
-```
+`sendToPropertyInspector(context: string, payload: Record<string, unknown>): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new SendToPropertyInspectorEvent('action', 'context', { some: 'data' }));
+plugin.sendToPropertyInspector('context', { some: 'data' });
 ```
 
-### SetImageEvent
+- *can be sent from: **[x] Plugin** [ ] PI*
+
+---
+
+### SetImage
 
 Changes the image of the button.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-SetImageEvent(image: string, context: string, target?: TargetEnum, state?: number | undefined)
-```
+`setImage(image: string, context: string, options: { target?: TargetEnum; state?: number }): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new SetImageEvent('imagedataAsBase64', 'context'));
+plugin.setImage('imagedataAsBase64', 'context');
 ```
 
-### SetGlobalSettingsEvent (tbd)
+- *can be sent from: **[x] Plugin** [ ] PI*
+
+---
+
+### SetGlobalSettings (tbd)
 
 :x: not yet implemented
 
 Persists the data globally (not just for the current button).
+
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event for the plugin (if sent by pi) and for the pi (if sent by plugin).
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin [x] PI***
 
-### SetSettingsEvent
+---
+
+### SetSettings
 
 Persists the settings for the current button.
+
 Triggers the [didReceiveSettings](#didreceivesettings) event for the plugin (if sent by pi) and for the pi (if sent by plugin).
 
-- [x] can be sent from Plugin
-- [x] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-SetSettingsEvent(context: string, eventPayload: unknown)
-```
+`setSettings(context: string, eventPayload: unknown): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new SetSettingsEvent('context', { your: 'new-settings' }));
+plugin.setSettings('context', { your: 'new-settings' });
 ```
 
-### SetStateEvent (tbd)
+- *can be sent from: **[x] Plugin [x] PI***
+
+---
+
+### SetState (tbd)
 
 :x: not yet implemented
 
 Changes the state of the button if it supports multiple states.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin** [ ] PI*
 
-### SetTitleEvent
+---
+
+### SetTitle
 
 Changes the title of the button.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
-
-**Event Signature**:
-
-```typescript
-SetTitleEvent(title: string, context: string, target?: TargetEnum, state?: number | undefined)
-```
+`setTitle(title: string, context: string, options: { target?: TargetEnum; state?: number }): void`
 
 **Example**:
 
 ```typescript
-plugin.sendEvent(new SetTitleEvent('the new title', 'context'));
+plugin.setTitle('the new title', 'context');
 ```
 
-### ShowAlertEvent (tbd)
+- *can be sent from: **[x] Plugin** [ ] PI*
+
+---
+
+### ShowAlert (tbd)
 
 :x: not yet implemented
 
 Will show an alert icon on the button.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin** [ ] PI*
 
-### ShowOkEvent (tbd)
+---
+
+### ShowOk (tbd)
 
 :x: not yet implemented
 
 Will show an ok checkmark on the button.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin** [ ] PI*
 
-### SwitchToProfileEvent (tbd)
+---
+
+### SwitchToProfile (tbd)
 
 :x: not yet implemented
 
 Makes the streamdeck switch to the preconfigured readonly profile.
 
-- [x] can be sent from Plugin
-- [ ] can be sent from PropertyInspector
+- *can be sent from: **[x] Plugin** [ ] PI*

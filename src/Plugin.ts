@@ -19,7 +19,7 @@ import {
   WillDisappearEvent,
 } from './events/incoming/plugin';
 import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, SetSettingsEvent } from './events/outgoing';
-import { SendToPropertyInspectorEvent, SetImageEvent, SetTitleEvent } from './events/outgoing/plugin';
+import { SendToPropertyInspectorEvent, SetImageEvent, SetTitleEvent, TargetEnum } from './events/outgoing/plugin';
 
 /* @formatter:off */
 /* eslint-disable */
@@ -90,7 +90,41 @@ export default class Plugin extends AbstractStreamdeckConnector {
     this.eventEmitter.on(eventType, callback);
   }
 
+  /** @deprecated - use the other methods in here directly - will be removed with 2.x */
   public sendEvent(event: AllowedOutgoingEvents): void {
     this.sendToStreamdeck(event);
+  }
+
+  /**
+   * Sends data to the propertyinspector
+   * @param {string} context The context / id of the current action / button
+   * @param {Record<string, unknown>} payload Whatever data you want to send
+   */
+  public sendToPropertyInspector(context: string, payload: Record<string, unknown>): void {
+    this.sendToStreamdeck(new SendToPropertyInspectorEvent('', context, payload));
+  }
+
+  /**
+   * Changes the title of the button
+   * @param {string} title The new title
+   * @param {string} context The context / id of the current action / button
+   * @param {object} options Optional params
+   * @param {TargetEnum} options.target Set if only intended for a specified target
+   * @param {number} options.state Set if only intended for one state of a multi-action button
+   */
+  public setTitle(title: string, context: string, options: { target?: TargetEnum; state?: number } = {}): void {
+    this.sendToStreamdeck(new SetTitleEvent(title, context, options.target, options.state));
+  }
+
+  /**
+   * Changes the image of the button
+   * @param {string} image The new image as base64 encoded string
+   * @param {string} context The context / id of the current action / button
+   * @param {object} options Optional params
+   * @param {TargetEnum} options.target Set if only intended for a specified target
+   * @param {number} options.state Set if only intended for one state of a multi-action button
+   */
+  public setImage(image: string, context: string, options: { target?: TargetEnum; state?: number } = {}): void {
+    this.sendToStreamdeck(new SetImageEvent(image, context, options.target, options.state));
   }
 }

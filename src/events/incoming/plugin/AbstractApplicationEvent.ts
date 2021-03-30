@@ -4,15 +4,15 @@ import assertType from '../assertType';
 import { ApplicationEventType } from '../streamdecktypes/ApplicationEventType';
 
 export default abstract class AbstractApplicationEvent extends AbstractIncomingBaseEvent {
-  protected readonly payload: Static<typeof ApplicationEventType>;
+  protected readonly eventPayload: Static<typeof ApplicationEventType>;
 
-  public constructor(payload: unknown) {
+  protected constructor(payload: unknown) {
     super(payload);
     assertType(ApplicationEventType, payload);
-    this.payload = payload;
+    this.eventPayload = payload;
   }
 
   public get application(): string {
-    return this.payload.payload.application;
+    return this.eventPayload.payload.application;
   }
 }

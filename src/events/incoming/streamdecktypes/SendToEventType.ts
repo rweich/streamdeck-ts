@@ -4,7 +4,7 @@ export const SendToEventType = Type.Object({
   action: Type.String(),
   event: Type.String({ pattern: '^sendToPlugin|sendToPropertyInspector$' }),
   context: Type.String(),
-  payload: Type.Any(),
+  payload: Type.Object({}),
 });
 
 export const SendToPluginEventType = Type.Intersect([

@@ -3,7 +3,7 @@ import WebSocket, { MessageEvent } from 'isomorphic-ws';
 import { Logger } from 'ts-log';
 import { IncomingEvents, OnWebsocketOpenEvent } from './events/incoming';
 import EventFactory from './events/incoming/EventFactory';
-import { RegisterEvent } from './events/outgoing';
+import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, RegisterEvent, SetSettingsEvent } from './events/outgoing';
 import EventInterface from './events/outgoing/EventInterface';
 
 // TODO: add types to the eventemitter
@@ -23,6 +23,10 @@ export default class AbstractStreamdeckConnector {
     this.logger = logger;
   }
 
+  /**
+   * Returns the context for the plugin, which we got while registering with the streamdeck
+   * TODO: test (shouldnt we only have one instance?)
+   */
   public get context(): string | null {
     return this.uuid;
   }
@@ -46,6 +50,42 @@ export default class AbstractStreamdeckConnector {
     inInfo: string,
   ) => void {
     return this.connectElgatoStreamDeckSocket.bind(this);
+  }
+
+  /**
+   * Makes the streamdeck write the log message to a debug log file
+   */
+  public logMessage(message: string): void {
+    this.sendToStreamdeck(new LogMessageEvent(message));
+  }
+
+  /**
+   * Requests the settings stored for the button instance
+   *
+   * @param {string} context The context / id of the current action / button
+   */
+  public getSettings(context: string): void {
+    this.sendToStreamdeck(new GetSettingsEvent(context));
+  }
+
+  /**
+   *
+   * Persists the settings for the current button.
+   *
+   * Triggers the didReceiveSettings event for the plugin (if sent by pi) and for the pi (if sent by plugin)
+   *
+   * @param {string} context The context / id of the current action / button
+   * @param {unknown} settings Whatever data you want to save
+   */
+  public setSettings(context: string, settings: unknown): void {
+    this.sendToStreamdeck(new SetSettingsEvent(context, settings));
+  }
+
+  /**
+   * Makes the streamdeck open the url in a browser.
+   */
+  public openUrl(url: string): void {
+    this.sendToStreamdeck(new OpenUrlEvent(url));
   }
 
   /**

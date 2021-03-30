@@ -4,15 +4,15 @@ import assertType from './assertType';
 import { DidReceiveGlobalSettingsType } from './streamdecktypes/SettingsEventType';
 
 export default class DidReceiveGlobalSettingsEvent extends AbstractIncomingBaseEvent {
-  protected payload: Static<typeof DidReceiveGlobalSettingsType>;
+  protected eventPayload: Static<typeof DidReceiveGlobalSettingsType>;
 
   constructor(payload: unknown) {
     super(payload);
     assertType(DidReceiveGlobalSettingsType, payload);
-    this.payload = payload;
+    this.eventPayload = payload;
   }
 
   public get settings(): unknown {
-    return this.payload.payload.settings;
+    return this.eventPayload.payload.settings;
   }
 }

@@ -4,31 +4,31 @@ import assertType from '../assertType';
 import { StateEventType } from '../streamdecktypes/StateEventType';
 
 export default abstract class AbstractStateEvent extends AbstractIncomingExtendedEvent {
-  protected payload: Static<typeof StateEventType>;
+  protected eventPayload: Static<typeof StateEventType>;
 
   protected constructor(payload: unknown) {
     super(payload);
     assertType(StateEventType, payload);
-    this.payload = payload;
+    this.eventPayload = payload;
   }
 
   public get settings(): unknown {
-    return this.payload.payload.settings;
+    return this.eventPayload.payload.settings;
   }
 
   public get row(): number {
-    return this.payload.payload.coordinates.row;
+    return this.eventPayload.payload.coordinates.row;
   }
 
   public get column(): number {
-    return this.payload.payload.coordinates.column;
+    return this.eventPayload.payload.coordinates.column;
   }
 
   public get isInMultiAction(): boolean {
-    return this.payload.payload.isInMultiAction;
+    return this.eventPayload.payload.isInMultiAction;
   }
 
   public get state(): number | undefined {
-    return this.payload.payload.state;
+    return this.eventPayload.payload.state;
   }
 }

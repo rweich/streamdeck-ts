@@ -26,4 +26,16 @@ describe('SendToPluginEvent test', () => {
       /match pattern .*sendToPlugin/,
     );
   });
+  it('should create the event with different valid paylods', function () {
+    const payload = eventValid;
+    payload.payload = { some: 'payload' };
+    expect(new SendToPluginIncomingEvent(payload).payload.some).to.equal('payload');
+    payload.payload = { some: { inner: 'payload' } };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(new SendToPluginIncomingEvent(payload).payload.some.inner).to.equal('payload');
+    payload.payload = { a: 'b', c: 'd' };
+    expect(new SendToPluginIncomingEvent(payload).payload.a).to.equal('b');
+    expect(new SendToPluginIncomingEvent(payload).payload.c).to.equal('d');
+  });
 });

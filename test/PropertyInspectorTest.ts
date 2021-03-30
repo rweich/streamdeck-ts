@@ -3,14 +3,8 @@ import EventEmitter from 'eventemitter3';
 import 'mocha';
 import { dummyLogger } from 'ts-log';
 import WebSocket from 'ws';
-import {
-  assertType,
-  GetSettingsEvent,
-  IncomingEvents,
-  OpenUrlEvent,
-  SendToPluginEvent,
-  SetSettingsEvent,
-} from '../src';
+import { GetSettingsEvent, IncomingEvents, OpenUrlEvent, SendToPluginEvent, SetSettingsEvent } from '../src';
+import { assertType } from '../src/events/incoming';
 import EventFactory from '../src/events/incoming/EventFactory';
 import LogMessageEvent from '../src/events/outgoing/LogMessageEvent';
 import PropertyInspector from '../src/PropertyInspector';
@@ -62,7 +56,79 @@ describe('PropertyInspector test', () => {
     connector('23456', 'uid', 'register', 'info');
   });
 
-  describe('sendEvent', () => {
+  describe('send events', () => {
+    let pi: PropertyInspector;
+    let server: WebSocket.Server;
+    let ws: WebSocket;
+    before('prepare websocket', (done) => {
+      pi = new PropertyInspector(new EventEmitter(), new EventFactory(dummyLogger), dummyLogger);
+      server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+      server.on('connection', (pws: WebSocket) => {
+        ws = pws;
+        ws.once('message', () => done());
+      });
+      pi.createStreamdeckConnector()('23456', 'uid', 'regpropevent', 'info');
+    });
+    after('shutdown websocket', () => {
+      server.close();
+    });
+
+    it('should send the GetSettingsEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(GetSettingsSchema, data);
+        expect(data.event).to.equal('getSettings');
+        expect(data.context).to.equal('GetSettingsEventContext');
+        done();
+      });
+      pi.getSettings('GetSettingsEventContext');
+    });
+    it('should send the LogMessageEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(LogMessageSchema, data);
+        expect(data.event).to.equal('logMessage');
+        expect(data.payload.message).to.equal('a message to log');
+        done();
+      });
+      pi.logMessage('a message to log');
+    });
+    it('should send the OpenUrlEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(OpenUrlSchema, data);
+        expect(data.event).to.equal('openUrl');
+        expect(data.payload.url).to.equal('the pi url');
+        done();
+      });
+      pi.openUrl('the pi url');
+    });
+    it('should send the SendToPluginEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(SendToPluginSchema, data);
+        expect(data.event).to.equal('sendToPlugin');
+        expect(data.action).to.equal('pac');
+        expect(data.context).to.equal('con');
+        expect(data.payload.some).to.equal('payload');
+        done();
+      });
+      pi.sendToPlugin('con', { some: 'payload' }, 'pac');
+    });
+    it('should send the SetSettingsEvent', (done) => {
+      ws.once('message', (data) => {
+        data = JSON.parse(data.toString());
+        assertType(SetSettingsSchema, data);
+        expect(data.event).to.equal('setSettings');
+        expect(data.context).to.equal('SetSettingsEventContext');
+        expect(data.payload.my).to.equal('payload');
+        done();
+      });
+      pi.setSettings('SetSettingsEventContext', { my: 'payload' });
+    });
+  });
+
+  describe('sendEvent (deprecated events)', () => {
     let pi: PropertyInspector;
     let server: WebSocket.Server;
     let ws: WebSocket;
