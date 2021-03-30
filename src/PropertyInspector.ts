@@ -46,7 +46,18 @@ export default class PropertyInspector extends AbstractStreamdeckConnector {
     this.eventEmitter.on(eventType, callback);
   }
 
+  /** @deprecated - use the other methods in here directly - will be removed with 2.x */
   public sendEvent(event: AllowedOutgoingEvents): void {
     this.sendToStreamdeck(event);
+  }
+
+  /**
+   * Sends data to the plugin
+   * @param {string} context The context / id of the current action / button
+   * @param {Record<string, unknown>} payload Whatever data you want to send
+   * @param action The actions UUID (has to match the one in the manifest)
+   */
+  public sendToPlugin(context: string, payload: Record<string, unknown>, action: string): void {
+    this.sendToStreamdeck(new SendToPluginEvent(action, context, payload));
   }
 }

@@ -4,23 +4,28 @@ import assertType from '../assertType';
 import { SendToPluginEventType } from '../streamdecktypes/SendToEventType';
 
 export default class SendToPluginIncomingEvent extends AbstractIncomingBaseEvent {
-  protected readonly payload: Static<typeof SendToPluginEventType>;
+  protected readonly eventPayload: Static<typeof SendToPluginEventType>;
 
   constructor(payload: unknown) {
     super(payload);
     assertType(SendToPluginEventType, payload);
-    this.payload = payload;
+    this.eventPayload = payload;
   }
 
   public get action(): string {
-    return this.payload.action;
+    return this.eventPayload.action;
   }
 
   public get context(): string {
-    return this.payload.context;
+    return this.eventPayload.context;
   }
 
+  /** @deprecated - use payload (will be removed with 2.x) */
   public get data(): unknown {
-    return this.payload.payload;
+    return this.eventPayload.payload;
+  }
+
+  public get payload(): Record<string, unknown> {
+    return this.eventPayload.payload;
   }
 }

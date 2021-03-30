@@ -4,23 +4,23 @@ import assertType from '../assertType';
 import { KeyEventType } from '../streamdecktypes/KeyEventType';
 
 export default abstract class AbstractKeyEvent extends AbstractIncomingExtendedEvent {
-  protected readonly payload: Static<typeof KeyEventType>;
+  protected readonly eventPayload: Static<typeof KeyEventType>;
 
   protected constructor(payload: unknown) {
     super(payload);
     assertType(KeyEventType, payload);
-    this.payload = payload;
+    this.eventPayload = payload;
   }
 
   get row(): number {
-    return this.payload.payload.coordinates.row;
+    return this.eventPayload.payload.coordinates.row;
   }
 
   get column(): number {
-    return this.payload.payload.coordinates.column;
+    return this.eventPayload.payload.coordinates.column;
   }
 
   get isInMultiAction(): boolean {
-    return this.payload.payload.isInMultiAction;
+    return this.eventPayload.payload.isInMultiAction;
   }
 }

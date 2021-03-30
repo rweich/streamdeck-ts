@@ -1,33 +1,80 @@
 // organize-imports-ignore - remove ignore with 2.x
-export * from './events/outgoing';
-export * from './events/outgoing/plugin';
-export * from './events/outgoing/propertyinspector';
-
-import { assertType } from './events/incoming';
 import { DeviceType } from './events/incoming/plugin';
 import Plugin from './Plugin';
 import PropertyInspector from './PropertyInspector';
 import Streamdeck from './Streamdeck';
+import { TargetEnum } from './events/outgoing/plugin';
 
-export { assertType, DeviceType, Plugin, PropertyInspector, Streamdeck };
+export { DeviceType, Plugin, PropertyInspector, Streamdeck, TargetEnum };
 
 //
 // deprecated stuff below (remove with 2.x)
 //
 
 import {
+  SendToPluginEvent as DepSendToPluginEvent,
+  OutgoingPropertyinspectorEvents as DepOutgoingPropertyinspectorEvents,
+} from './events/outgoing/propertyinspector';
+/** @deprecated internal use only - will be removed with 2.x */
+const SendToPluginEvent = DepSendToPluginEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const OutgoingPropertyinspectorEvents = DepOutgoingPropertyinspectorEvents;
+export { SendToPluginEvent, OutgoingPropertyinspectorEvents };
+
+import {
+  SetImageEvent as DepSetImageEvent,
+  SetTitleEvent as DepSetTitleEvent,
+  SendToPropertyInspectorEvent as DepSendToPropertyInspectorEvent,
+  OutgoingPluginEvents as DepOutgoingPluginEvents,
+} from './events/outgoing/plugin';
+/** @deprecated internal use only - will be removed with 2.x */
+const SetImageEvent = DepSetImageEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const SetTitleEvent = DepSetTitleEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const SendToPropertyInspectorEvent = DepSendToPropertyInspectorEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const OutgoingPluginEvents = DepOutgoingPluginEvents;
+export { SetImageEvent, SetTitleEvent, SendToPropertyInspectorEvent, OutgoingPluginEvents };
+
+import {
+  OpenUrlEvent as DepOpenUrlEvent,
+  SetSettingsEvent as DepSetSettingsEvent,
+  GetSettingsEvent as DepGetSettingsEvent,
+  LogMessageEvent as DepLogMessageEvent,
+  RegisterEvent as DepRegisterEvent,
+  OutgoingEvents as DepOutgoingEvents,
+} from './events/outgoing';
+/** @deprecated internal use only - will be removed with 2.x */
+const OpenUrlEvent = DepOpenUrlEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const SetSettingsEvent = DepSetSettingsEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const GetSettingsEvent = DepGetSettingsEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const LogMessageEvent = DepLogMessageEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const RegisterEvent = DepRegisterEvent;
+/** @deprecated internal use only - will be removed with 2.x */
+const OutgoingEvents = DepOutgoingEvents;
+export { OpenUrlEvent, SetSettingsEvent, GetSettingsEvent, LogMessageEvent, RegisterEvent, OutgoingEvents };
+
+import {
+  assertType as DepAssertType,
   DidReceiveSettingsEvent as DepDidReceiveSettingsEvent,
   IncomingEvents,
   OnWebsocketOpenEvent as DepOnWebsocketOpenEvent,
   DidReceiveGlobalSettingsEvent as DepDidReceiveGlobalSettingsEvent,
 } from './events/incoming';
 /** @deprecated internal use only - will be removed with 2.x */
+const assertType = DepAssertType;
+/** @deprecated internal use only - will be removed with 2.x */
 const DidReceiveSettingsEvent = DepDidReceiveSettingsEvent;
 /** @deprecated internal use only - will be removed with 2.x */
 const OnWebsocketOpenEvent = DepOnWebsocketOpenEvent;
 /** @deprecated internal use only - will be removed with 2.x */
 const DidReceiveGlobalSettingsEvent = DepDidReceiveGlobalSettingsEvent;
-export { DidReceiveSettingsEvent, OnWebsocketOpenEvent, DidReceiveGlobalSettingsEvent, IncomingEvents };
+export { assertType, DidReceiveSettingsEvent, OnWebsocketOpenEvent, DidReceiveGlobalSettingsEvent, IncomingEvents };
 
 import {
   ApplicationDidTerminateEvent as DepApplicationDidTerminateEvent,

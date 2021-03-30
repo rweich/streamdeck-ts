@@ -1,16 +1,6 @@
 import { describe, test } from 'mocha';
 import { dummyLogger } from 'ts-log';
-import {
-  GetSettingsEvent,
-  LogMessageEvent,
-  OpenUrlEvent,
-  SendToPluginEvent,
-  SendToPropertyInspectorEvent,
-  SetImageEvent,
-  SetSettingsEvent,
-  SetTitleEvent,
-  Streamdeck,
-} from '../src';
+import { Streamdeck } from '../src';
 
 describe('Tests that the snippets in the Readme.md dont throw errors', () => {
   test('the main example snippet', () => {
@@ -23,10 +13,14 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     });
 
     // Send events
-    // For most events you'll need a context (the button) to send events to.
-    // You'll get that with most events sent by the streamdeck.
+    // For most events you'll need a context (the "button-id") to send events to.
+    // It's sent with most events received from the streamdeck.
     plugin.on('willAppear', ({ context }) => {
-      plugin.sendEvent(new SetTitleEvent('new Title', context));
+      plugin.setTitle('new Title', context);
+    });
+    let keypresses = 0;
+    plugin.on('keyDown', ({ context }) => {
+      plugin.setTitle(`key pressed ${++keypresses} times`, context);
     });
 
     // same for the property inspector
@@ -70,10 +64,10 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
       plugin.on('propertyInspectorDidDisappear', () => console.log(`the propertyinspector disappeared!`));
     });
     test('the sendToPlugin snippet', () => {
-      plugin.on('sendToPlugin', ({ data }) => console.log(`the pi sent some data:`, data));
+      plugin.on('sendToPlugin', ({ payload }) => console.log(`the pi sent some data:`, payload));
     });
     test.skip('the sendToPropertyInspector snippet', () => {
-      // pi.on('sendToPropertyInspector', ({ data }) => console.log(`the plugin sent some data:`, data));
+      // pi.on('sendToPropertyInspector', ({ payload }) => console.log(`the plugin sent some data:`, payload));
     });
     test.skip('the systemDidWakeUp snippet', () => {
       // TODO: implement
@@ -99,34 +93,34 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
       // TODO: implement
     });
     test('the GetSettingsEvent snippet', () => {
-      plugin.sendEvent(new GetSettingsEvent('context'));
+      plugin.getSettings('context');
     });
     test('the LogMessageEvent snippet', () => {
-      plugin.sendEvent(new LogMessageEvent('the message'));
+      plugin.logMessage('the message');
     });
     test('the OpenUrlEvent snippet', () => {
-      plugin.sendEvent(new OpenUrlEvent('the url'));
+      plugin.openUrl('the url');
     });
     test('the SendToPluginEvent snippet', () => {
-      pi.sendEvent(new SendToPluginEvent('action', 'context', { some: 'data' }));
+      pi.sendToPlugin('context', { some: 'data' }, 'action');
     });
     test('the SendToPropertyInspectorEvent snippet', () => {
-      plugin.sendEvent(new SendToPropertyInspectorEvent('action', 'context', { some: 'data' }));
+      plugin.sendToPropertyInspector('context', { some: 'data' });
     });
     test('the SetImageEvent snippet', () => {
-      plugin.sendEvent(new SetImageEvent('imagedataAsBase64', 'context'));
+      plugin.setImage('imagedataAsBase64', 'context');
     });
     test.skip('the SetGlobalSettingsEvent snippet', () => {
       // TODO: implement
     });
     test('the SetSettingsEvent snippet', () => {
-      plugin.sendEvent(new SetSettingsEvent('context', { your: 'new-settings' }));
+      plugin.setSettings('context', { your: 'new-settings' });
     });
     test.skip('the SetStateEvent snippet', () => {
       // TODO: implement
     });
     test('the SetTitleEvent snippet', () => {
-      plugin.sendEvent(new SetTitleEvent('the new title', 'context'));
+      plugin.setTitle('the new title', 'context');
     });
     test.skip('the ShowAlertEvent snippet', () => {
       // TODO: implement
