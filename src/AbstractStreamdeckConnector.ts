@@ -23,20 +23,31 @@ export default class AbstractStreamdeckConnector {
     this.logger = logger;
   }
 
-  /**
-   * Returns the context for the plugin, which we got while registering with the streamdeck
-   * TODO: test (shouldnt we only have one instance?)
-   */
+  /** @deprecated - use 'pluginUUID' (will be removed with 2.x) */
   public get context(): string | null {
     return this.uuid;
   }
 
-  // seems to be only set on plugins that 'support' multiactions
+  /** @deprecated - undocumented - use 'info' (will be removed with 2.x) */
   public get action(): string | null {
     if (this.actionInfo !== null && 'action' in this.actionInfo) {
       return (this.actionInfo as { action: string }).action;
     }
     return null;
+  }
+
+  /**
+   * Returns the info-object that we got from the streamdeck with the registration
+   */
+  public get info(): Record<string, unknown> {
+    return this.actionInfo || {};
+  }
+
+  /**
+   * Returns the uuid for the plugin, which we got while registering with the streamdeck
+   */
+  public get pluginUUID(): string | null {
+    return this.uuid;
   }
 
   /**
