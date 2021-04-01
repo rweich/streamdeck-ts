@@ -48,6 +48,19 @@ describe('Plugin test', () => {
       });
     });
   });
+  it('should return the info and pluginUUID', (done) => {
+    const plugin = new Plugin(new EventEmitter(), new EventFactory(dummyLogger), dummyLogger);
+    expect(Object.keys(plugin.info)).to.be.lengthOf(0);
+    const connector = plugin.createStreamdeckConnector();
+    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    connector('23456', 'uid', 'registering', '{"foo": "bar"}');
+    expect(plugin.info.foo).to.equal('bar');
+    expect(plugin.pluginUUID).to.equal('uid');
+    server.on('connection', () => {
+      server.close();
+      done();
+    });
+  });
 
   describe('sendEvent', () => {
     let plugin: Plugin;
