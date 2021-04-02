@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/rweich/streamdeck-ts/compare/v1.3.0...v1.4.0) (2021-04-02)
+
+
+### Features
+
+* add support for sendToPropertyInspector event ([20d3830](https://github.com/rweich/streamdeck-ts/commit/20d3830c6cce03f25dda84340b472a722cd93906))
+* simplify events sent ([49bf1e4](https://github.com/rweich/streamdeck-ts/commit/49bf1e4f3f32803f09910455839b12a33cdf8b14))
+
 # [1.3.0](https://github.com/rweich/streamdeck-ts/compare/v1.2.0...v1.3.0) (2021-03-29)
 
 
