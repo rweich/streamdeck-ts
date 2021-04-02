@@ -79,6 +79,12 @@ type PluginEventListenerMap = {
   willDisappear: WillDisappearEvent;
 };
 
+const SetterTargets = {
+  hardware: TargetEnum.Hardware,
+  software: TargetEnum.Software,
+  both: TargetEnum.Both,
+};
+
 export default class Plugin extends AbstractStreamdeckConnector {
   /** registers the eventlistener to the events the streamdeck sends to us */
   public on<T extends keyof PluginEventListenerMap>(
@@ -109,11 +115,17 @@ export default class Plugin extends AbstractStreamdeckConnector {
    * @param {string} title The new title
    * @param {string} context The context / id of the current action / button
    * @param {object} options Optional params
-   * @param {TargetEnum} options.target Set if only intended for a specified target
+   * @param {'hardware'|'software'|'both'} options.target Set if only intended for a specified target
    * @param {number} options.state Set if only intended for one state of a multi-action button
    */
-  public setTitle(title: string, context: string, options: { target?: TargetEnum; state?: number } = {}): void {
-    this.sendToStreamdeck(new SetTitleEvent(title, context, options.target, options.state));
+  public setTitle(
+    title: string,
+    context: string,
+    options: { target?: keyof typeof SetterTargets; state?: number } = {},
+  ): void {
+    this.sendToStreamdeck(
+      new SetTitleEvent(title, context, options.target ? SetterTargets[options.target] : undefined, options.state),
+    );
   }
 
   /**
@@ -121,10 +133,16 @@ export default class Plugin extends AbstractStreamdeckConnector {
    * @param {string} image The new image as base64 encoded string
    * @param {string} context The context / id of the current action / button
    * @param {object} options Optional params
-   * @param {TargetEnum} options.target Set if only intended for a specified target
+   * @param {'hardware'|'software'|'both'} options.target Set if only intended for a specified target
    * @param {number} options.state Set if only intended for one state of a multi-action button
    */
-  public setImage(image: string, context: string, options: { target?: TargetEnum; state?: number } = {}): void {
-    this.sendToStreamdeck(new SetImageEvent(image, context, options.target, options.state));
+  public setImage(
+    image: string,
+    context: string,
+    options: { target?: keyof typeof SetterTargets; state?: number } = {},
+  ): void {
+    this.sendToStreamdeck(
+      new SetImageEvent(image, context, options.target ? SetterTargets[options.target] : undefined, options.state),
+    );
   }
 }

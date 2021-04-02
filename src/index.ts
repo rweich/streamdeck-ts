@@ -3,9 +3,8 @@ import { DeviceType } from './events/incoming/plugin';
 import Plugin from './Plugin';
 import PropertyInspector from './PropertyInspector';
 import Streamdeck from './Streamdeck';
-import { TargetEnum } from './events/outgoing/plugin';
 
-export { DeviceType, Plugin, PropertyInspector, Streamdeck, TargetEnum };
+export { DeviceType, Plugin, PropertyInspector, Streamdeck };
 
 //
 // deprecated stuff below (remove with 2.x)
@@ -22,10 +21,11 @@ const OutgoingPropertyinspectorEvents = DepOutgoingPropertyinspectorEvents;
 export { SendToPluginEvent, OutgoingPropertyinspectorEvents };
 
 import {
+  OutgoingPluginEvents as DepOutgoingPluginEvents,
   SetImageEvent as DepSetImageEvent,
   SetTitleEvent as DepSetTitleEvent,
   SendToPropertyInspectorEvent as DepSendToPropertyInspectorEvent,
-  OutgoingPluginEvents as DepOutgoingPluginEvents,
+  TargetEnum as DepTargetEnum,
 } from './events/outgoing/plugin';
 /** @deprecated internal use only - will be removed with 2.x */
 const SetImageEvent = DepSetImageEvent;
@@ -35,7 +35,9 @@ const SetTitleEvent = DepSetTitleEvent;
 const SendToPropertyInspectorEvent = DepSendToPropertyInspectorEvent;
 /** @deprecated internal use only - will be removed with 2.x */
 const OutgoingPluginEvents = DepOutgoingPluginEvents;
-export { SetImageEvent, SetTitleEvent, SendToPropertyInspectorEvent, OutgoingPluginEvents };
+/** @deprecated internal use only - will be removed with 2.x */
+const TargetEnum = DepTargetEnum;
+export { SetImageEvent, SetTitleEvent, SendToPropertyInspectorEvent, OutgoingPluginEvents, TargetEnum };
 
 import {
   OpenUrlEvent as DepOpenUrlEvent,

@@ -153,7 +153,7 @@ describe('Plugin test', () => {
         expect(data.context).to.equal('imagecontext');
         done();
       });
-      plugin.setImage('imagebase64', 'imagecontext', { target: TargetEnum.Hardware });
+      plugin.setImage('imagebase64', 'imagecontext', { target: 'hardware' });
     });
     it('should send the SetImageEvent with both options', (done) => {
       ws.once('message', (data) => {
@@ -166,7 +166,7 @@ describe('Plugin test', () => {
         expect(data.context).to.equal('imagecontext');
         done();
       });
-      plugin.setImage('imagebase64', 'imagecontext', { state: 1, target: TargetEnum.Both });
+      plugin.setImage('imagebase64', 'imagecontext', { state: 1, target: 'both' });
     });
     it('should send the SetSettingsEvent', (done) => {
       ws.once('message', (data) => {
@@ -212,7 +212,7 @@ describe('Plugin test', () => {
         expect(data.context).to.equal('foocontext');
         done();
       });
-      plugin.setTitle('footitle', 'foocontext', { target: TargetEnum.Software });
+      plugin.setTitle('footitle', 'foocontext', { target: 'software' });
     });
     it('should send the SetTitleEvent with both optional params', (done) => {
       ws.once('message', (data) => {
@@ -225,7 +225,7 @@ describe('Plugin test', () => {
         expect(data.context).to.equal('foocontext');
         done();
       });
-      plugin.setTitle('footitle', 'foocontext', { target: TargetEnum.Software, state: 0 });
+      plugin.setTitle('footitle', 'foocontext', { target: 'software', state: 0 });
     });
   });
 
