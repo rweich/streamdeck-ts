@@ -2,23 +2,28 @@ import { expect } from 'chai';
 import { MessageEvent } from 'isomorphic-ws';
 import 'mocha';
 import { dummyLogger } from 'ts-log';
-import { ApplicationDidLaunchEvent, ApplicationDidTerminateEvent } from '../../../src';
 import EventFactory from '../../../src/events/incoming/EventFactory';
 import MissingEventInPayloadError from '../../../src/events/incoming/exception/MissingEventInPayloadError';
 import UnknownEventError from '../../../src/events/incoming/exception/UnknownEventError';
-import DeviceDidConnectEvent from '../../../src/events/incoming/plugin/DeviceDidConnectEvent';
-import KeyDownEvent from '../../../src/events/incoming/plugin/KeyDownEvent';
-import KeyUpEvent from '../../../src/events/incoming/plugin/KeyUpEvent';
-import SendToPluginIncomingEvent from '../../../src/events/incoming/plugin/SendToPluginIncomingEvent';
-import TitleParametersDidChangeEvent from '../../../src/events/incoming/plugin/TitleParametersDidChangeEvent';
-import WillAppearEvent from '../../../src/events/incoming/plugin/WillAppearEvent';
-import WillDisappearEvent from '../../../src/events/incoming/plugin/WillDisappearEvent';
+import {
+  ApplicationDidLaunchEvent,
+  ApplicationDidTerminateEvent,
+  DeviceDidConnectEvent,
+  KeyDownEvent,
+  KeyUpEvent,
+  SendToPluginIncomingEvent,
+  TitleParametersDidChangeEvent,
+  WillAppearEvent,
+  WillDisappearEvent,
+} from '../../../src/events/incoming/plugin';
+import { SendToPropertyInspectorIncomingEvent } from '../../../src/events/incoming/propertyinspector';
 import eventAppDidLaunch from './fixtures/applicationDidLaunchEvent.valid.json';
 import eventAppDidTerminate from './fixtures/applicationDidTerminateEvent.valid.json';
 import eventDeviceconnect from './fixtures/deviceDidConnectEvent.valid.json';
 import eventKeydown from './fixtures/keyDownEvent.valid.json';
 import eventKeyup from './fixtures/keyUpEvent.valid.json';
 import eventSendtoplugin from './fixtures/sendToPluginEvent.valid.json';
+import eventSendtoPropertyInspector from './fixtures/sendToPropertyInspectorEvent.valid.json';
 import eventTitleparamchange from './fixtures/titleParametersDidChangeEvent.valid.json';
 import eventWillappear from './fixtures/willAppearEvent.valid.json';
 import eventWilldisappear from './fixtures/willDisappearEvent.valid.json';
@@ -79,5 +84,12 @@ describe('EventFactory test', () => {
   it('should return a sendtoplugin event', () => {
     const event = { data: JSON.stringify(eventSendtoplugin) } as MessageEvent;
     expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(SendToPluginIncomingEvent);
+  });
+
+  it('should return a sendtopropertyinspector event', () => {
+    const event = { data: JSON.stringify(eventSendtoPropertyInspector) } as MessageEvent;
+    expect(new EventFactory(dummyLogger).createByMessageEvent(event)).to.be.instanceOf(
+      SendToPropertyInspectorIncomingEvent,
+    );
   });
 });

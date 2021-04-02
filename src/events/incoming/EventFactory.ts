@@ -23,6 +23,7 @@ import {
   WillAppearEvent,
   WillDisappearEvent,
 } from './plugin';
+import { SendToPropertyInspectorIncomingEvent } from './propertyinspector';
 
 interface BasicIncomingEvent {
   event: IncomingEvents | IncomingPluginEvents;
@@ -87,6 +88,8 @@ export default class EventFactory {
         return new PropertyInspectorDidDisappearEvent(payload);
       case IncomingPluginEvents.SendToPlugin:
         return new SendToPluginIncomingEvent(payload);
+      case IncomingPluginEvents.SendToPropertyInspector:
+        return new SendToPropertyInspectorIncomingEvent(payload);
       case IncomingPluginEvents.TitleParametersDidChange:
         return new TitleParametersDidChangeEvent(payload);
       case IncomingPluginEvents.WillAppear:
