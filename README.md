@@ -92,7 +92,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [propertyInspectorDidAppear](#propertyinspectordidappear)
   - [propertyInspectorDidDisappear](#propertyinspectordiddisappear)
   - [sendToPlugin](#sendtoplugin)
-  - [sendToPropertyInspector (tbd)](#sendtopropertyinspector-tbd)
+  - [sendToPropertyInspector](#sendtopropertyinspector)
   - [systemDidWakeUp (tbd)](#systemdidwakeup-tbd)
   - [titleParametersDidChange (tbd)](#titleparametersdidchange-tbd)
   - [websocketOpen](#websocketopen)
@@ -104,7 +104,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [LogMessage](#logmessage)
   - [OpenUrl](#openurl)
   - [SendToPlugin](#sendtoplugin-1)
-  - [SendToPropertyInspector](#sendtopropertyinspector)
+  - [SendToPropertyInspector](#sendtopropertyinspector-1)
   - [SetImage](#setimage)
   - [SetGlobalSettings (tbd)](#setglobalsettings-tbd)
   - [SetSettings](#setsettings)
@@ -396,9 +396,7 @@ plugin.on('sendToPlugin', ({ payload }) => console.log(`the pi sent some data:`,
 
 ---
 
-### sendToPropertyInspector (tbd)
-
-:x: not yet implemented
+### sendToPropertyInspector
 
 Triggered when the plugin sends a [SendToPropertyInspectorEvent](#sendtopropertyinspectorevent).
 

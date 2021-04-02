@@ -13,3 +13,10 @@ export const SendToPluginEventType = Type.Intersect([
     event: Type.String({ pattern: '^sendToPlugin$' }),
   }),
 ]);
+
+export const SendToPropertyInspectorEventType = Type.Intersect([
+  SendToEventType,
+  Type.Object({
+    event: Type.String({ pattern: '^sendToPropertyInspector$' }),
+  }),
+]);

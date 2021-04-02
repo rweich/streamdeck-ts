@@ -9,6 +9,7 @@ export enum IncomingPluginEvents {
   PropertyInspectorDidAppear = 'propertyInspectorDidAppear',
   PropertyInspectorDidDisappear = 'propertyInspectorDidDisappear',
   SendToPlugin = 'sendToPlugin',
+  SendToPropertyInspector = 'sendToPropertyInspector',
   SystemDidWakeUp = 'systemDidWakeUp',
   TitleParametersDidChange = 'titleParametersDidChange',
   WillAppear = 'willAppear',
