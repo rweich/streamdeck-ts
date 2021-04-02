@@ -14,11 +14,21 @@ The goal of this sdk is to make all the events (sent and received to / from the 
 - simple event interface
 - working typehints and autocompletion for events and their payloads
 
+## Quickstart
+
+If you want to start writing your plugin right away you might want to look at the [streamdeck-ts-template](https://github.com/rweich/streamdeck-ts-template) package.
+
+It will help you with:
+
+- setting up this sdk
+- configuring your plugins metadata
+- bundling your code into the format the streamdeck needs
+- creating a package for redistribution
+
 ## Example Implementations
 
-- [numberdisplay](https://github.com/rweich/streamdeck-ts-numberdisplay) - the example numberdisplay plugin from elgato ported to use this sdk.
-- [streamdeck-datetime](https://github.com/rweich/streamdeck-datetime) - a simple datetime plugin.
-- [streamdeck-ts-template](https://github.com/rweich/streamdeck-ts-template) - this package in a fully configured template repository to help you start coding instead of worrying about build or release configuration.
+- [numberdisplay](https://github.com/rweich/streamdeck-ts-numberdisplay) - the example numberdisplay plugin that comes with the streamdeck ported to use this sdk.
+- [datetime](https://github.com/rweich/streamdeck-datetime) - shows the date and the time.
 
 ## Installation
 
@@ -45,9 +55,9 @@ plugin.on('keyDown', ({ row, column }) => {
   console.log(`key pressed on row ${row} and column ${column}`);
 });
 
-// Send events
-// For most events you'll need a context (the "button-id") to send events to.
-// It's sent with most events received from the streamdeck.
+// Sending events:
+// For some events you'll need to set a context (the "button-id").
+// It's sent along most events received from the streamdeck.
 plugin.on('willAppear', ({ context }) => {
   plugin.setTitle('new Title', context);
 });
@@ -64,6 +74,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
 ## Table of Contents
 
 - [About](#about)
+- [Quickstart](#quickstart)
 - [Example Implementations](#example-implementations)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -606,7 +617,7 @@ plugin.sendToPropertyInspector('context', { some: 'data' });
 
 Changes the image of the button.
 
-`setImage(image: string, context: string, options: { target?: TargetEnum; state?: number }): void`
+`setImage(image: string, context: string, options: { target?: 'hardware' | 'software' | 'both'; state?: number }): void`
 
 **Example**:
 
@@ -662,7 +673,7 @@ Changes the state of the button if it supports multiple states.
 
 Changes the title of the button.
 
-`setTitle(title: string, context: string, options: { target?: TargetEnum; state?: number }): void`
+`setTitle(title: string, context: string, options: { target?: 'hardware' | 'software' | 'both'; state?: number }): void`
 
 **Example**:
 
