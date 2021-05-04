@@ -42,10 +42,10 @@ or
 npm install @rweich/streamdeck-ts
 ```
 
-## Usage
+## Usage Example
 
 ```typescript
-import { SetTitleEvent, Streamdeck } from '@rweich/streamdeck-ts';
+import { Streamdeck } from '@rweich/streamdeck-ts';
 
 // Create plugin instance
 const plugin = new Streamdeck().plugin();
