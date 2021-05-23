@@ -7,64 +7,56 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "ci": "yarn type-check && yarn lint && yarn lint-tests && yarn test",
-    "clean": "rm -rf dist/*",
     "build": "npm run clean && tsc -p tsconfig.build.json",
-    "lint": "eslint ./src/**/*.ts",
-    "lint-tests": "eslint test/**/*.ts",
-    "type-check": "tsc --noEmit",
+    "ci": "yarn type-check && yarn lint && yarn lint-tests && yarn test",
+    "clean": "rimraf ./dist/*",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint-tests": "eslint 'test/**/*.ts'",
+    "prepare": "husky install",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha",
     "test-coverage": "nyc yarn test",
-    "test-coverage-report": "yarn test-coverage && nyc report --reporter=text-lcov | coveralls"
+    "test-coverage-report": "yarn test-coverage && nyc report --reporter=text-lcov | coveralls",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@rweich/streamdeck-events": "^1.1.0",
-    "@sinclair/typebox": "^0.12.7",
-    "ajv": "^6.12.4",
     "eventemitter3": "^4.0.7",
     "isomorphic-ws": "^4.0.1",
     "ts-log": "^2.2.3",
     "ws": "^7.4.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@rweich/eslint-config": "^1.1.0",
+    "@rweich/prettier-config": "^1.0.0",
+    "@rweich/semantic-release-config": "^1.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/chai": "^4.2.14",
-    "@types/chai-json-schema": "^1.4.6",
     "@types/mocha": "^8.2.0",
-    "@types/sinon": "^9.0.10",
+    "@types/sinon": "^10.0.0",
     "@types/ws": "^7.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.0",
-    "@typescript-eslint/parser": "^4.14.0",
     "chai": "^4.2.0",
-    "chai-json-schema": "^1.5.1",
     "coveralls": "^3.1.0",
-    "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-prettier": "^3.3.1",
     "esm": "^3.2.25",
-    "husky": "^4.3.8",
-    "lint-staged": "^10.5.3",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "organize-imports-cli": "^0.8.0",
-    "prettier": "npm:@btmills/prettier",
+    "rimraf": "^3.0.2",
     "semantic-release": "^17.3.7",
-    "sinon": "^9.2.2",
+    "sinon": "^10.0.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.1.1",
-    "ts-type-guards": "^0.7.0",
     "typescript": "^4.1.3"
   },
   "engines": {
     "node": ">=12"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rweich/streamdeck-ts.git"
-  },
+  "repository": "rweich/streamdeck-ts",
+  "bugs": "https://github.com/rweich/streamdeck-ts/issues",
   "keywords": [
     "streamdeck",
     "elgato",
@@ -79,18 +71,21 @@
   "publishConfig": {
     "access": "public"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "@rweich"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
-      "organize-imports-cli",
-      "prettier --write"
+      "prettier --write",
+      "eslint --quiet --fix"
     ]
   },
+  "prettier": "@rweich/prettier-config",
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
@@ -101,5 +96,9 @@
       "text",
       "lcov"
     ]
+  },
+  "release": {
+    "extends": "@rweich/semantic-release-config",
+    "branches": "main"
   }
 }

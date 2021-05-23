@@ -1,6 +1,6 @@
-import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector/ReceivedPropertyInspectorEventTypes';
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
 import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
+import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector/ReceivedPropertyInspectorEventTypes';
 
 type EventMapOfUnion<T extends { event: string }> = {
   [P in T['event']]: (event: Extract<T, { event: P }>) => void;

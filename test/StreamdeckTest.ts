@@ -1,8 +1,10 @@
-import { expect } from 'chai';
 import 'mocha';
-import sinon, { SinonSandbox } from 'sinon';
-import { Logger } from 'ts-log';
+
 import { Plugin, PropertyInspector, Streamdeck } from '../src';
+import sinon, { SinonSandbox } from 'sinon';
+
+import { dummyLogger } from 'ts-log';
+import { expect } from 'chai';
 
 describe('Streamdeck', () => {
   let sandbox!: SinonSandbox;
@@ -28,23 +30,7 @@ describe('Streamdeck', () => {
     expect(stub.callCount).to.equal(1);
   });
   it('should use the custom and not the console as logger', () => {
-    const logger: Logger = {
-      debug(): void {
-        /*noop*/
-      },
-      info(): void {
-        /*noop*/
-      },
-      trace(): void {
-        /*noop*/
-      },
-      warn(): void {
-        /*noop*/
-      },
-      error(): void {
-        /*noop*/
-      },
-    };
+    const logger = { ...dummyLogger };
     const plugin = new Streamdeck(logger).plugin();
     const consoleSpy = sandbox.spy(console, 'debug');
     const loggerSpy = sandbox.spy(logger, 'debug');
