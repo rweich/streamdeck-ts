@@ -22,7 +22,7 @@ describe('Plugin test', () => {
     plugin.setTitle('title2', 'context');
     const connector = plugin.createStreamdeckConnector();
     const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
-    connector('23456', 'uid', 'resisterevent', 'info');
+    connector('23456', 'uid', 'resisterevent', '{}');
     server.on('connection', (ws: WebSocket) => {
       const messages: string[] = [];
       ws.on('message', (data) => {
@@ -50,8 +50,31 @@ describe('Plugin test', () => {
       done();
     });
   });
+  it('should log an error if the register info is not valid json', (done) => {
+    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    const logger = { ...dummyLogger };
+    Promise.all([
+      new Promise((resolve) => {
+        logger.error = (error) => {
+          expect(error.message).to.equal('Unexpected token o in JSON at position 1');
+          resolve(true);
+        };
+      }),
+      new Promise((resolve) => {
+        server.on('connection', () => {
+          server.close();
+          resolve(true);
+        });
+      }),
+    ]).then(() => done());
+    const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), logger);
+    expect(Object.keys(plugin.info)).to.be.lengthOf(0);
+    const connector = plugin.createStreamdeckConnector();
+    connector('23456', 'uid', 'registering', 'notjson');
+    expect(Object.keys(plugin.info)).to.be.lengthOf(0);
+  });
 
-  describe('sendEvent', () => {
+  describe('sending events', () => {
     let plugin: Plugin;
     let server: WebSocket.Server;
     let ws: WebSocket;
@@ -202,6 +225,63 @@ describe('Plugin test', () => {
         done();
       });
       plugin.setTitle('footitle', 'foocontext', { target: 'software', state: 0 });
+    });
+  });
+
+  describe('receiving events', () => {
+    it('should call the registered callback on a sendtopluginevent', (done) => {
+      const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
+      const connector = plugin.createStreamdeckConnector();
+      const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+      plugin.on('sendToPlugin', (event) => {
+        expect(event.payload.foo).to.equal('bar');
+        server.close();
+        done();
+      });
+      connector('23456', 'uid', 'resisterevent', '{}');
+      server.on('connection', (ws: WebSocket) => {
+        ws.send(
+          JSON.stringify({
+            action: 'com.elgato.example.action1',
+            event: 'sendToPlugin',
+            context: 'opaqueValue312',
+            payload: {
+              foo: 'bar',
+            },
+          }),
+        );
+      });
+    });
+    it('should log an error on invalid (non) json data', (done) => {
+      const logger = { ...dummyLogger };
+      logger.error = (error) => {
+        expect(error.message).to.include('error on parsing json');
+        done();
+      };
+      const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), logger);
+      const connector = plugin.createStreamdeckConnector();
+      const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+      connector('23456', 'uid', 'resisterevent', '{}');
+      server.on('connection', (ws: WebSocket) => {
+        ws.send('foo');
+        server.close();
+      });
+    });
+    it('should log an error on invalid json payload', (done) => {
+      const logger = { ...dummyLogger };
+      logger.error = () => done();
+      const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), logger);
+      const connector = plugin.createStreamdeckConnector();
+      const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+      connector('23456', 'uid', 'resisterevent', '{}');
+      server.on('connection', (ws: WebSocket) => {
+        ws.send(
+          JSON.stringify({
+            invalid: 'data',
+          }),
+        );
+        server.close();
+      });
     });
   });
 });
