@@ -1,6 +1,6 @@
+import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
 import EventEmitter from 'eventemitter3';
 import { Logger } from 'ts-log';
-import EventFactory from './events/incoming/EventFactory';
 import Plugin from './Plugin';
 import PropertyInspector from './PropertyInspector';
 
@@ -15,13 +15,13 @@ export default class Streamdeck {
    * Creates and returns a new plugin instance
    */
   public plugin(): Plugin {
-    return new Plugin(new EventEmitter(), new EventFactory(this.logger), this.logger);
+    return new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), this.logger);
   }
 
   /**
    * Creates and returns a new propertyinspector instance
    */
   public propertyinspector(): PropertyInspector {
-    return new PropertyInspector(new EventEmitter(), new EventFactory(this.logger), this.logger);
+    return new PropertyInspector(new EventEmitter(), new EventsReceived(), new EventsSent(), this.logger);
   }
 }

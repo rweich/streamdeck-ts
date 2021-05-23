@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import 'mocha';
 import sinon, { SinonSandbox } from 'sinon';
 import { Logger } from 'ts-log';
-import { Plugin, PropertyInspector, SetTitleEvent, Streamdeck } from '../src';
+import { Plugin, PropertyInspector, Streamdeck } from '../src';
 
 describe('Streamdeck', () => {
   let sandbox!: SinonSandbox;
@@ -24,7 +24,7 @@ describe('Streamdeck', () => {
   it('should use the console as default logger', () => {
     const plugin = new Streamdeck().plugin();
     const stub = sandbox.stub(console, 'debug');
-    plugin.sendEvent(new SetTitleEvent('context', 'title'));
+    plugin.setTitle('title', 'context');
     expect(stub.callCount).to.equal(1);
   });
   it('should use the custom and not the console as logger', () => {
@@ -48,7 +48,7 @@ describe('Streamdeck', () => {
     const plugin = new Streamdeck(logger).plugin();
     const consoleSpy = sandbox.spy(console, 'debug');
     const loggerSpy = sandbox.spy(logger, 'debug');
-    plugin.sendEvent(new SetTitleEvent('context', 'title'));
+    plugin.setTitle('title', 'context');
     expect(consoleSpy.callCount).to.equal(0);
     expect(loggerSpy.callCount).to.equal(1);
   });

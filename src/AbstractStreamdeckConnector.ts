@@ -1,39 +1,36 @@
+import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
+import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
+import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector';
 import EventEmitter from 'eventemitter3';
 import WebSocket, { MessageEvent } from 'isomorphic-ws';
 import { Logger } from 'ts-log';
-import { IncomingEvents, OnWebsocketOpenEvent } from './events/incoming';
-import EventFactory from './events/incoming/EventFactory';
-import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, RegisterEvent, SetSettingsEvent } from './events/outgoing';
-import EventInterface from './events/outgoing/EventInterface';
+import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
+import JsonParseError from './exception/JsonParseError';
 
 // TODO: add types to the eventemitter
 
+type EventInterface = { event: string };
+
 export default class AbstractStreamdeckConnector {
   protected eventEmitter: EventEmitter;
-  private eventFactory: EventFactory;
+  protected sentEventFactory: EventsSent;
+  private receivedEventFactory: EventsReceived;
   private logger: Logger;
   private websocket: WebSocket | null = null;
   private eventQueue: EventInterface[] = [];
   private actionInfo: Record<string, unknown> | null = null;
   private uuid: string | null = null;
 
-  public constructor(eventEmitter: EventEmitter, eventFactory: EventFactory, logger: Logger) {
+  public constructor(
+    eventEmitter: EventEmitter,
+    receivedEventFactory: EventsReceived,
+    sentEventFactory: EventsSent,
+    logger: Logger,
+  ) {
     this.eventEmitter = eventEmitter;
-    this.eventFactory = eventFactory;
+    this.receivedEventFactory = receivedEventFactory;
+    this.sentEventFactory = sentEventFactory;
     this.logger = logger;
-  }
-
-  /** @deprecated - use 'pluginUUID' (will be removed with 2.x) */
-  public get context(): string | null {
-    return this.uuid;
-  }
-
-  /** @deprecated - undocumented - use 'info' (will be removed with 2.x) */
-  public get action(): string | null {
-    if (this.actionInfo !== null && 'action' in this.actionInfo) {
-      return (this.actionInfo as { action: string }).action;
-    }
-    return null;
   }
 
   /**
@@ -67,7 +64,7 @@ export default class AbstractStreamdeckConnector {
    * Makes the streamdeck write the log message to a debug log file
    */
   public logMessage(message: string): void {
-    this.sendToStreamdeck(new LogMessageEvent(message));
+    this.sendToStreamdeck(this.sentEventFactory.logMessage(message));
   }
 
   /**
@@ -76,7 +73,7 @@ export default class AbstractStreamdeckConnector {
    * @param {string} context The context / id of the current action / button
    */
   public getSettings(context: string): void {
-    this.sendToStreamdeck(new GetSettingsEvent(context));
+    this.sendToStreamdeck(this.sentEventFactory.getSettings(context));
   }
 
   /**
@@ -89,14 +86,14 @@ export default class AbstractStreamdeckConnector {
    * @param {unknown} settings Whatever data you want to save
    */
   public setSettings(context: string, settings: unknown): void {
-    this.sendToStreamdeck(new SetSettingsEvent(context, settings));
+    this.sendToStreamdeck(this.sentEventFactory.setSettings(context, settings));
   }
 
   /**
    * Makes the streamdeck open the url in a browser.
    */
   public openUrl(url: string): void {
-    this.sendToStreamdeck(new OpenUrlEvent(url));
+    this.sendToStreamdeck(this.sentEventFactory.openUrl(url));
   }
 
   /**
@@ -126,9 +123,7 @@ export default class AbstractStreamdeckConnector {
     this.uuid = inPluginUUID;
     this.websocket = new WebSocket('ws://127.0.0.1:' + inPort);
     this.websocket.onopen = () => {
-      this.sendToStreamdeck(new RegisterEvent(inRegisterEvent, inPluginUUID));
-      // TODO: remove with 2.x
-      this.eventEmitter.emit(IncomingEvents.OnWebsocketOpen, new OnWebsocketOpenEvent(inPluginUUID, inInfo));
+      this.sendToStreamdeck(this.sentEventFactory.register(inRegisterEvent, inPluginUUID));
       this.eventEmitter.emit('websocketOpen', new OnWebsocketOpenEvent(inPluginUUID, inInfo));
       this.eventQueue.map((event) => this.sendToStreamdeck(event));
       this.eventQueue = [];
@@ -138,11 +133,26 @@ export default class AbstractStreamdeckConnector {
 
   private onMessage(messageEvent: MessageEvent): void {
     try {
-      const event = this.eventFactory.createByMessageEvent(messageEvent);
+      const event = this.createByMessageEvent(messageEvent);
       this.logger.debug('emitting event', event.event);
       this.eventEmitter.emit(event.event, event);
     } catch (e) {
       this.logger.error(e);
     }
+  }
+
+  private createByMessageEvent(
+    messageEvent: MessageEvent,
+  ): ReceivedPluginEventTypes | ReceivedPropertyInspectorEventTypes {
+    this.logger.debug('got message', messageEvent);
+    let data;
+
+    try {
+      data = JSON.parse(messageEvent.data.toString());
+    } catch (e) {
+      throw new JsonParseError('error on parsing json: ' + e.toString());
+    }
+    this.logger.debug('event data:', data);
+    return this.receivedEventFactory.createFromPayload(data);
   }
 }

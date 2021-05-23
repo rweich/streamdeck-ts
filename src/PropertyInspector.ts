@@ -1,54 +1,16 @@
+import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector/ReceivedPropertyInspectorEventTypes';
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
-import {
-  DidReceiveGlobalSettingsEvent,
-  DidReceiveSettingsEvent,
-  IncomingEvents,
-  OnWebsocketOpenEvent,
-} from './events/incoming';
-import {
-  IncomingPropertyinspectorEvents,
-  SendToPropertyInspectorIncomingEvent,
-} from './events/incoming/propertyinspector';
-import { GetSettingsEvent, LogMessageEvent, OpenUrlEvent, SetSettingsEvent } from './events/outgoing';
-import { SendToPluginEvent } from './events/outgoing/propertyinspector';
+import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
 
-/* @formatter:off */
-/* eslint-disable */
-/** @deprecated Use the event-name-strings directly (will be removed with 2.x) */
-type EventType<T> = T extends IncomingEvents.OnWebsocketOpen
-  ? OnWebsocketOpenEvent
-  : T extends IncomingEvents.DidReceiveSettings
-  ? DidReceiveSettingsEvent
-  : T extends IncomingEvents.DidReceiveGlobalSettings
-  ? DidReceiveGlobalSettingsEvent
-  : T extends IncomingPropertyinspectorEvents.SendToPropertyInspector
-  ? SendToPropertyInspectorIncomingEvent
-  : never;
-/* eslint-enable */
-// @formatter:on
-
-/** @deprecated Use the event-name-strings directly (will be removed with 2.x) */
-type AllowedIncomingEvents = IncomingEvents | IncomingPropertyinspectorEvents;
-type AllowedOutgoingEvents = LogMessageEvent | SendToPluginEvent | GetSettingsEvent | SetSettingsEvent | OpenUrlEvent;
-
-type PiEventListenerMap = {
-  didReceiveGlobalSettings: DidReceiveGlobalSettingsEvent;
-  didReceiveSettings: DidReceiveSettingsEvent;
-  sendToPropertyInspector: SendToPropertyInspectorIncomingEvent;
-  websocketOpen: OnWebsocketOpenEvent;
+type EventMapOfUnion<T extends { event: string }> = {
+  [P in T['event']]: (event: Extract<T, { event: P }>) => void;
 };
+type PIEvents = EventMapOfUnion<ReceivedPropertyInspectorEventTypes | OnWebsocketOpenEvent>;
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   /** registers the eventlistener to the events the streamdeck sends to us */
-  public on<T extends keyof PiEventListenerMap>(eventType: T, callback: (event: PiEventListenerMap[T]) => void): void;
-  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void;
-  public on<T extends AllowedIncomingEvents>(eventType: T, callback: (event: EventType<T>) => void): void {
+  public on<T extends keyof PIEvents>(eventType: T, callback: PIEvents[T]): void {
     this.eventEmitter.on(eventType, callback);
-  }
-
-  /** @deprecated - use the other methods in here directly - will be removed with 2.x */
-  public sendEvent(event: AllowedOutgoingEvents): void {
-    this.sendToStreamdeck(event);
   }
 
   /**
@@ -58,6 +20,6 @@ export default class PropertyInspector extends AbstractStreamdeckConnector {
    * @param action The actions UUID (has to match the one in the manifest)
    */
   public sendToPlugin(context: string, payload: Record<string, unknown>, action: string): void {
-    this.sendToStreamdeck(new SendToPluginEvent(action, context, payload));
+    this.sendToStreamdeck(this.sentEventFactory.sendToPlugin(action, context, payload));
   }
 }

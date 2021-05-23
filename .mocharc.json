@@ -1,5 +1,5 @@
 {
   "extension": ["ts"],
   "recursive": true,
-  "require": ["ts-node/register", "source-map-support/register"]
+  "require": ["ts-node/register", "esm", "source-map-support/register"]
 }
