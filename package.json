@@ -18,6 +18,7 @@
     "test-coverage-report": "yarn test-coverage && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
+    "@rweich/streamdeck-events": "^1.1.0",
     "@sinclair/typebox": "^0.12.7",
     "ajv": "^6.12.4",
     "eventemitter3": "^4.0.7",
@@ -43,6 +44,7 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "esm": "^3.2.25",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.3",
     "mocha": "^8.2.1",

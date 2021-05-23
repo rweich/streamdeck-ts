@@ -1,6 +1,0 @@
-{
-  "event": "applicationDidLaunch",
-  "payload" : {
-    "application": "com.apple.mail"
-  }
-}

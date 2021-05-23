@@ -637,6 +637,14 @@
   dependencies:
     "@octokit/openapi-types" "^7.0.0"
 
+"@rweich/streamdeck-events@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-1.1.0.tgz#8719ab1047142c64f4f2809e2639a03644a7c59f"
+  integrity sha512-kS9NUeFNOAf/srsWQYFYkoJJiX97h9StZhURTcrLEVrnfeah5/AlcyBHV3P/dmxwczLHhbCEOb5MNM/Th0+bkA==
+  dependencies:
+    "@sinclair/typebox" "^0.16.1"
+    ajv "^7.1.1"
+
 "@semantic-release/changelog@^5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-5.0.1.tgz#50a84b63e5d391b7debfe021421589fa2bcdafe4"
@@ -740,6 +748,11 @@
   version "0.12.9"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.12.9.tgz#4444c9bb2f98fcee693cbcb69256bd3dde8b4543"
   integrity sha512-JQzO2wlZ2wJdCft30wRMmxPcTEz4cDS4Hi2izVoFgGzTo5/eJKxCpklc2WTa7K24s7f3L5DKvhlC6RKcf2WNhA==
+
+"@sinclair/typebox@^0.16.1":
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.16.7.tgz#3187369b2ff237f57477ef155be4c992e592fa7c"
+  integrity sha512-d12AkLZJXD30hXBhJSgf33RqGO0NMHIDzsQPYfp6WGoaSuMnSGIUanII2OUbeZFnD/j3Nbl2zifgO2+5tPClCQ==
 
 "@sinonjs/commons@^1.6.0", "@sinonjs/commons@^1.7.0", "@sinonjs/commons@^1.8.1":
   version "1.8.3"
@@ -1002,6 +1015,16 @@ ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
+ajv@^7.1.1:
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.2.4.tgz#8e239d4d56cf884bccca8cca362f508446dc160f"
+  integrity sha512-nBeQgg/ZZA3u3SYxyaDvpvDtgZ/EZPF547ARgZBrG9Bhu1vKDwAIjtIf+sDtJUKa2zOcEbmRLBRSyMraS/Oy1A==
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    json-schema-traverse "^1.0.0"
+    require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
 ajv@^8.0.1:
@@ -2060,6 +2083,11 @@ eslint@^7.18.0:
     table "^6.0.4"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
+
+esm@^3.2.25:
+  version "3.2.25"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
+  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
 
 espree@^7.3.0, espree@^7.3.1:
   version "7.3.1"
