@@ -1,3 +1,5 @@
+import 'mocha';
+
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
 import {
   GetSettingsType,
@@ -6,12 +8,12 @@ import {
   SendToPluginType,
   SetSettingsType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
-import { expect } from 'chai';
+import WebSocket, { Server } from 'ws';
+
 import EventEmitter from 'eventemitter3';
-import 'mocha';
-import { dummyLogger } from 'ts-log';
-import WebSocket from 'ws';
 import PropertyInspector from '../src/PropertyInspector';
+import { dummyLogger } from 'ts-log';
+import { expect } from 'chai';
 
 describe('PropertyInspector test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -19,7 +21,7 @@ describe('PropertyInspector test', () => {
     pi.logMessage('message1');
     pi.logMessage('message2');
     const connector = pi.createStreamdeckConnector();
-    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
     connector('23456', 'uid', 'regpropevent', 'info');
     server.on('connection', (ws: WebSocket) => {
       const messages: string[] = [];
@@ -37,7 +39,7 @@ describe('PropertyInspector test', () => {
   });
   it('should dispatch the connect event after connetion', (done) => {
     const emitter = new EventEmitter();
-    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -48,7 +50,7 @@ describe('PropertyInspector test', () => {
   });
   it('should dispatch the connect event after connetion (new listener)', (done) => {
     const emitter = new EventEmitter();
-    const server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -60,11 +62,11 @@ describe('PropertyInspector test', () => {
 
   describe('send events', () => {
     let pi: PropertyInspector;
-    let server: WebSocket.Server;
+    let server: Server;
     let ws: WebSocket;
     before('prepare websocket', (done) => {
       pi = new PropertyInspector(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
-      server = new WebSocket.Server({ host: '127.0.0.1', port: 23456 });
+      server = new Server({ host: '127.0.0.1', port: 23456 });
       server.on('connection', (pws: WebSocket) => {
         ws = pws;
         ws.once('message', () => done());

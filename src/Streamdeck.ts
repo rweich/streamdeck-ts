@@ -1,4 +1,5 @@
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
+
 import EventEmitter from 'eventemitter3';
 import { Logger } from 'ts-log';
 import Plugin from './Plugin';

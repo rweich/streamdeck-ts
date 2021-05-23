@@ -1,6 +1,6 @@
-import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
 import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
+import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
 
 type EventMapOfUnion<T extends { event: string }> = {
   [P in T['event']]: (event: Extract<T, { event: P }>) => void;
