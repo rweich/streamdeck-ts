@@ -676,13 +676,13 @@
     "@semantic-release/changelog" "^5.0.1"
     "@semantic-release/git" "^9.0.0"
 
-"@rweich/streamdeck-events@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-1.1.0.tgz#8719ab1047142c64f4f2809e2639a03644a7c59f"
-  integrity sha512-kS9NUeFNOAf/srsWQYFYkoJJiX97h9StZhURTcrLEVrnfeah5/AlcyBHV3P/dmxwczLHhbCEOb5MNM/Th0+bkA==
+"@rweich/streamdeck-events@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-1.2.0.tgz#4935af3f88a97b5cb490e4e0f89e629ef21b36b8"
+  integrity sha512-3CNdsTxBcD8HmZUn6JIrOoFE8yDaoY+QKU2zbmhuRnLfqhcn1cerU0o1FNgoHjcq+Z4YxSsL0t/uKTMO4AKDlQ==
   dependencies:
-    "@sinclair/typebox" "^0.16.1"
-    ajv "^7.1.1"
+    "@sinclair/typebox" "^0.16.7"
+    ajv "^8.5.0"
 
 "@semantic-release/changelog@^5.0.1":
   version "5.0.1"
@@ -783,7 +783,7 @@
     lodash "^4.17.4"
     read-pkg-up "^7.0.0"
 
-"@sinclair/typebox@^0.16.1":
+"@sinclair/typebox@^0.16.7":
   version "0.16.7"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.16.7.tgz#3187369b2ff237f57477ef155be4c992e592fa7c"
   integrity sha512-d12AkLZJXD30hXBhJSgf33RqGO0NMHIDzsQPYfp6WGoaSuMnSGIUanII2OUbeZFnD/j3Nbl2zifgO2+5tPClCQ==
@@ -1024,17 +1024,7 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.9.1:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^7.1.1:
-  version "7.2.4"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.2.4.tgz#8e239d4d56cf884bccca8cca362f508446dc160f"
-  integrity sha512-nBeQgg/ZZA3u3SYxyaDvpvDtgZ/EZPF547ARgZBrG9Bhu1vKDwAIjtIf+sDtJUKa2zOcEbmRLBRSyMraS/Oy1A==
-  dependencies:
-    fast-deep-equal "^3.1.1"
-    json-schema-traverse "^1.0.0"
-    require-from-string "^2.0.2"
-    uri-js "^4.2.2"
-
-ajv@^8.0.1:
+ajv@^8.0.1, ajv@^8.5.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.5.0.tgz#695528274bcb5afc865446aa275484049a18ae4b"
   integrity sha512-Y2l399Tt1AguU3BPRP9Fn4eN+Or+StUGWCUpbnFyXSo8NZ9S4uj+AG2pjs5apK+ZMOwYOz1+a+VKvKH7CudXgQ==

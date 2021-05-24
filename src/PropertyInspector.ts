@@ -1,11 +1,5 @@
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
-import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
-import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector/ReceivedPropertyInspectorEventTypes';
-
-type EventMapOfUnion<T extends { event: string }> = {
-  [P in T['event']]: (event: Extract<T, { event: P }>) => void;
-};
-type PIEvents = EventMapOfUnion<ReceivedPropertyInspectorEventTypes | OnWebsocketOpenEvent>;
+import { PIEvents } from './events/Events';
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   /** registers the eventlistener to the events the streamdeck sends to us */

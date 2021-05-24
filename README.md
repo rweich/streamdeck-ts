@@ -25,6 +25,10 @@ It will help you with:
 - bundling your code into the format the streamdeck needs
 - creating a package for redistribution
 
+## Upgrade v1 -> v2
+
+See [UPGRADE.md](./UPGRADE.md) for details about the upgrade process.
+
 ## Example Implementations
 
 - [numberdisplay](https://github.com/rweich/streamdeck-ts-numberdisplay) - the example numberdisplay plugin that comes with the streamdeck ported to use this sdk.
