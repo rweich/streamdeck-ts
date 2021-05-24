@@ -1,11 +1,6 @@
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
-import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
-import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
+import { PluginEvents } from './events/Events';
 
-type EventMapOfUnion<T extends { event: string }> = {
-  [P in T['event']]: (event: Extract<T, { event: P }>) => void;
-};
-type PluginEvents = EventMapOfUnion<ReceivedPluginEventTypes | OnWebsocketOpenEvent>;
 type SetterTargets = 'hardware' | 'software' | 'both';
 
 export default class Plugin extends AbstractStreamdeckConnector {
