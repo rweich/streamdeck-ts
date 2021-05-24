@@ -15,7 +15,6 @@
     "prepare": "husky install",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha",
     "test-coverage": "nyc yarn test",
-    "test-coverage-report": "yarn test-coverage && nyc report --reporter=text-lcov | coveralls",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -39,7 +38,6 @@
     "@types/sinon": "^10.0.0",
     "@types/ws": "^7.4.0",
     "chai": "^4.2.0",
-    "coveralls": "^3.1.0",
     "esm": "^3.2.25",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
@@ -94,7 +92,8 @@
     ],
     "reporter": [
       "text",
-      "lcov"
+      "lcov",
+      "json"
     ]
   },
   "release": {

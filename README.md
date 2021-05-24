@@ -1,7 +1,7 @@
 # streamdeck-ts
 
 ![Build/Test](https://github.com/rweich/streamdeck-ts/workflows/Build%2FTest/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/rweich/streamdeck-ts/badge.svg?branch=main)](https://coveralls.io/github/rweich/streamdeck-ts?branch=main)
+[![codecov](https://codecov.io/gh/rweich/streamdeck-ts/branch/main/graph/badge.svg?token=PTXTTH18L2)](https://codecov.io/gh/rweich/streamdeck-ts)
 
 ## About
 
