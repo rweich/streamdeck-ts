@@ -1,3 +1,21 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [2.0.0](https://github.com/rweich/streamdeck-ts/compare/v1.4.0...v2.0.0) (2021-05-24)
+
+
+### Bug Fixes
+
+* bump node version to >=12 ([b09743b](https://github.com/rweich/streamdeck-ts/commit/b09743ba8b6dc9762dda124c47bbb4462ca7b994))
+* bump versions ([7f2fefe](https://github.com/rweich/streamdeck-ts/commit/7f2fefe1f3250af23c183118a774d1085752e1fd))
+
+
+### BREAKING CHANGES
+
+* node 10 no longer supported!
+
 # [1.4.0](https://github.com/rweich/streamdeck-ts/compare/v1.3.0...v1.4.0) (2021-04-02)
 
 
