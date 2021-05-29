@@ -69,12 +69,37 @@ export default class AbstractStreamdeckConnector {
   }
 
   /**
+   * Requests the globally persisted settings
+   *
+   * Triggers the didReceiveGlobalSettings event
+   *
+   * @param {string} context The context / id of the current action / button
+   */
+  public getGlobalSettings(context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.getGlobalSettings(context));
+  }
+
+  /**
    * Requests the settings stored for the button instance
+   *
+   * Triggers the didReceiveSettings event
    *
    * @param {string} context The context / id of the current action / button
    */
   public getSettings(context: string): void {
     this.sendToStreamdeck(this.sentEventFactory.getSettings(context));
+  }
+
+  /**
+   * Persists the data globally (not just for the current button)
+   *
+   * Triggers the didReceiveGlobalSettings event for the plugin (if sent by pi) and for the pi (if sent by plugin)
+   *
+   * @param context – The context / id of the current action / button
+   * @param settings – Whatever data you want to save
+   */
+  public setGlobalSettings(context: string, settings: unknown): void {
+    this.sendToStreamdeck(this.sentEventFactory.setGlobalSettings(context, settings));
   }
 
   /**

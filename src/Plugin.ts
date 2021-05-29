@@ -19,6 +19,15 @@ export default class Plugin extends AbstractStreamdeckConnector {
   }
 
   /**
+   * Changes the state of the button if it supports multiple states
+   * @param state - The new state
+   * @param context – The context / id of the current action / button
+   */
+  public setState(state: number, context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.setState(state, context));
+  }
+
+  /**
    * Changes the title of the button
    * @param {string} title The new title
    * @param {string} context The context / id of the current action / button
@@ -40,5 +49,31 @@ export default class Plugin extends AbstractStreamdeckConnector {
    */
   public setImage(image: string, context: string, options: { target?: SetterTargets; state?: number } = {}): void {
     this.sendToStreamdeck(this.sentEventFactory.setImage(image, context, options.target, options.state));
+  }
+
+  /**
+   * Shows an alert icon on the button
+   * @param context – The context / id of the current action / button
+   */
+  public showAlert(context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.showAlert(context));
+  }
+
+  /**
+   * Shows an ok checkmark on the button
+   * @param context – The context / id of the current action / button
+   */
+  public showOk(context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.showOk(context));
+  }
+
+  /**
+   * Makes the streamdeck switch to the preconfigured readonly profile
+   * @param profilename - The name of the profile to switch to
+   * @param context – The context / id of the current action / button
+   * @param device - A value identifying the device
+   */
+  public switchToProfile(profilename: string, context: string, device: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.switchToProfile(profilename, context, device));
   }
 }

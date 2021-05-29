@@ -80,9 +80,10 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
 
 - [About](#about)
 - [Quickstart](#quickstart)
+- [Upgrade v1 -> v2](#upgrade-v1---v2)
 - [Example Implementations](#example-implementations)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Usage Example](#usage-example)
 - [Table of Contents](#table-of-contents)
 - [Exposing the plugin / pi instances to the streamdeck](#exposing-the-plugin--pi-instances-to-the-streamdeck)
 - [Incoming events](#incoming-events)
@@ -98,26 +99,27 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [propertyInspectorDidDisappear](#propertyinspectordiddisappear)
   - [sendToPlugin](#sendtoplugin)
   - [sendToPropertyInspector](#sendtopropertyinspector)
-  - [systemDidWakeUp (tbd)](#systemdidwakeup-tbd)
-  - [titleParametersDidChange (tbd)](#titleparametersdidchange-tbd)
+  - [systemDidWakeUp](#systemdidwakeup)
+  - [titleParametersDidChange](#titleparametersdidchange)
   - [websocketOpen](#websocketopen)
   - [willAppear](#willappear)
   - [willDisappear](#willdisappear)
 - [Outgoing events](#outgoing-events)
-  - [GetGlobalSettings (tbd)](#getglobalsettings-tbd)
+  - [GetGlobalSettings](#getglobalsettings)
   - [GetSettings](#getsettings)
   - [LogMessage](#logmessage)
   - [OpenUrl](#openurl)
   - [SendToPlugin](#sendtoplugin-1)
   - [SendToPropertyInspector](#sendtopropertyinspector-1)
   - [SetImage](#setimage)
-  - [SetGlobalSettings (tbd)](#setglobalsettings-tbd)
+  - [SetGlobalSettings](#setglobalsettings)
   - [SetSettings](#setsettings)
-  - [SetState (tbd)](#setstate-tbd)
+  - [SetState](#setstate)
   - [SetTitle](#settitle)
-  - [ShowAlert (tbd)](#showalert-tbd)
-  - [ShowOk (tbd)](#showok-tbd)
-  - [SwitchToProfile (tbd)](#switchtoprofile-tbd)
+  - [ShowAlert](#showalert)
+  - [ShowOk](#showok)
+  - [SwitchToProfile](#switchtoprofile)
+- [License](#license)
 
 ## Exposing the plugin / pi instances to the streamdeck
 
@@ -226,7 +228,7 @@ plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${d
 
 ### didReceiveGlobalSettings
 
-Triggered after a [GetGlobalSettingsEvent](#getglobalsettingsevent-tbd) was sent to the streamdeck.
+Triggered after a [GetGlobalSettingsEvent](#getglobalsettings) was sent to the streamdeck.
 
 **Event-Payload**:
 
@@ -246,7 +248,7 @@ plugin.on('didReceiveGlobalSettings', ({ settings }) => console.log('got setting
 
 ### didReceiveSettings
 
-Triggered after a [GetSettingsEvent](#getsettingsevent) was sent to the streamdeck.
+Triggered after a [GetSettingsEvent](#getsettings) was sent to the streamdeck.
 
 **Event-Payload**:
 
@@ -425,13 +427,54 @@ pi.on('sendToPropertyInspector', ({ payload }) => console.log(`the plugin sent s
 
 ---
 
-### systemDidWakeUp (tbd)
+### systemDidWakeUp
 
-:x: not yet implemented
+Triggered when the computer is wake up.
 
-### titleParametersDidChange (tbd)
+**Event-Payload**:
 
-:x: not yet implemented
+no payload
+
+**Example**:
+
+```typescript
+plugin.on('systemDidWakeUp', () => console.log(`system did wake up!`));
+```
+
+- *is sent to: **[x] Plugin** [ ] PI*
+
+### titleParametersDidChange
+
+Triggered when the user changes the title or title parameters.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  action: string;
+  context: string;
+  device: string;
+  row: number;
+  column: number;
+  settings: Record<string, unknown>;
+  state: number;
+  title: string;
+  fontFamily: string
+  fontSize: number
+  fontStyle: string
+  fontUnderline: boolean
+  showTitle: boolean
+  titleAlignment: string
+  titleColor: string
+}
+```
+
+**Example**:
+
+```typescript
+plugin.on('titleParametersDidChange', ({ fontSize }) => console.log(`new title/params with size ${fontSize}!`));
+```
+- *is sent to: **[x] Plugin** [ ] PI*
 
 ### websocketOpen
 
@@ -520,13 +563,19 @@ The plugin and propertyinspector can send the following events to the streamdeck
 
 > For detailled information see the [official docs](https://developer.elgato.com/documentation/stream-deck/sdk/events-sent/) for events sent to the streamdeck.
 
-### GetGlobalSettings (tbd)
-
-:x: not yet implemented
+### GetGlobalSettings
 
 Requests the settings globally stored for all buttons using this plugin / pi.
 
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event.
+
+`getGlobalSettings(context: string): void`
+
+**Example**:
+
+```typescript
+plugin.getGlobalSettings('context');
+```
 
 - *can be sent from: **[x] Plugin [x] PI***
 
@@ -602,7 +651,7 @@ pi.sendToPlugin('context', { some: 'data' }, 'action');
 ### SendToPropertyInspector
 
 Sends data to the propertyinspector.
-Triggers the [sendToPropertyInspector](#sendtopropertyinspector-tbd) event.
+Triggers the [sendToPropertyInspector](#sendtopropertyinspector) event.
 
 `sendToPropertyInspector(context: string, payload: Record<string, unknown>): void`
 
@@ -632,13 +681,19 @@ plugin.setImage('imagedataAsBase64', 'context');
 
 ---
 
-### SetGlobalSettings (tbd)
-
-:x: not yet implemented
+### SetGlobalSettings
 
 Persists the data globally (not just for the current button).
 
 Triggers the [didReceiveGlobalSettings](#didreceiveglobalsettings) event for the plugin (if sent by pi) and for the pi (if sent by plugin).
+
+`setGlobalSettings(context: string, settings: unknown): void`
+
+**Example**:
+
+```typescript
+plugin.setGlobalSettings('context', { your: 'new-global-settings' });
+```
 
 - *can be sent from: **[x] Plugin [x] PI***
 
@@ -662,11 +717,17 @@ plugin.setSettings('context', { your: 'new-settings' });
 
 ---
 
-### SetState (tbd)
-
-:x: not yet implemented
+### SetState
 
 Changes the state of the button if it supports multiple states.
+
+`setState(state: number, context: string): void`
+
+**Example**:
+
+```typescript
+plugin.setState(1, 'context');
+```
 
 - *can be sent from: **[x] Plugin** [ ] PI*
 
@@ -688,31 +749,49 @@ plugin.setTitle('the new title', 'context');
 
 ---
 
-### ShowAlert (tbd)
-
-:x: not yet implemented
+### ShowAlert
 
 Will show an alert icon on the button.
 
+`showAlert(context: string): void`
+
+**Example**:
+
+```typescript
+plugin.showAlert('context');
+```
+
 - *can be sent from: **[x] Plugin** [ ] PI*
 
 ---
 
-### ShowOk (tbd)
-
-:x: not yet implemented
+### ShowOk
 
 Will show an ok checkmark on the button.
 
+`showOk(context: string): void`
+
+**Example**:
+
+```typescript
+plugin.showOk('context');
+```
+
 - *can be sent from: **[x] Plugin** [ ] PI*
 
 ---
 
-### SwitchToProfile (tbd)
-
-:x: not yet implemented
+### SwitchToProfile
 
 Makes the streamdeck switch to the preconfigured readonly profile.
+
+`switchToProfile(profilename: string, context: string, device: string): void`
+
+**Example**:
+
+```typescript
+plugin.switchToProfile('profilename', 'context', 'device');
+```
 
 - *can be sent from: **[x] Plugin** [ ] PI*
 

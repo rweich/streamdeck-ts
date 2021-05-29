@@ -2,10 +2,12 @@ import 'mocha';
 
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
 import {
+  GetGlobalSettingsType,
   GetSettingsType,
   LogMessageType,
   OpenUrlType,
   SendToPluginType,
+  SetGlobalSettingsType,
   SetSettingsType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
 import WebSocket, { Server } from 'ws';
@@ -77,6 +79,15 @@ describe('PropertyInspector test', () => {
       server.close();
     });
 
+    it('should send the GetGlobalSettingsEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: GetGlobalSettingsType = JSON.parse(json.toString());
+        expect(data.event).to.equal('getGlobalSettings');
+        expect(data.context).to.equal('PiGetGlobalSettingsEventContext');
+        done();
+      });
+      pi.getGlobalSettings('PiGetGlobalSettingsEventContext');
+    });
     it('should send the GetSettingsEvent', (done) => {
       ws.once('message', (json) => {
         const data: GetSettingsType = JSON.parse(json.toString());
@@ -114,6 +125,16 @@ describe('PropertyInspector test', () => {
         done();
       });
       pi.sendToPlugin('con', { some: 'payload' }, 'pac');
+    });
+    it('should send the SetGlobalSettingsEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SetGlobalSettingsType = JSON.parse(json.toString());
+        expect(data.event).to.equal('setGlobalSettings');
+        expect(data.context).to.equal('PiSetGlobalSettingsEventContext');
+        expect((data.payload as { global: string }).global).to.equal('pipayload');
+        done();
+      });
+      pi.setGlobalSettings('PiSetGlobalSettingsEventContext', { global: 'pipayload' });
     });
     it('should send the SetSettingsEvent', (done) => {
       ws.once('message', (json) => {
