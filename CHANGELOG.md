@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/rweich/streamdeck-ts/compare/v2.0.0...v2.1.0) (2021-05-29)
+
+
+### Features
+
+* add missing events and listeners ([67214f6](https://github.com/rweich/streamdeck-ts/commit/67214f6e5650915b3a57b74215369068c7be1150))
+
+
+### Miscellaneous Chores
+
+* update dependencies ([5434d87](https://github.com/rweich/streamdeck-ts/commit/5434d8712012e0455a3477bf56914189f40f33d6))
+* update ws-package ([41511b9](https://github.com/rweich/streamdeck-ts/commit/41511b9b4169d07e06a375117d55e37b3c5c54eb))
+
 # [2.0.0](https://github.com/rweich/streamdeck-ts/compare/v1.4.0...v2.0.0) (2021-05-24)
 
 
