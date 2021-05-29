@@ -31,6 +31,7 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
 
   describe('Incoming events', () => {
     const plugin = new Streamdeck().plugin();
+    const pi = new Streamdeck(dummyLogger).propertyinspector();
     // const pi = new Streamdeck().propertyinspector();
     test('the applicationDidLaunch snippet', () => {
       plugin.on('applicationDidLaunch', ({ application }) => console.log(`${application} was launched!`));
@@ -67,14 +68,14 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     test('the sendToPlugin snippet', () => {
       plugin.on('sendToPlugin', ({ payload }) => console.log(`the pi sent some data:`, payload));
     });
-    test.skip('the sendToPropertyInspector snippet', () => {
-      // pi.on('sendToPropertyInspector', ({ payload }) => console.log(`the plugin sent some data:`, payload));
+    test('the sendToPropertyInspector snippet', () => {
+      pi.on('sendToPropertyInspector', ({ payload }) => console.log(`the plugin sent some data:`, payload));
     });
-    test.skip('the systemDidWakeUp snippet', () => {
-      // TODO: implement
+    test('the systemDidWakeUp snippet', () => {
+      plugin.on('systemDidWakeUp', () => console.log(`system did wake up!`));
     });
-    test.skip('the titleParametersDidChange snippet', () => {
-      // TODO: implement
+    test('the titleParametersDidChange snippet', () => {
+      plugin.on('titleParametersDidChange', ({ fontSize }) => console.log(`new title/params with size ${fontSize}!`));
     });
     test('the websocketOpen snippet', () => {
       plugin.on('websocketOpen', ({ uuid }) => console.log(`websocket opened for uuid/context: ${uuid}`));
@@ -90,8 +91,8 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
   describe('Outgoing events', () => {
     const plugin = new Streamdeck(dummyLogger).plugin();
     const pi = new Streamdeck(dummyLogger).propertyinspector();
-    test.skip('the GetGlobalSettingsEvent snippet', () => {
-      // TODO: implement
+    test('the GetGlobalSettingsEvent snippet', () => {
+      plugin.getGlobalSettings('context');
     });
     test('the GetSettingsEvent snippet', () => {
       plugin.getSettings('context');
@@ -111,26 +112,26 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     test('the SetImageEvent snippet', () => {
       plugin.setImage('imagedataAsBase64', 'context');
     });
-    test.skip('the SetGlobalSettingsEvent snippet', () => {
-      // TODO: implement
+    test('the SetGlobalSettingsEvent snippet', () => {
+      plugin.setGlobalSettings('context', { your: 'new-global-settings' });
     });
     test('the SetSettingsEvent snippet', () => {
       plugin.setSettings('context', { your: 'new-settings' });
     });
-    test.skip('the SetStateEvent snippet', () => {
-      // TODO: implement
+    test('the SetStateEvent snippet', () => {
+      plugin.setState(1, 'context');
     });
     test('the SetTitleEvent snippet', () => {
       plugin.setTitle('the new title', 'context');
     });
-    test.skip('the ShowAlertEvent snippet', () => {
-      // TODO: implement
+    test('the ShowAlertEvent snippet', () => {
+      plugin.showAlert('context');
     });
-    test.skip('the ShowOkEvent snippet', () => {
-      // TODO: implement
+    test('the ShowOkEvent snippet', () => {
+      plugin.showOk('context');
     });
-    test.skip('the SwitchToProfileEvent snippet', () => {
-      // TODO: implement
+    test('the SwitchToProfileEvent snippet', () => {
+      plugin.switchToProfile('profilename', 'context', 'device');
     });
   });
 });

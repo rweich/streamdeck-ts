@@ -2,13 +2,19 @@ import 'mocha';
 
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
 import {
+  GetGlobalSettingsType,
   GetSettingsType,
   LogMessageType,
   OpenUrlType,
   SendToPropertyInspectorType,
+  SetGlobalSettingsType,
   SetImageType,
   SetSettingsType,
+  SetStateType,
   SetTitleType,
+  ShowAlertType,
+  ShowOkType,
+  SwitchToProfileType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
 import WebSocket, { Server } from 'ws';
 
@@ -94,6 +100,15 @@ describe('Plugin test', () => {
       server.close();
     });
 
+    it('should send the GetGlobalSettingsEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: GetGlobalSettingsType = JSON.parse(json.toString());
+        expect(data.event).to.equal('getGlobalSettings');
+        expect(data.context).to.equal('PluginGetGlobalSettingsEventContext');
+        done();
+      });
+      plugin.getGlobalSettings('PluginGetGlobalSettingsEventContext');
+    });
     it('should send the GetSettingsEvent', (done) => {
       ws.once('message', (json) => {
         const data: GetSettingsType = JSON.parse(json.toString());
@@ -130,6 +145,16 @@ describe('Plugin test', () => {
         done();
       });
       plugin.sendToPropertyInspector('contextt', { the: 'payload' });
+    });
+    it('should send the SetGlobalSettingsEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SetGlobalSettingsType = JSON.parse(json.toString());
+        expect(data.event).to.equal('setGlobalSettings');
+        expect(data.context).to.equal('PluginSetGlobalSettingsEventContext');
+        expect((data.payload as { global: string }).global).to.equal('pluginpayload');
+        done();
+      });
+      plugin.setGlobalSettings('PluginSetGlobalSettingsEventContext', { global: 'pluginpayload' });
     });
     it('should send the SetImageEvent (without options)', (done) => {
       ws.once('message', (json) => {
@@ -185,6 +210,16 @@ describe('Plugin test', () => {
       });
       plugin.setSettings('PluginSetSettingsEventContext', { my: 'pluginpayload' });
     });
+    it('should send the SetStateEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SetStateType = JSON.parse(json.toString());
+        expect(data.event).to.equal('setState');
+        expect(data.payload.state).to.equal(1);
+        expect(data.context).to.equal('statecontext');
+        done();
+      });
+      plugin.setState(1, 'statecontext');
+    });
     it('should send the SetTitleEvent without optional params', (done) => {
       ws.once('message', (json) => {
         const data: SetTitleType = JSON.parse(json.toString());
@@ -228,6 +263,35 @@ describe('Plugin test', () => {
         done();
       });
       plugin.setTitle('footitle', 'foocontext', { state: 0, target: 'software' });
+    });
+    it('should send the ShowAlertEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: ShowAlertType = JSON.parse(json.toString());
+        expect(data.event).to.equal('showAlert');
+        expect(data.context).to.equal('foocontext');
+        done();
+      });
+      plugin.showAlert('foocontext');
+    });
+    it('should send the ShowOkEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: ShowOkType = JSON.parse(json.toString());
+        expect(data.event).to.equal('showOk');
+        expect(data.context).to.equal('foocontext');
+        done();
+      });
+      plugin.showOk('foocontext');
+    });
+    it('should send the SwitchToProfileEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SwitchToProfileType = JSON.parse(json.toString());
+        expect(data.event).to.equal('switchToProfile');
+        expect(data.payload.profile).to.equal('profile');
+        expect(data.context).to.equal('foocontext');
+        expect(data.device).to.equal('device');
+        done();
+      });
+      plugin.switchToProfile('profile', 'foocontext', 'device');
     });
   });
 

@@ -677,10 +677,10 @@
     "@semantic-release/git" "^9.0.0"
     conventional-changelog-conventionalcommits "^4.6.0"
 
-"@rweich/streamdeck-events@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-1.2.0.tgz#4935af3f88a97b5cb490e4e0f89e629ef21b36b8"
-  integrity sha512-3CNdsTxBcD8HmZUn6JIrOoFE8yDaoY+QKU2zbmhuRnLfqhcn1cerU0o1FNgoHjcq+Z4YxSsL0t/uKTMO4AKDlQ==
+"@rweich/streamdeck-events@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-1.3.0.tgz#86d8c9f2d58d96b25ae2881baa68567472761e5f"
+  integrity sha512-sc4jdvlTkTgZGa5rgl0Iwb0//JqPgSKjuDVMIX12PzKEXVYG1TAuEmNlhWodTiPYPLXLFe1UDiHAljBKaUPdCA==
   dependencies:
     "@sinclair/typebox" "^0.16.7"
     ajv "^8.5.0"
