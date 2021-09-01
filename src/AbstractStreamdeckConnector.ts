@@ -176,7 +176,9 @@ export default class AbstractStreamdeckConnector {
     try {
       data = JSON.parse(messageEvent.data.toString());
     } catch (error) {
-      throw new JsonParseError('error on parsing json: ' + error.toString());
+      if (error instanceof Error) {
+        throw new JsonParseError('error on parsing json: ' + error.toString());
+      }
     }
     this.logger.debug('event data:', data);
     return this.receivedEventFactory.createFromPayload(data);
