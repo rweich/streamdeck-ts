@@ -1,6 +1,6 @@
 {
   "name": "@rweich/streamdeck-ts",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "SDK to create streamdeck plugins in typescript with typings for all events / payloads.",
   "author": "rweich",
   "license": "MIT",

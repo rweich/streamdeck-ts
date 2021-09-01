@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.2](https://github.com/rweich/streamdeck-ts/compare/v2.1.1...v2.1.2) (2021-09-01)
+
+
+### Bug Fixes
+
+* typescript warning ([f90dafe](https://github.com/rweich/streamdeck-ts/commit/f90dafec8e9543019639506b7ecd70274daf98e6))
+
+
+### Miscellaneous Chores
+
+* update dependencies ([3695ffb](https://github.com/rweich/streamdeck-ts/commit/3695ffba8183ef465ba33ed9405918068f099b8a))
+* **deps:** bump tar from 6.1.5 to 6.1.11 ([245653e](https://github.com/rweich/streamdeck-ts/commit/245653ec42c97e3e06959a391dbe283dbadd4ca1))
+
 ### [2.1.1](https://github.com/rweich/streamdeck-ts/compare/v2.1.0...v2.1.1) (2021-08-05)
 
 
