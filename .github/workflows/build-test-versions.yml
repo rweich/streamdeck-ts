@@ -22,4 +22,5 @@ jobs:
       - run: yarn type-check
       - run: yarn lint
       - run: yarn lint-tests
+      - run: yarn test
       - run: yarn build
