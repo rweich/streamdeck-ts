@@ -2,6 +2,13 @@
 
 This document provides guidance for upgrading between major versions of streamdeck-ts.
 
+## From v2 to v3
+
+The type of the row/column propperties in the payload for the `keyUp` / `keyDown`, `willAppear` / `willDisappear` and
+`didReceiveSettings` events got changed from `number` to `number | undefined`!
+
+Code using these properties might have to be adjusted accordingly.
+
 ## From v1 to v2
 
 Most changes were made for ease of use by removing a lot of unnecessary imports (of classes and enums).
