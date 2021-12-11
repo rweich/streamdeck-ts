@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0](https://github.com/rweich/streamdeck-ts/compare/v2.1.3...v3.0.0) (2021-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* due to the update some events have to be handled differently:
+the row/column props in keyup/keydown, willappear/willdisappear and
+didreceivesettings events might be undefined now!
+
+### Miscellaneous Chores
+
+* update streamdeck-events to v2 ([1c5cd9b](https://github.com/rweich/streamdeck-ts/commit/1c5cd9b966a587dd5a297b9398924afdfe1f8772))
+
+
+### Documentation
+
+* update docs to reflect the streamdeck-events changes ([6b16c8e](https://github.com/rweich/streamdeck-ts/commit/6b16c8ee87f68da693f256d35d19c06dd6cc6bb6))
+
 ### [2.1.3](https://github.com/rweich/streamdeck-ts/compare/v2.1.2...v2.1.3) (2021-09-15)
 
 
