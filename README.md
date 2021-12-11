@@ -26,9 +26,9 @@ It will help you with:
 - bundling your code into the format the streamdeck needs
 - creating a package for redistribution
 
-## Upgrade v1 -> v2
+## Upgrading guide
 
-See [UPGRADE.md](./UPGRADE.md) for details about the upgrade process.
+See [UPGRADE.md](./UPGRADE.md) for details about the upgrade process for new major versions.
 
 ## Example Implementations
 
@@ -80,7 +80,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
 
 - [About](#about)
 - [Quickstart](#quickstart)
-- [Upgrade v1 -> v2](#upgrade-v1---v2)
+- [Upgrading guide](#upgrading-guide)
 - [Example Implementations](#example-implementations)
 - [Installation](#installation)
 - [Usage Example](#usage-example)
@@ -255,8 +255,8 @@ Triggered after a [GetSettingsEvent](#getsettings) was sent to the streamdeck.
 ```typescript
 event: {
   settings: unknown;
-  row: number;
-  column: number;
+  row: numbe | undefinedr;
+  column: number | undefined;
   isInMultiAction: boolean;
   state: number | undefined;
   action: string;
@@ -285,9 +285,11 @@ Triggered when the button gets pressed.
 
 ```typescript
 event: {
-  row: number;
-  column: number;
+  row: number | undefined;
+  column: number | undefined;
   isInMultiAction: boolean;
+  state: number | undefined;
+  userDesiredState: number | undefined;
   action: string;
   context: string;
   device: string;
@@ -312,9 +314,11 @@ Triggered when the button gets released.
 
 ```typescript
 event: {
-  row: number;
-  column: number;
+  row: number | undefined;
+  column: number | undefined;
   isInMultiAction: boolean;
+  state: number | undefined;
+  userDesiredState: number | undefined;
   action: string;
   context: string;
   device: string;
@@ -508,8 +512,8 @@ Triggered when the plugin / button gets displayed on the streamdeck.
 ```typescript
 event: {
   settings: unknown;
-  row: number;
-  column: number;
+  row: number | undefined;
+  column: number | undefined;
   isInMultiAction: boolean;
   state: number | undefined;
   action: string;
@@ -537,8 +541,8 @@ Triggered when the plugin / button is no longer displayed on the streamdeck.
 ```typescript
 event: {
   settings: unknown;
-  row: number;
-  column: number;
+  row: number | undefined;
+  column: number | undefined;
   isInMultiAction: boolean;
   state: number | undefined;
   action: string;
