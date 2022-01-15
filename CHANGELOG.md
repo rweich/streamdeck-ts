@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0](https://github.com/rweich/streamdeck-ts/compare/v3.0.0...v3.1.0) (2022-01-15)
+
+
+### Features
+
+* expose actionInfo property in PI ([#14](https://github.com/rweich/streamdeck-ts/issues/14)) ([f137b49](https://github.com/rweich/streamdeck-ts/commit/f137b49017b3e4ee442a415f35545674fb0c30b2))
+
 ## [3.0.0](https://github.com/rweich/streamdeck-ts/compare/v2.1.3...v3.0.0) (2021-12-11)
 
 
