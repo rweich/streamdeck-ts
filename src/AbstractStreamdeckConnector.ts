@@ -12,14 +12,14 @@ import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/d
 
 type EventInterface = { event: string };
 
-export default class AbstractStreamdeckConnector {
+export default abstract class AbstractStreamdeckConnector {
   protected eventEmitter: EventEmitter;
   protected sentEventFactory: EventsSent;
+  protected logger: Logger;
   private receivedEventFactory: EventsReceived;
-  private logger: Logger;
   private websocket: WebSocket | undefined;
   private eventQueue: EventInterface[] = [];
-  private actionInfo: Record<string, unknown> | undefined;
+  private registerInfo: Record<string, unknown> | undefined;
   private uuid: string | undefined;
 
   public constructor(
@@ -35,10 +35,22 @@ export default class AbstractStreamdeckConnector {
   }
 
   /**
+   * gets called by the streamdeck plugin/propertyinspector register process
+   * @param {string} inActionInfo only used by the pi-reigster process (json-encoded)
+   */
+  public abstract connectElgatoStreamDeckSocket(
+    inPort: string,
+    inPluginUUID: string,
+    inRegisterEvent: string,
+    inInfo: string,
+    inActionInfo?: string,
+  ): void;
+
+  /**
    * Returns the info-object that we got from the streamdeck with the registration
    */
   public get info(): Record<string, unknown> {
-    return this.actionInfo || {};
+    return this.registerInfo || {};
   }
 
   /**
@@ -57,6 +69,7 @@ export default class AbstractStreamdeckConnector {
     inPluginUUID: string,
     inRegisterEvent: string,
     inInfo: string,
+    inActionInfo?: string,
   ) => void {
     return this.connectElgatoStreamDeckSocket.bind(this);
   }
@@ -135,14 +148,9 @@ export default class AbstractStreamdeckConnector {
     }
   }
 
-  private connectElgatoStreamDeckSocket(
-    inPort: string,
-    inPluginUUID: string,
-    inRegisterEvent: string,
-    inInfo: string,
-  ): void {
+  protected registerStreamdeck(inPort: string, inPluginUUID: string, inRegisterEvent: string, inInfo: string): void {
     try {
-      this.actionInfo = JSON.parse(inInfo);
+      this.registerInfo = JSON.parse(inInfo);
     } catch (error) {
       this.logger.error(error);
     }

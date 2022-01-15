@@ -61,6 +61,64 @@ describe('PropertyInspector test', () => {
     });
     connector('23456', 'uid', 'register', 'info');
   });
+  it('should have the actionInfo property set for non-multiactions', (done) => {
+    const emitter = new EventEmitter();
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      expect(pi.actionInfo?.action).to.equal('abcde');
+      expect(pi.actionInfo?.device).to.equal('bcde');
+      expect(pi.actionInfo?.context).to.equal('cde');
+      expect(pi.actionInfo?.column).to.equal(4);
+      expect(pi.actionInfo?.row).to.equal(3);
+      expect(Object.keys(pi.actionInfo?.settings as Record<string, unknown>)).to.be.length(0);
+      server.close();
+      done();
+    });
+    connector(
+      '23456',
+      'uid',
+      'register',
+      'info',
+      '{"action":"abcde","context":"cde","device":"bcde","payload":{"coordinates":{"column":4,"row":3},"settings":{}}}',
+    );
+  });
+  it('should have the actionInfo property set for multiactions without coordinates', (done) => {
+    const emitter = new EventEmitter();
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      expect(pi.actionInfo?.action).to.equal('abcdef');
+      expect(pi.actionInfo?.device).to.equal('bcdef');
+      expect(pi.actionInfo?.context).to.equal('cdef');
+      expect(pi.actionInfo?.column).to.be.undefined;
+      expect(pi.actionInfo?.row).to.be.undefined;
+      expect(Object.keys(pi.actionInfo?.settings as Record<string, unknown>)).to.be.length(0);
+      server.close();
+      done();
+    });
+    connector(
+      '23456',
+      'uid',
+      'register',
+      'info',
+      '{"action":"abcdef","context":"cdef","device":"bcdef","payload":{"settings":{}}}',
+    );
+  });
+  it('should not have the actionInfo property set for invalid json', (done) => {
+    const emitter = new EventEmitter();
+    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      expect(pi.actionInfo).to.be.undefined;
+      server.close();
+      done();
+    });
+    connector('23456', 'uid', 'register', 'info', '{"action":"abcdef","context":"cdef","device":"bcdef"}');
+  });
 
   describe('send events', () => {
     let pi: PropertyInspector;

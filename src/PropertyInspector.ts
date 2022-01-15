@@ -1,7 +1,14 @@
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
+import ActionInfo from './pi/ActionInfo';
 import { PIEvents } from './events/Events';
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
+  private actionInfoParam: ActionInfo | undefined;
+
+  public get actionInfo(): ActionInfo | undefined {
+    return this.actionInfoParam;
+  }
+
   /** registers the eventlistener to the events the streamdeck sends to us */
   public on<T extends keyof PIEvents>(eventType: T, callback: PIEvents[T]): void {
     this.eventEmitter.on(eventType, callback);
@@ -15,5 +22,21 @@ export default class PropertyInspector extends AbstractStreamdeckConnector {
    */
   public sendToPlugin(context: string, payload: Record<string, unknown>, action: string): void {
     this.sendToStreamdeck(this.sentEventFactory.sendToPlugin(action, context, payload));
+  }
+
+  /** gets called by the streamdeck plugin/propertyinspector register process */
+  public connectElgatoStreamDeckSocket(
+    inPort: string,
+    inPluginUUID: string,
+    inRegisterEvent: string,
+    inInfo: string,
+    inActionInfo: string,
+  ): void {
+    super.registerStreamdeck(inPort, inPluginUUID, inRegisterEvent, inInfo);
+    try {
+      this.actionInfoParam = new ActionInfo(inActionInfo);
+    } catch (error) {
+      this.logger.error(error);
+    }
   }
 }
