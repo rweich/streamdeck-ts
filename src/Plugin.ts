@@ -76,4 +76,14 @@ export default class Plugin extends AbstractStreamdeckConnector {
   public switchToProfile(profilename: string, context: string, device: string): void {
     this.sendToStreamdeck(this.sentEventFactory.switchToProfile(profilename, context, device));
   }
+
+  /** gets called by the streamdeck plugin/propertyinspector register process */
+  public connectElgatoStreamDeckSocket(
+    inPort: string,
+    inPluginUUID: string,
+    inRegisterEvent: string,
+    inInfo: string,
+  ): void {
+    super.registerStreamdeck(inPort, inPluginUUID, inRegisterEvent, inInfo);
+  }
 }
