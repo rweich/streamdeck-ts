@@ -13,9 +13,9 @@ name: "CodeQL"
 
 on:
   push:
+    # Dependabot triggered push events have read-only access, but uploading code scanning requires write access.
+    branches-ignore: [dependabot/**]
   pull_request:
-  schedule:
-    - cron: '39 0 * * 2'
 
 jobs:
   analyze:
