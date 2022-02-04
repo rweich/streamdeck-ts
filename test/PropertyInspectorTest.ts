@@ -16,6 +16,7 @@ import { dummyLogger } from 'ts-log';
 import WebSocket, { Server } from 'ws';
 
 import PropertyInspector from '../src/PropertyInspector';
+import { closeServer } from './TestHelper';
 
 describe('PropertyInspector test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -33,7 +34,7 @@ describe('PropertyInspector test', () => {
           expect(messages[0]).to.match(/regpropevent/);
           expect(messages[1]).to.match(/message1/);
           expect(messages[2]).to.match(/message2/);
-          server.close();
+          closeServer(server);
           done();
         }
       });
@@ -45,7 +46,7 @@ describe('PropertyInspector test', () => {
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
-      server.close();
+      closeServer(server);
       done();
     });
     connector('23456', 'uid', 'register', 'info');
@@ -56,7 +57,7 @@ describe('PropertyInspector test', () => {
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
-      server.close();
+      closeServer(server);
       done();
     });
     connector('23456', 'uid', 'register', 'info');
@@ -73,7 +74,7 @@ describe('PropertyInspector test', () => {
       expect(pi.actionInfo?.column).to.equal(4);
       expect(pi.actionInfo?.row).to.equal(3);
       expect(Object.keys(pi.actionInfo?.settings as Record<string, unknown>)).to.be.length(0);
-      server.close();
+      closeServer(server);
       done();
     });
     connector(
@@ -96,7 +97,7 @@ describe('PropertyInspector test', () => {
       expect(pi.actionInfo?.column).to.be.undefined;
       expect(pi.actionInfo?.row).to.be.undefined;
       expect(Object.keys(pi.actionInfo?.settings as Record<string, unknown>)).to.be.length(0);
-      server.close();
+      closeServer(server);
       done();
     });
     connector(
@@ -114,7 +115,7 @@ describe('PropertyInspector test', () => {
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
       expect(pi.actionInfo).to.be.undefined;
-      server.close();
+      closeServer(server);
       done();
     });
     connector('23456', 'uid', 'register', 'info', '{"action":"abcdef","context":"cdef","device":"bcdef"}');
@@ -134,7 +135,7 @@ describe('PropertyInspector test', () => {
       pi.createStreamdeckConnector()('23456', 'uid', 'regpropevent', 'info');
     });
     after('shutdown websocket', () => {
-      server.close();
+      closeServer(server);
     });
 
     it('should send the GetGlobalSettingsEvent', (done) => {
