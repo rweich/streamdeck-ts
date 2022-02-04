@@ -11,9 +11,9 @@ import {
   SetSettingsType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
 import { expect } from 'chai';
-import EventEmitter from 'eventemitter3';
+import { default as EventEmitter } from 'eventemitter3';
 import { dummyLogger } from 'ts-log';
-import WebSocket, { Server } from 'ws';
+import { default as WebSocket, Server } from 'ws';
 
 import PropertyInspector from '../src/PropertyInspector';
 import { closeServer } from './TestHelper';
