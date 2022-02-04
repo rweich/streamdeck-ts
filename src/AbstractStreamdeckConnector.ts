@@ -1,7 +1,7 @@
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
 import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
 import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector';
-import EventEmitter from 'eventemitter3';
+import { default as EventEmitter } from 'eventemitter3';
 import WebSocket, { MessageEvent } from 'isomorphic-ws';
 import { Logger } from 'ts-log';
 
