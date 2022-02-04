@@ -10,12 +10,12 @@ import {
   SetGlobalSettingsType,
   SetSettingsType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
+import { expect } from 'chai';
+import EventEmitter from 'eventemitter3';
+import { dummyLogger } from 'ts-log';
 import WebSocket, { Server } from 'ws';
 
-import EventEmitter from 'eventemitter3';
 import PropertyInspector from '../src/PropertyInspector';
-import { dummyLogger } from 'ts-log';
-import { expect } from 'chai';
 
 describe('PropertyInspector test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -23,7 +23,7 @@ describe('PropertyInspector test', () => {
     pi.logMessage('message1');
     pi.logMessage('message2');
     const connector = pi.createStreamdeckConnector();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     connector('23456', 'uid', 'regpropevent', 'info');
     server.on('connection', (ws: WebSocket) => {
       const messages: string[] = [];
@@ -41,7 +41,7 @@ describe('PropertyInspector test', () => {
   });
   it('should dispatch the connect event after connetion', (done) => {
     const emitter = new EventEmitter();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -52,7 +52,7 @@ describe('PropertyInspector test', () => {
   });
   it('should dispatch the connect event after connetion (new listener)', (done) => {
     const emitter = new EventEmitter();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -63,7 +63,7 @@ describe('PropertyInspector test', () => {
   });
   it('should have the actionInfo property set for non-multiactions', (done) => {
     const emitter = new EventEmitter();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -86,7 +86,7 @@ describe('PropertyInspector test', () => {
   });
   it('should have the actionInfo property set for multiactions without coordinates', (done) => {
     const emitter = new EventEmitter();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -109,7 +109,7 @@ describe('PropertyInspector test', () => {
   });
   it('should not have the actionInfo property set for invalid json', (done) => {
     const emitter = new EventEmitter();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
     const connector = pi.createStreamdeckConnector();
     emitter.on('websocketOpen', () => {
@@ -126,7 +126,7 @@ describe('PropertyInspector test', () => {
     let ws: WebSocket;
     before('prepare websocket', (done) => {
       pi = new PropertyInspector(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
-      server = new Server({ host: '127.0.0.1', port: 23456 });
+      server = new Server({ host: '127.0.0.1', port: 23_456 });
       server.on('connection', (pws: WebSocket) => {
         ws = pws;
         ws.once('message', () => done());

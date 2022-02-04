@@ -1,10 +1,10 @@
 import 'mocha';
 
-import { Plugin, PropertyInspector, Streamdeck } from '../src';
-import sinon, { SinonSandbox } from 'sinon';
-
-import { dummyLogger } from 'ts-log';
 import { expect } from 'chai';
+import sinon, { SinonSandbox } from 'sinon';
+import { dummyLogger } from 'ts-log';
+
+import { Plugin, PropertyInspector, Streamdeck } from '../src';
 
 describe('Streamdeck', () => {
   let sandbox!: SinonSandbox;

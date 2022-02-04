@@ -1,6 +1,6 @@
 import { Static, TSchema } from '@sinclair/typebox';
-
 import Ajv from 'ajv';
+
 import ValidationError from './ValidationError';
 
 export default function assertType<T extends TSchema>(
