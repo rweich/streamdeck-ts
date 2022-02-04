@@ -1,5 +1,3 @@
-import Plugin from './Plugin';
-import PropertyInspector from './PropertyInspector';
-import Streamdeck from './Streamdeck';
-
-export { Plugin, PropertyInspector, Streamdeck };
+export { default as Plugin } from './Plugin';
+export { default as PropertyInspector } from './PropertyInspector';
+export { default as Streamdeck } from './Streamdeck';

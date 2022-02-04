@@ -1,6 +1,6 @@
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
-import ActionInfo from './pi/ActionInfo';
 import { PIEvents } from './events/Events';
+import ActionInfo from './pi/ActionInfo';
 
 export default class PropertyInspector extends AbstractStreamdeckConnector {
   private actionInfoParam: ActionInfo | undefined;

@@ -16,12 +16,12 @@ import {
   ShowOkType,
   SwitchToProfileType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
+import { expect } from 'chai';
+import EventEmitter from 'eventemitter3';
+import { dummyLogger } from 'ts-log';
 import WebSocket, { Server } from 'ws';
 
-import EventEmitter from 'eventemitter3';
 import Plugin from '../src/Plugin';
-import { dummyLogger } from 'ts-log';
-import { expect } from 'chai';
 
 describe('Plugin test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -29,7 +29,7 @@ describe('Plugin test', () => {
     plugin.setTitle('title1', 'context');
     plugin.setTitle('title2', 'context');
     const connector = plugin.createStreamdeckConnector();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     connector('23456', 'uid', 'resisterevent', '{}');
     server.on('connection', (ws: WebSocket) => {
       const messages: string[] = [];
@@ -49,7 +49,7 @@ describe('Plugin test', () => {
     const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
     expect(Object.keys(plugin.info)).to.be.lengthOf(0);
     const connector = plugin.createStreamdeckConnector();
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     connector('23456', 'uid', 'registering', '{"foo": "bar"}');
     expect(plugin.info.foo).to.equal('bar');
     expect(plugin.pluginUUID).to.equal('uid');
@@ -59,7 +59,7 @@ describe('Plugin test', () => {
     });
   });
   it('should log an error if the register info is not valid json', () => {
-    const server = new Server({ host: '127.0.0.1', port: 23456 });
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
     const logger = { ...dummyLogger };
     const promise = Promise.all([
       new Promise((resolve) => {
@@ -89,7 +89,7 @@ describe('Plugin test', () => {
     let ws: WebSocket;
     before('prepare websocket', (done) => {
       plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
-      server = new Server({ host: '127.0.0.1', port: 23456 });
+      server = new Server({ host: '127.0.0.1', port: 23_456 });
       server.on('connection', (pws: WebSocket) => {
         ws = pws;
         ws.once('message', () => done());
@@ -299,7 +299,7 @@ describe('Plugin test', () => {
     it('should call the registered callback on a sendtopluginevent', (done) => {
       const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), dummyLogger);
       const connector = plugin.createStreamdeckConnector();
-      const server = new Server({ host: '127.0.0.1', port: 23456 });
+      const server = new Server({ host: '127.0.0.1', port: 23_456 });
       plugin.on('sendToPlugin', (event) => {
         expect(event.payload.foo).to.equal('bar');
         server.close();
@@ -327,7 +327,7 @@ describe('Plugin test', () => {
       };
       const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), logger);
       const connector = plugin.createStreamdeckConnector();
-      const server = new Server({ host: '127.0.0.1', port: 23456 });
+      const server = new Server({ host: '127.0.0.1', port: 23_456 });
       connector('23456', 'uid', 'resisterevent', '{}');
       server.on('connection', (ws: WebSocket) => {
         ws.send('foo');
@@ -339,7 +339,7 @@ describe('Plugin test', () => {
       logger.error = () => done();
       const plugin = new Plugin(new EventEmitter(), new EventsReceived(), new EventsSent(), logger);
       const connector = plugin.createStreamdeckConnector();
-      const server = new Server({ host: '127.0.0.1', port: 23456 });
+      const server = new Server({ host: '127.0.0.1', port: 23_456 });
       connector('23456', 'uid', 'resisterevent', '{}');
       server.on('connection', (ws: WebSocket) => {
         ws.send(

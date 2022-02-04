@@ -1,12 +1,12 @@
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
-import WebSocket, { MessageEvent } from 'isomorphic-ws';
-
-import EventEmitter from 'eventemitter3';
-import JsonParseError from './exception/JsonParseError';
-import { Logger } from 'ts-log';
-import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
 import { ReceivedPluginEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ReceivedPluginEventTypes';
 import { ReceivedPropertyInspectorEventTypes } from '@rweich/streamdeck-events/dist/Events/Received/PropertyInspector';
+import EventEmitter from 'eventemitter3';
+import WebSocket, { MessageEvent } from 'isomorphic-ws';
+import { Logger } from 'ts-log';
+
+import OnWebsocketOpenEvent from './events/OnWebsocketOpenEvent';
+import JsonParseError from './exception/JsonParseError';
 
 // TODO: add types to the eventemitter
 

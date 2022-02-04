@@ -1,7 +1,7 @@
 import { describe, test } from 'mocha';
+import { dummyLogger } from 'ts-log';
 
 import { Streamdeck } from '../src';
-import { dummyLogger } from 'ts-log';
 
 describe('Tests that the snippets in the Readme.md dont throw errors', () => {
   test('the main example snippet', () => {
