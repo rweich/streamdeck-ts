@@ -2,6 +2,12 @@
 
 This document provides guidance for upgrading between major versions of streamdeck-ts.
 
+## From v3 to v4
+
+No code changes.
+
+The minimum required nodejs version is now v14.17.
+
 ## From v2 to v3
 
 The type of the row/column propperties in the payload for the `keyUp` / `keyDown`, `willAppear` / `willDisappear` and
