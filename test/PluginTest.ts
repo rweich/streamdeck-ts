@@ -22,6 +22,7 @@ import { dummyLogger } from 'ts-log';
 import WebSocket, { Server } from 'ws';
 
 import Plugin from '../src/Plugin';
+import { closeServer } from './TestHelper';
 
 describe('Plugin test', () => {
   it('should queue all send events until the websocket got created', (done) => {
@@ -39,7 +40,7 @@ describe('Plugin test', () => {
           expect(messages[0]).to.match(/resisterevent/);
           expect(messages[1]).to.match(/title1/);
           expect(messages[2]).to.match(/title2/);
-          server.close();
+          closeServer(server);
           done();
         }
       });
@@ -54,7 +55,7 @@ describe('Plugin test', () => {
     expect(plugin.info.foo).to.equal('bar');
     expect(plugin.pluginUUID).to.equal('uid');
     server.on('connection', () => {
-      server.close();
+      closeServer(server);
       done();
     });
   });
@@ -70,7 +71,7 @@ describe('Plugin test', () => {
       }),
       new Promise((resolve) => {
         server.on('connection', () => {
-          server.close();
+          closeServer(server);
           resolve(true);
         });
       }),
@@ -97,7 +98,7 @@ describe('Plugin test', () => {
       plugin.createStreamdeckConnector()('23456', 'uid', 'regpropevent', 'info');
     });
     after('shutdown websocket', () => {
-      server.close();
+      closeServer(server);
     });
 
     it('should send the GetGlobalSettingsEvent', (done) => {
@@ -302,7 +303,7 @@ describe('Plugin test', () => {
       const server = new Server({ host: '127.0.0.1', port: 23_456 });
       plugin.on('sendToPlugin', (event) => {
         expect(event.payload.foo).to.equal('bar');
-        server.close();
+        closeServer(server);
         done();
       });
       connector('23456', 'uid', 'resisterevent', '{}');
@@ -331,7 +332,7 @@ describe('Plugin test', () => {
       connector('23456', 'uid', 'resisterevent', '{}');
       server.on('connection', (ws: WebSocket) => {
         ws.send('foo');
-        server.close();
+        closeServer(server);
       });
     });
     it('should log an error on invalid json payload', (done) => {
@@ -347,7 +348,7 @@ describe('Plugin test', () => {
             invalid: 'data',
           }),
         );
-        server.close();
+        closeServer(server);
       });
     });
   });
