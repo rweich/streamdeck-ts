@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0](https://github.com/rweich/streamdeck-ts/compare/v3.1.0...v4.0.0) (2022-02-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* the minimum required version of node is now v14.17
+
+### Bug Fixes
+
+* linting and test errors ([babbce4](https://github.com/rweich/streamdeck-ts/commit/babbce43a7888da036caf1dbfeb0f24c8ec0c568))
+* tests not closing their ws-connections ([28db6a1](https://github.com/rweich/streamdeck-ts/commit/28db6a1b54f6cdaf4e2376f4d91a031f6db539f8))
+
+
+### Documentation
+
+* add upgrade notes for v4 ([5bd309f](https://github.com/rweich/streamdeck-ts/commit/5bd309fb31fb87a95ad0dbe306b05a667dad9669))
+
+
+### Miscellaneous Chores
+
+* drop support for node v12 and v15 ([d11d4fd](https://github.com/rweich/streamdeck-ts/commit/d11d4fdd31560dac288467221bc755dbddf9bd8a))
+* fix linting warnings ([ca05f67](https://github.com/rweich/streamdeck-ts/commit/ca05f6768dac03c1d9f7480f3d1eeb2486ebd7bb))
+* upgrade dependencies (major) ([37751c4](https://github.com/rweich/streamdeck-ts/commit/37751c4c394a790d73956ee43ba0cb994b155130))
+
 ## [3.1.0](https://github.com/rweich/streamdeck-ts/compare/v3.0.0...v3.1.0) (2022-01-15)
 
 
