@@ -293,6 +293,7 @@ event: {
   action: string;
   context: string;
   device: string;
+  settings: unknown;
 }
 ```
 
@@ -322,6 +323,7 @@ event: {
   action: string;
   context: string;
   device: string;
+  settings: unknown;
 }
 ```
 
@@ -460,7 +462,7 @@ event: {
   device: string;
   row: number;
   column: number;
-  settings: Record<string, unknown>;
+  settings: unknown;
   state: number;
   title: string;
   fontFamily: string
