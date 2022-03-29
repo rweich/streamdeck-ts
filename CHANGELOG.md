@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [4.0.1](https://github.com/rweich/streamdeck-ts/compare/v4.0.0...v4.0.1) (2022-03-29)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump minimist from 1.2.5 to 1.2.6 ([a555e30](https://github.com/rweich/streamdeck-ts/commit/a555e3059011e423345355d33e58d9aeaf8a48c7))
+
 ## [4.0.0](https://github.com/rweich/streamdeck-ts/compare/v3.1.0...v4.0.0) (2022-02-04)
 
 
