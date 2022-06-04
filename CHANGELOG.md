@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [4.0.2](https://github.com/rweich/streamdeck-ts/compare/v4.0.1...v4.0.2) (2022-06-04)
+
+
+### Documentation
+
+* update event payload for key-events ([5973637](https://github.com/rweich/streamdeck-ts/commit/59736371eec392ff44762f5db37161548dd38f69))
+
+
+### Miscellaneous Chores
+
+* add @types/node package ([d2d5518](https://github.com/rweich/streamdeck-ts/commit/d2d55184af9df37109ee277ce5b7234b2d27ce04))
+* **deps:** bump npm from 8.5.5 to 8.12.0 ([19eb688](https://github.com/rweich/streamdeck-ts/commit/19eb688100fc0828220f88e194171d6d30d0967c))
+* **deps:** bump semver-regex from 3.1.3 to 3.1.4 ([b8de483](https://github.com/rweich/streamdeck-ts/commit/b8de483a5df89896ab6483ef5ee9c7a370f66698))
+* update dependencies ([b0794f0](https://github.com/rweich/streamdeck-ts/commit/b0794f00c3bba4bcfb4a9d1111d3291fa4f4a80f))
+
 ### [4.0.1](https://github.com/rweich/streamdeck-ts/compare/v4.0.0...v4.0.1) (2022-03-29)
 
 
