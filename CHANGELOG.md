@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/rweich/streamdeck-ts/compare/v4.0.3...v4.0.4) (2022-10-22)
+
+
+### Bug Fixes
+
+* add executable flag to githooks ([4d04386](https://github.com/rweich/streamdeck-ts/commit/4d0438683894795365e3688f0b6677a28ed8b0f0))
+
+
+### Miscellaneous Chores
+
+* update dependencies ([4000939](https://github.com/rweich/streamdeck-ts/commit/40009393efd62fa73194c3af191e03d54d92d789))
+
 ### [4.0.3](https://github.com/rweich/streamdeck-ts/compare/v4.0.2...v4.0.3) (2022-06-10)
 
 
