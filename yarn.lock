@@ -801,12 +801,12 @@
     "@semantic-release/git" "^10.0.1"
     conventional-changelog-conventionalcommits "^5.0.0"
 
-"@rweich/streamdeck-events@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-4.0.0.tgz#8144d12ee142cdce88f2e74735267228fa70eccc"
-  integrity sha512-z2ac2shyePVCUqpz8ynHfdyivbd6/Ec9+RuokvjC2OzDPnE4xkso3gw/+fHPiiAwmy1xDqMjFmw2Zg8Y/2aAcg==
+"@rweich/streamdeck-events@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@rweich/streamdeck-events/-/streamdeck-events-4.1.0.tgz#0710901de85748f43f0dd22c8e5298c75023031f"
+  integrity sha512-Ted4xQfYHueKy8GhNB/sqf0ZkcA/e+z4aRsUKSAuxXBGVaXEMAmi09kzP79+YlIZ6p/sMRTDgME48shX95+RoQ==
   dependencies:
-    "@sinclair/typebox" "0.24.48"
+    "@sinclair/typebox" "0.24.49"
     ajv "^8.6.2"
 
 "@semantic-release/changelog@^6.0.1":
@@ -908,10 +908,15 @@
     lodash "^4.17.4"
     read-pkg-up "^7.0.0"
 
-"@sinclair/typebox@0.24.48", "@sinclair/typebox@^0.24.48":
-  version "0.24.48"
-  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.48.tgz#bd558c6059df563d49a4d94df8e8e0510b662e3f"
-  integrity sha512-WPGpRNHbkOsfBDmh8QHU7a5NWzEuYNThST8x1cISvX0RpP+1+V8zjuJqNwGJkHGIlhdIIhv6qVYqXz2q5/gjAA==
+"@sinclair/typebox@0.24.49":
+  version "0.24.49"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.49.tgz#7a3a5569fe9e4faa47d8019246d37541c2d7a058"
+  integrity sha512-qWgJVeCThMWTJSAZHyHDlHBkJY0LARFoq/96RH4oIFAwJptMwB3Isq62c4zRVRIAF2r4RMOc2WOhtOLj5C4InA==
+
+"@sinclair/typebox@^0.24.49":
+  version "0.24.51"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.51.tgz#645f33fe4e02defe26f2f5c0410e1c094eac7f5f"
+  integrity sha512-1P1OROm/rdubP5aFDSZQILU0vrLCJ4fvHt6EoqHEM+2D/G5MK3bIaymUKLit8Js9gbns5UyJnkP/TZROLw4tUA==
 
 "@sinonjs/commons@^1.6.0", "@sinonjs/commons@^1.7.0", "@sinonjs/commons@^1.8.3":
   version "1.8.3"
