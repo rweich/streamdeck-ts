@@ -18,8 +18,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@rweich/streamdeck-events": "^4.0.0",
-    "@sinclair/typebox": "^0.24.48",
+    "@rweich/streamdeck-events": "^4.1.0",
+    "@sinclair/typebox": "^0.24.49",
     "ajv": "^8.9.0",
     "eventemitter3": "^4.0.7",
     "isomorphic-ws": "^5.0.0",
