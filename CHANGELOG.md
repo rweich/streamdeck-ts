@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0](https://github.com/rweich/streamdeck-ts/compare/v4.0.4...v4.1.0) (2022-12-19)
+
+
+### Features
+
+* Add Stream Deck+ Support ([9f59eb8](https://github.com/rweich/streamdeck-ts/commit/9f59eb8bd8896d551766c39dceb0fd6eb5018a3e))
+
+
+### Miscellaneous Chores
+
+* Update dependencies ([9b5c4aa](https://github.com/rweich/streamdeck-ts/commit/9b5c4aa50237a9b21c40926f7e6c45026812a0d9))
+
 ## [4.0.4](https://github.com/rweich/streamdeck-ts/compare/v4.0.3...v4.0.4) (2022-10-22)
 
 
