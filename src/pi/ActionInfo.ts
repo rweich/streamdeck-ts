@@ -1,3 +1,4 @@
+import { ControllerType } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ControllerType';
 import { Static, Type } from '@sinclair/typebox';
 
 import assertType from '../helper/AssertType';
@@ -7,6 +8,7 @@ const ActionInfoType = Type.Object({
   context: Type.String(),
   device: Type.String(),
   payload: Type.Object({
+    controller: Type.Optional(Type.Enum(ControllerType)),
     coordinates: Type.Optional(
       Type.Object({
         column: Type.Number(),
@@ -37,6 +39,17 @@ export default class ActionInfo {
 
   public get device(): string {
     return this.actionInfo.device;
+  }
+
+  /**
+   * Return the controller type associated with this specific property inspector. Can be used to determine if this PI
+   * controls a standard button or a rotary dial. This will not change during the PI's lifecycle.
+   *
+   * For plugins running on API v5, this will always return "Keypad".
+   * @returns {ControllerType} The controller type (either "Keypad" or "Encoder") of this action's event.
+   */
+  public get controller(): ControllerType {
+    return this.actionInfo.payload.controller ?? ControllerType.Keypad;
   }
 
   public get column(): number | undefined {

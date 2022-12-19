@@ -1,3 +1,9 @@
+import {
+  GenericLayoutFeedback,
+  LayoutFeedback,
+  LayoutFeedbackKey,
+} from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received/Feedback/LayoutFeedback';
+
 import AbstractStreamdeckConnector from './AbstractStreamdeckConnector';
 import { PluginEvents } from './events/Events';
 
@@ -16,6 +22,31 @@ export default class Plugin extends AbstractStreamdeckConnector {
    */
   public sendToPropertyInspector(context: string, payload: Record<string, unknown>): void {
     this.sendToStreamdeck(this.sentEventFactory.sendToPropertyInspector('', context, payload));
+  }
+
+  /**
+   * Sends a command to the Stream Deck to update the Feedback displayed for a specific dial.
+   *
+   * Feedback payloads must conform to (at least) the `GenericLayoutFeedback` type for any updates, but stricter types
+   * are accepted so long as they also satisfy the requirements of this type.
+   *
+   * @param payload The feedback object to send to the Stream Deck, based on at least GenericLayoutFeedback
+   * @param context The context / id of the current action / button.
+   */
+  public setFeedback(payload: LayoutFeedback | GenericLayoutFeedback, context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.setFeedback(payload, context));
+  }
+
+  /**
+   * Sends a command to the Stream Deck to update the Feedback Layout for a specific dial.
+   *
+   * Layouts may either be a hardcoded layout ID or a path (relative to plugin root) to a layout JSON. This library
+   * will perform *no validation* whether a specific layout is valid or not.
+   * @param layout A layout key or path to use as the layout for this dial.
+   * @param context The context / id of the current action / button.
+   */
+  public setFeedbackLayout(layout: LayoutFeedbackKey | string, context: string): void {
+    this.sendToStreamdeck(this.sentEventFactory.setFeedbackLayout(layout, context));
   }
 
   /**

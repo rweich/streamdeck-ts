@@ -45,6 +45,16 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     test('the deviceDidDisconnect snippet', () => {
       plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${device} was unplugged`));
     });
+    test('the dialPress snippet', () => {
+      plugin.on('dialPress', ({ pressed }) => {
+        console.log(`a dial was ${pressed ? 'pressed' : 'released'}`);
+      });
+    });
+    test('the dialRotate snippet', () => {
+      plugin.on('dialRotate', ({ ticks, pressed }) => {
+        console.log(`a dial was rotated ${ticks} ticks. It ${pressed ? 'was' : 'was not'} pressed.`);
+      });
+    });
     test('the didReceiveGlobalSettings snippet', () => {
       plugin.on('didReceiveGlobalSettings', ({ settings }) => console.log('got settings', settings));
     });
@@ -77,6 +87,11 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     test('the titleParametersDidChange snippet', () => {
       plugin.on('titleParametersDidChange', ({ fontSize }) => console.log(`new title/params with size ${fontSize}!`));
     });
+    test('the touchTap snippet', () => {
+      plugin.on('touchTap', ({ hold, tapPos }) => {
+        console.log(`touch screen tapped at (${tapPos[0]}, ${tapPos[1]}), ${hold ? 'was' : 'was not'} held!`);
+      });
+    });
     test('the websocketOpen snippet', () => {
       plugin.on('websocketOpen', ({ uuid }) => console.log(`websocket opened for uuid/context: ${uuid}`));
     });
@@ -108,6 +123,12 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     });
     test('the SendToPropertyInspectorEvent snippet', () => {
       plugin.sendToPropertyInspector('context', { some: 'data' });
+    });
+    test('the SetFeedbackEvent snippet', () => {
+      plugin.setFeedback({ title: 'Hello, world!' }, 'context');
+    });
+    test('the SetFeedbackLayout snippet', () => {
+      plugin.setFeedbackLayout('layouts/layoutv2.json', 'context');
     });
     test('the SetImageEvent snippet', () => {
       plugin.setImage('imagedataAsBase64', 'context');

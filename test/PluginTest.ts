@@ -16,6 +16,8 @@ import {
   ShowOkType,
   SwitchToProfileType,
 } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received';
+import { SetFeedbackLayoutType } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received/SetFeedbackLayoutType';
+import { SetFeedbackType } from '@rweich/streamdeck-events/dist/StreamdeckTypes/Received/SetFeedbackType';
 import { expect } from 'chai';
 import { default as EventEmitter } from 'eventemitter3';
 import { dummyLogger } from 'ts-log';
@@ -146,6 +148,26 @@ describe('Plugin test', () => {
         done();
       });
       plugin.sendToPropertyInspector('contextt', { the: 'payload' });
+    });
+    it('should send the SetFeedbackEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SetFeedbackType = JSON.parse(json.toString());
+        expect(data.event).to.equal('setFeedback');
+        expect(data.context).to.equal('mycontext');
+        expect(data.payload.title).to.equal('Hello, world');
+        done();
+      });
+      plugin.setFeedback({ title: 'Hello, world' }, 'mycontext');
+    });
+    it('should send the SetFeedbackLayoutEvent', (done) => {
+      ws.once('message', (json) => {
+        const data: SetFeedbackLayoutType = JSON.parse(json.toString());
+        expect(data.event).to.equal('setFeedbackLayout');
+        expect(data.context).to.equal('buddon');
+        expect(data.payload.layout).to.equal('layouts/layoutv2.json');
+        done();
+      });
+      plugin.setFeedbackLayout('layouts/layoutv2.json', 'buddon');
     });
     it('should send the SetGlobalSettingsEvent', (done) => {
       ws.once('message', (json) => {
