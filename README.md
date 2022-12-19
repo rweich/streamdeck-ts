@@ -91,6 +91,8 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [applicationDidTerminate](#applicationdidterminate)
   - [deviceDidConnect](#devicedidconnect)
   - [deviceDidDisconnect](#devicediddisconnect)
+  - [dialPress](#dialpress)
+  - [dialRotate](#dialrotate)
   - [didReceiveGlobalSettings](#didreceiveglobalsettings)
   - [didReceiveSettings](#didreceivesettings)
   - [keyDown](#keydown)
@@ -101,6 +103,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [sendToPropertyInspector](#sendtopropertyinspector)
   - [systemDidWakeUp](#systemdidwakeup)
   - [titleParametersDidChange](#titleparametersdidchange)
+  - [touchTap](#touchtap)
   - [websocketOpen](#websocketopen)
   - [willAppear](#willappear)
   - [willDisappear](#willdisappear)
@@ -111,6 +114,8 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [OpenUrl](#openurl)
   - [SendToPlugin](#sendtoplugin-1)
   - [SendToPropertyInspector](#sendtopropertyinspector-1)
+  - [SetFeedback](#setfeedback)
+  - [SetFeedbackLayout](#setfeedbacklayout)
   - [SetImage](#setimage)
   - [SetGlobalSettings](#setglobalsettings)
   - [SetSettings](#setsettings)
@@ -223,6 +228,74 @@ plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${d
 ```
 
 - *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
+### dialPress
+
+**[Stream Deck 6.0.0+ Required]**
+
+Triggered when a user presses or releases the dial on a Stream Deck +.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  row: number | undefined;
+  column: number | undefined;
+  action: string;
+  context: string;
+  device: string;
+  settings: unknown;
+  controller: ControllerType; // String enum, but guaranteed to be "Encoder".
+  pressed: boolean;
+}
+```
+
+**Example**:
+
+```typescript
+plugin.on('dialPress', ({ pressed }) => {
+  console.log(`a dial was ${pressed ? 'pressed' : 'released'}`);
+});
+```
+
+- *is sent to: **[x] Plugin [ ] PI***
+
+---
+
+### dialRotate
+
+**[Stream Deck 6.0.0+ Required]**
+
+Triggered when a user rotates a dial on a Stream Deck +. Note that a dial *may*
+be pressed and rotated simultaneously.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  row: number | undefined;
+  column: number | undefined;
+  action: string;
+  context: string;
+  device: string;
+  settings: unknown;
+  controller: ControllerType; // String enum, but guaranteed to be "Encoder".
+  pressed: boolean;
+  ticks: number;
+}
+```
+
+**Example**:
+
+```typescript
+plugin.on('dialRotate', ({ ticks, pressed }) => {
+  console.log(`a dial was rotated ${ticks} ticks. It ${pressed ? 'was' : 'was not'} pressed.`);
+});
+````
+
+- *is sent to: **[x] Plugin [ ] PI***
 
 ---
 
@@ -387,7 +460,7 @@ plugin.on('propertyInspectorDidDisappear', () => console.log(`the propertyinspec
 
 ### sendToPlugin
 
-Triggered when the propertyinspector sends a [SendToPluginEvent](#sendtopluginevent).
+Triggered when the propertyinspector sends a [SendToPluginEvent](#sendtoplugin-1).
 
 **Event-Payload**:
 
@@ -411,7 +484,7 @@ plugin.on('sendToPlugin', ({ payload }) => console.log(`the pi sent some data:`,
 
 ### sendToPropertyInspector
 
-Triggered when the plugin sends a [SendToPropertyInspectorEvent](#sendtopropertyinspectorevent).
+Triggered when the plugin sends a [SendToPropertyInspectorEvent](#sendtopropertyinspector-1).
 
 **Event-Payload**:
 
@@ -481,6 +554,42 @@ event: {
 plugin.on('titleParametersDidChange', ({ fontSize }) => console.log(`new title/params with size ${fontSize}!`));
 ```
 - *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
+### touchTap
+
+Triggered when a user touches the touch screen on a Stream Deck +. A `hold`
+happens when the user keeps their finger in place for approximately 500
+milliseconds.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  row: number | undefined;
+  column: number | undefined;
+  action: string;
+  context: string;
+  device: string;
+  settings: unknown;
+  controller: ControllerType; // String enum, but guaranteed to be "Encoder".
+  tapPos: [number, number]; // X, Y
+  hold: boolean;
+}
+```
+
+**Example**:
+
+```typescript
+plugin.on('touchTap', ({ hold, tapPos }) => {
+  console.log(`touch screen tapped at (${tapPos[0]}, ${tapPos[1]}), ${hold ? 'was' : 'was not'} held!`);
+});
+````
+
+- *is sent to: **[x] Plugin [ ] PI***
+
+---
 
 ### websocketOpen
 
@@ -665,6 +774,54 @@ Triggers the [sendToPropertyInspector](#sendtopropertyinspector) event.
 
 ```typescript
 plugin.sendToPropertyInspector('context', { some: 'data' });
+```
+
+- *can be sent from: **[x] Plugin** [ ] PI*
+
+---
+
+### SetFeedback
+
+**[Stream Deck 6.0.0+ Required]**
+
+Sends a command to the Stream Deck to update the Feedback displayed for a
+specific dial. Feedback payloads must conform to (at least) the
+`GenericLayoutFeedback` type for any updates, but stricter types are accepted so
+long as they also satisfy the requirements of this type.
+
+Consult the `streamdeck-events` project for more information about feedback and
+how it behaves, including valid values for particular keys.
+
+`setFeedback(payload: LayoutFeedback | GenericLayoutFeedback, context: string): void`
+
+**Example**:
+
+```typescript
+plugin.setFeedback({ title: 'Hello, world!' }, 'context');
+```
+
+- *can be sent from: **[x] Plugin** [ ] PI*
+
+---
+
+### SetFeedbackLayout
+
+**[Stream Deck 6.0.0+ Required]**
+
+Sends a command to the Stream Deck to update the Feedback Layout for a specific
+dial. Layouts may either be a hardcoded layout ID or a path (relative to plugin
+root) to a layout JSON. This library will perform *no validation* whether a
+specific layout is valid or not.
+
+Consult the `streamdeck-events` project for more information about feedback and
+how it behaves, including built-in layouts.
+
+`setFeedbackLayout(layout: LayoutFeedbackKey | string, context: string): void`
+
+**Example**:
+
+```typescript
+plugin.setFeedbackLayout("layouts/layoutv2.json", 'context');
 ```
 
 - *can be sent from: **[x] Plugin** [ ] PI*

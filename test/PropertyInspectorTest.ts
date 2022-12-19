@@ -1,6 +1,7 @@
 import 'mocha';
 
 import { EventsReceived, EventsSent } from '@rweich/streamdeck-events';
+import { ControllerType } from '@rweich/streamdeck-events/dist/Events/Received/Plugin/ControllerType';
 import {
   GetGlobalSettingsType,
   GetSettingsType,
@@ -97,6 +98,46 @@ describe('PropertyInspector test', () => {
       expect(pi.actionInfo?.column).to.be.undefined;
       expect(pi.actionInfo?.row).to.be.undefined;
       expect(Object.keys(pi.actionInfo?.settings as Record<string, unknown>)).to.be.length(0);
+      closeServer(server);
+      done();
+    });
+    connector(
+      '23456',
+      'uid',
+      'register',
+      'info',
+      '{"action":"abcdef","context":"cdef","device":"bcdef","payload":{"settings":{}}}',
+    );
+  });
+  it('should have a controller value set if passed (API 6)', (done) => {
+    const emitter = new EventEmitter();
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
+    const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      expect(pi.actionInfo?.controller).to.equal(ControllerType.Encoder);
+      expect(pi.actionInfo?.controller).to.equal('Encoder');
+
+      closeServer(server);
+      done();
+    });
+    connector(
+      '23456',
+      'uid',
+      'register',
+      'info',
+      '{"action":"abcde","context":"cde","device":"bcde","payload":{"controller":"Encoder","settings":{}}}',
+    );
+  });
+  it('should default to controller type "Keypad" if unset', (done) => {
+    const emitter = new EventEmitter();
+    const server = new Server({ host: '127.0.0.1', port: 23_456 });
+    const pi = new PropertyInspector(emitter, new EventsReceived(), new EventsSent(), dummyLogger);
+    const connector = pi.createStreamdeckConnector();
+    emitter.on('websocketOpen', () => {
+      expect(pi.actionInfo?.controller).to.equal(ControllerType.Keypad);
+      expect(pi.actionInfo?.controller).to.equal('Keypad');
+
       closeServer(server);
       done();
     });
