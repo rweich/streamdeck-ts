@@ -260,7 +260,7 @@ plugin.on('dialPress', ({ pressed }) => {
 });
 ```
 
-- *is sent to: **[x] Plugin [ ] PI***
+- *is sent to: **[x] Plugin** [ ] PI*
 
 ---
 
@@ -295,7 +295,7 @@ plugin.on('dialRotate', ({ ticks, pressed }) => {
 });
 ````
 
-- *is sent to: **[x] Plugin [ ] PI***
+- *is sent to: **[x] Plugin** [ ] PI*
 
 ---
 
@@ -587,7 +587,7 @@ plugin.on('touchTap', ({ hold, tapPos }) => {
 });
 ````
 
-- *is sent to: **[x] Plugin [ ] PI***
+- *is sent to: **[x] Plugin** [ ] PI*
 
 ---
 
