@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0](https://github.com/rweich/streamdeck-ts/compare/v4.1.0...v5.0.0) (2022-12-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* streamdeck-events experienced a breaking change between 4.1.0 -> 5.0.0. While this library itself experienced no changes, most consumers appear to use this dependency transitively.
+
+### Miscellaneous Chores
+
+* Update streamdeck-events to 5.0.0 ([0a585f2](https://github.com/rweich/streamdeck-ts/commit/0a585f2af15d81ba6b34671f43f9adb10dfcd569))
+
 ## [4.1.0](https://github.com/rweich/streamdeck-ts/compare/v4.0.4...v4.1.0) (2022-12-19)
 
 
