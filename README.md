@@ -231,11 +231,44 @@ plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${d
 
 ---
 
+### dialDown
+
+**[Stream Deck 6.1.0+ Required]**
+
+Triggered when a user presses a dial on a Stream Deck +.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  row: number | undefined;
+  column: number | undefined;
+  action: string;
+  context: string;
+  device: string;
+  settings: unknown;
+  controller: ControllerType; // String enum, but guaranteed to be "Encoder".
+}
+```
+
+**Example:**
+
+```typescript
+plugin.on('dialDown', ({ column }) => console.log(`dial ${column} was pressed`));
+```
+
+
+---
+
 ### dialPress
 
-**[Stream Deck 6.0.0+ Required]**
+**[Stream Deck 6.0.0+ Required]** **[Deprecated in 6.1.0+]**
 
 Triggered when a user presses or releases the dial on a Stream Deck +.
+
+This event was deprecated in [Version 6.1 of the Stream Deck SDK][sd61-changelog] and will eventually be removed.
+Developers are encouraged to consume the [`dialUp`](#dialup) and [`dialDown`](#dialdown) events instead. While the API
+is in its transitional phase, both events will be sent to plugins.
 
 **Event-Payload**:
 
@@ -261,6 +294,8 @@ plugin.on('dialPress', ({ pressed }) => {
 ```
 
 - *is sent to: **[x] Plugin** [ ] PI*
+
+[sd61-changelog]: https://docs.elgato.com/sdk/plugins/changelog#changes-in-stream-deck-6.1
 
 ---
 
@@ -296,6 +331,34 @@ plugin.on('dialRotate', ({ ticks, pressed }) => {
 ````
 
 - *is sent to: **[x] Plugin** [ ] PI*
+
+---
+
+### dialUp
+
+**[Stream Deck 6.1.0+ Required]**
+
+Triggered when a user releases a dial on a Stream Deck +.
+
+**Event-Payload**:
+
+```typescript
+event: {
+  row: number | undefined;
+  column: number | undefined;
+  action: string;
+  context: string;
+  device: string;
+  settings: unknown;
+  controller: ControllerType; // String enum, but guaranteed to be "Encoder".
+}
+```
+
+**Example**:
+
+```typescript
+plugin.on('dialUp', ({ column }) => console.log(`dial ${column} was released`));
+```
 
 ---
 

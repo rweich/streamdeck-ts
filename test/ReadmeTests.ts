@@ -45,6 +45,9 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
     test('the deviceDidDisconnect snippet', () => {
       plugin.on('deviceDidDisconnect', ({ device }) => console.log(`device with id ${device} was unplugged`));
     });
+    test('the dialDown snippet', () => {
+      plugin.on('dialDown', ({ column }) => console.log(`dial ${column} was pressed`));
+    });
     test('the dialPress snippet', () => {
       plugin.on('dialPress', ({ pressed }) => {
         console.log(`a dial was ${pressed ? 'pressed' : 'released'}`);
@@ -54,6 +57,9 @@ describe('Tests that the snippets in the Readme.md dont throw errors', () => {
       plugin.on('dialRotate', ({ ticks, pressed }) => {
         console.log(`a dial was rotated ${ticks} ticks. It ${pressed ? 'was' : 'was not'} pressed.`);
       });
+    });
+    test('the dialUp snippet', () => {
+      plugin.on('dialUp', ({ column }) => console.log(`dial ${column} was released`));
     });
     test('the didReceiveGlobalSettings snippet', () => {
       plugin.on('didReceiveGlobalSettings', ({ settings }) => console.log('got settings', settings));
