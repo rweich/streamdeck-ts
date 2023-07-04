@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/rweich/streamdeck-ts/compare/v5.0.0...v5.0.1) (2023-07-04)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump http-cache-semantics from 4.1.0 to 4.1.1 ([157b65f](https://github.com/rweich/streamdeck-ts/commit/157b65f28780447db560e3909588f5b7a023996d))
+* **deps:** bump json5 from 1.0.1 to 1.0.2 ([46728c3](https://github.com/rweich/streamdeck-ts/commit/46728c3ec4670a8c0b662627c9646b16830525e3))
+* Update streamdeck-events to 5.1.0 ([a326966](https://github.com/rweich/streamdeck-ts/commit/a32696686afec7a5ecbe90c035836b0eb68586ba))
+
 ## [5.0.0](https://github.com/rweich/streamdeck-ts/compare/v4.1.0...v5.0.0) (2022-12-27)
 
 
