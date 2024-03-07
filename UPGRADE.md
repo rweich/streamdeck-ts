@@ -2,6 +2,11 @@
 
 This document provides guidance for upgrading between major versions of streamdeck-ts.
 
+## From v5 to v6
+
+No code changes.
+
+The minimum required nodejs version is now v18.17.
 ## From v3 to v4
 
 No code changes.
