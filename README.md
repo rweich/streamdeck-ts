@@ -1,6 +1,6 @@
 # streamdeck-ts
 
-![Build/Test](https://github.com/rweich/streamdeck-ts/workflows/Build%2FTest/badge.svg)
+[![Build/Test](https://github.com/rweich/streamdeck-ts/actions/workflows/build-test-versions.yml/badge.svg)](https://github.com/rweich/streamdeck-ts/actions/workflows/build-test-versions.yml)
 [![codecov](https://codecov.io/gh/rweich/streamdeck-ts/branch/main/graph/badge.svg?token=PTXTTH18L2)](https://codecov.io/gh/rweich/streamdeck-ts)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frweich%2Fstreamdeck-ts.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frweich%2Fstreamdeck-ts?ref=badge_shield)
 
