@@ -91,8 +91,10 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [applicationDidTerminate](#applicationdidterminate)
   - [deviceDidConnect](#devicedidconnect)
   - [deviceDidDisconnect](#devicediddisconnect)
+  - [dialDown](#dialdown)
   - [dialPress](#dialpress)
   - [dialRotate](#dialrotate)
+  - [dialUp](#dialup)
   - [didReceiveGlobalSettings](#didreceiveglobalsettings)
   - [didReceiveSettings](#didreceivesettings)
   - [keyDown](#keydown)
@@ -102,6 +104,7 @@ pi.on('didReceiveSettings', ({ settings }) => console.log('got settings', settin
   - [sendToPlugin](#sendtoplugin)
   - [sendToPropertyInspector](#sendtopropertyinspector)
   - [systemDidWakeUp](#systemdidwakeup)
+  - [timerUpdate](#timerupdate)
   - [titleParametersDidChange](#titleparametersdidchange)
   - [touchTap](#touchtap)
   - [websocketOpen](#websocketopen)
@@ -581,6 +584,31 @@ no payload
 
 ```typescript
 plugin.on('systemDidWakeUp', () => console.log(`system did wake up!`));
+```
+
+- *is sent to: **[x] Plugin** [ ] PI*
+
+### timerUpdate
+
+Triggered on an interval based on your manifest configuration.
+
+⚠️ Beware: This event is **undocumented** and **might be removed** on newer Streamdeck software versions
+without prior notice!
+
+**Event-Payload**:
+
+no payload
+
+**Example**:
+
+Add the `TimerInterval` configuration on the root level of your `manifest.json`. The interval is in milliseconds.
+
+```json
+{ "TimerInterval": 10000 }
+```
+
+```typescript
+plugin.on('timerUpdate', () => console.log(`got update!`));
 ```
 
 - *is sent to: **[x] Plugin** [ ] PI*
