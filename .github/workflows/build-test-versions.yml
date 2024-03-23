@@ -4,21 +4,37 @@ on: [ push, pull_request ]
 
 jobs:
   build:
+    name: build/test on node versions
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [ 14.x, 16.x, 17.x ]
+        node-version: [ 18.x, 20.x, 21.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # 2.7.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            nodejs.org:443
+            registry.npmjs.org:443
+            registry.yarnpkg.com:443
+
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # 4.1.1
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # 4.0.1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
+
+      - run: yarn install --frozen-lockfile
       - run: yarn type-check
       - run: yarn lint
       - run: yarn lint-tests

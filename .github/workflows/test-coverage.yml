@@ -4,15 +4,42 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-    name: Build
+    name: Build Test Coeverage
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # 2.7.0
         with:
-          node-version: 16
-      - run: yarn install
-      - run: yarn test-coverage
-      - uses: codecov/codecov-action@v1
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            nodejs.org:443
+            registry.npmjs.org:443
+            registry.yarnpkg.com:443
+            api.codecov.io:443
+            cli.codecov.io:443
+            storage.googleapis.com:443
+
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # 4.1.1
+
+      - name: Install Node
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # 4.0.1
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Test with coverage
+        run: yarn test-coverage
+
+      - name: Create coverage report
+        uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab # 4.1.0
         with:
           directory: ./coverage/
+          token: ${{ secrets.CODECOV_TOKEN }}
