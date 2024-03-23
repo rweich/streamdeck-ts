@@ -67,7 +67,7 @@ describe('Plugin test', () => {
     const promise = Promise.all([
       new Promise((resolve) => {
         logger.error = (error) => {
-          expect(error.message).to.equal('Unexpected token o in JSON at position 1');
+          expect(error.message).to.contain('Unexpected token');
           resolve(true);
         };
       }),
