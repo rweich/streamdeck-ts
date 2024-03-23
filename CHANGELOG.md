@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0](https://github.com/rweich/streamdeck-ts/compare/v5.0.1...v6.0.0) (2024-03-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* the minimal supported node version is now v18.17
+
+### Features
+
+* add timerUpdate event for plugins to listen to ([6026241](https://github.com/rweich/streamdeck-ts/commit/6026241f32ae9f54c9c9234121ec7713ba2f0c88))
+
+
+### Documentation
+
+* update ci-link in readme ([02590c7](https://github.com/rweich/streamdeck-ts/commit/02590c7c74f30763ad5e4e28aea076a12f08f5db))
+
+
+### Miscellaneous Chores
+
+* remove support for node <18.17 ([aebb6e6](https://github.com/rweich/streamdeck-ts/commit/aebb6e655cee1477c5ce968a942b49a83a830a50))
+* update dependencies (major) ([b5a0e5a](https://github.com/rweich/streamdeck-ts/commit/b5a0e5afd5e8b4cc6036516a603bb42ed79ea1bc))
+
 ## [5.0.1](https://github.com/rweich/streamdeck-ts/compare/v5.0.0...v5.0.1) (2023-07-04)
 
 
