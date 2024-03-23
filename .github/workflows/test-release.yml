@@ -1,23 +1,77 @@
 name: Test-Release
 
-on: [ push ]
+on:
+  push:
+    branches-ignore: [dependabot/**]
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   release:
+    name: test release
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get branch name
-        id: branch-name
-        uses: tj-actions/branch-names@v5
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # 2.7.0
         with:
-          node-version: 16
-      - run: yarn install
-      - name: Release Test
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            registry.npmjs.org:443
+
+      - name: Get branch name
+        uses: tj-actions/branch-names@6871f53176ad61624f978536bbf089c574dc19a2 # 8.0.1
+        id: branch-name
+      - name: Got branch name
+        run: |
+          cat <<EOO >> $GITHUB_STEP_SUMMARY
+          ---
+          ### 🌿 Running on branch: ${{ steps.branch-name.outputs.current_branch }}
+          ---
+          EOO
+
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # 4.1.1
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@61680d0e9b02ff86f5648ade99e01be17f0260a4 # 4.0.0
+        id: semantic
+        with:
+          dry_run: true
+          semantic_version: 22
+          branch: ${{ steps.branch-name.outputs.current_branch }}
+          extends: |
+            @rweich/semantic-release-config@3
+          extra_plugins: |
+            @semantic-release/changelog@6
+            @semantic-release/git@10
+            conventional-changelog-conventionalcommits@7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: yarn semantic-release --dry-run --branches ${{ steps.branch-name.outputs.current_branch }}
+
+      - name: Test Outputs
+        run: |
+          cat <<EOO >> $GITHUB_STEP_SUMMARY
+            ---
+
+            ### Semantic release output (DRY-RUN)
+
+            <table>
+              <tr><th>published</th><td>${{ steps.semantic.outputs.new_release_published }}</td></tr>
+              <tr><th>last release</th><td>${{ steps.semantic.outputs.last_release_version }}</td></tr>
+              <tr><th>next release</th><td>${{ steps.semantic.outputs.new_release_version }}</td></tr>
+            </table>
+
+            ---
+
+            #### Release-Notes
+
+            ${{ steps.semantic.outputs.new_release_notes }}
+
+          ---
+          EOO
